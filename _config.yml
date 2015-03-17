@@ -1,0 +1,11 @@
+# Site settings
+title: In praise of Randomness
+email: axelexic@gmail.com
+description: Understanding partical aspects of theoretical cryptography
+baseurl: ""
+url: "http://axelexic.github.io"
+twitter_username: axelexic
+github_username:  axelexic
+
+# Build settings
+markdown: kramdown
