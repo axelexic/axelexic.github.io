@@ -8,28 +8,37 @@
 
 	<script type="text/x-mathjax-config">
 	  MathJax.Hub.Config({
-	  TeX: {
-	  Macros: {
-	  ZZ      :  "{\\mathbb \{Z\}}",
-	  RR      :  "{\\mathbb \{R\}}",
-	  CC      :  "{\\mathbb \{C\}}",
-	  QQ      :  "{\\mathbb \{Q\}}",
-	  P       :  "{\\mathsf \{P\} }",
-	  NP      :  "{\\mathsf \{NP\} }",
-	  coNP    :  "{\\mathsf \{coNP\} }",
-	  BPP     :  "{\\mathsf \{BPP\} }",
-	  RP      :  "{\\mathsf \{RP\} }",
-	  AM      :  "{\\mathsf \{AM\} }",
-	  PSPACE  :  "{\\mathsf \{PSPACE\} }",
-	  NL      :  "{\\mathsf \{NL\} }",
-	  IP      :  "{\\mathsf \{IP\} }",
-	  vec     :  ["\\mathbf \{#1\}", 1]
-	  }
-	  }
+        tex2jax: {
+            inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+            displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+            processEscapes: true
+        },
+	      TeX: {
+            equationNumbers: { autoNumber: "AMS" },
+	          Macros: {
+                Fq      :  "{\\mathbb \{F_q\}}",
+                Fp      :  "{\\mathbb \{F_p\}}",
+	              ZZ      :  "{\\mathbb \{Z\}}",
+	              RR      :  "{\\mathbb \{R\}}",
+	              CC      :  "{\\mathbb \{C\}}",
+	              QQ      :  "{\\mathbb \{Q\}}",
+	              P       :  "{\\mathsf \{P\} }",
+	              NP      :  "{\\mathsf \{NP\} }",
+	              coNP    :  "{\\mathsf \{coNP\} }",
+	              BPP     :  "{\\mathsf \{BPP\} }",
+	              RP      :  "{\\mathsf \{RP\} }",
+	              AM      :  "{\\mathsf \{AM\} }",
+	              PSPACE  :  "{\\mathsf \{PSPACE\} }",
+	              NL      :  "{\\mathsf \{NL\} }",
+	              IP      :  "{\\mathsf \{IP\} }",
+	              vec     :  ["\\mathbf \{#1\}", 1],
+                ord     :  ["\\text\{ord\}(#1)", 1]
+	          }
+	      }
 	  });
 	</script>
 	<script type="text/javascript"
-	src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+	src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML">
 	</script>
     <title>{% if page.title %}{{ page.title }}{% else %}{{ site.title }}{% endif %}</title>
     <meta name="description" content="{{ site.description }}">
