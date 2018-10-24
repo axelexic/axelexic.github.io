@@ -6,7 +6,7 @@
 
 
 // Our variables
-$base-font-family: Helvetica, Arial, sans-serif;
+$base-font-family: Georgia,"Times New Roman",Times, serif, sans-serif;
 $base-font-size:   16px;
 $small-font-size:  $base-font-size * 0.875;
 $base-line-height: 1.5;
@@ -26,7 +26,11 @@ $on-laptop:        1200px;
 
 $navy-blue-color:        #000080;
 $navy-blue-color-light:  #3333ff;
-$navy-blue-color-super-light: lighten($navy-blue-color-light, 40%);
+$navy-blue-color-super-light: lighten($navy-blue-color-light, 5%);
+
+$green-color:        #006030;
+$green-color-light:  lighten($green-color, 10%);
+$green-color-super-light: lighten($green-color-light, 10%);
 
 // Using media queries with like this:
 // @include media-query($palm) {
@@ -47,5 +51,6 @@ $navy-blue-color-super-light: lighten($navy-blue-color-light, 40%);
 @import
         "base",
         "layout",
-        "syntax-highlighting"
+        "syntax-highlighting",
+        "math"
 ;

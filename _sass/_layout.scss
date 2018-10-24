@@ -2,16 +2,18 @@
  * Site header
  */
 .site-header {
-    border-top: 5px solid $navy-blue-color;
+/*    border-top: 2px solid $navy-blue-color-light; */
     border-bottom: 1px solid $navy-blue-color-light;
-    min-height: 56px;
+    min-height: 64px;
 
     // Positioning context for the mobile navigation icon
     position: relative;
 }
 
 .site-title {
-    font-size: 26px;
+    color: $navy-blue-color;
+    font-family : helvetica, serif, ariel, sans-serif;
+    font-size: 42px;
     line-height: 56px;
     letter-spacing: -1px;
     margin-bottom: 0;
@@ -91,7 +93,7 @@
  * Site footer
  */
 .site-footer {
-    border-top: 1px solid $navy-blue-color-light;
+    border-top: 0.5px solid  $navy-blue-color-light;
     padding: $spacing-unit 0;
 }
 
@@ -197,7 +199,9 @@
 }
 
 .post-title {
-    font-size: 42px;
+    font-family : helvetica, serif, ariel, sans-serif;
+    color       : $green-color-light;
+    font-size   : 36px;
     letter-spacing: -1px;
     line-height: 1;
 
@@ -211,7 +215,7 @@
 
     h2 {
         font-size: 32px;
-
+        color    : $green-color-light;
         @include media-query($on-laptop) {
             font-size: 28px;
         }
