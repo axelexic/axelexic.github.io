@@ -6,6 +6,7 @@ baseurl: ""
 url: "http://axelexic.github.io"
 twitter_username: axelexic
 github_username:  axelexic
+plugins : ['jekyll-gist']
 
 # Build settings
 markdown: kramdown
