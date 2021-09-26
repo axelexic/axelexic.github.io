@@ -7,6 +7,7 @@ url: "http://axelexic.github.io"
 twitter_username: axelexic
 github_username:  axelexic
 plugins : ['jekyll-gist']
+encoding: utf-8
 
 # Build settings
 markdown: kramdown
