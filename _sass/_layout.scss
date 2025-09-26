@@ -11,8 +11,8 @@
 }
 
 .site-title {
-    color: $navy-blue-color;
-    font-family : helvetica, serif, ariel, sans-serif;
+    color: $site-title-color;
+    font-family : "PT Serif", helvetica, serif, ariel, sans-serif;
     font-size: 42px;
     line-height: 56px;
     letter-spacing: -1px;
@@ -122,8 +122,8 @@
 }
 
 .footer-col-1 {
-    width: -webkit-calc(35% - (#{$spacing-unit} / 2));
-    width:         calc(35% - (#{$spacing-unit} / 2));
+    width: -webkit-calc(80% - (#{$spacing-unit} / 2));
+    width:         calc(80% - (#{$spacing-unit} / 2));
 }
 
 .footer-col-2 {
@@ -167,7 +167,8 @@
 }
 
 .page-heading {
-    font-size: 20px;
+    font-size: 24px;
+    font-weight: 400;
 }
 
 .post-list {
@@ -200,7 +201,7 @@
 
 .post-title {
     font-family : helvetica, serif, ariel, sans-serif;
-    color       : $green-color-light;
+    color       : $section-title-color;
     font-size   : 36px;
     letter-spacing: -1px;
     line-height: 1;
@@ -213,9 +214,17 @@
 .post-content {
     margin-bottom: $spacing-unit;
 
+    h1 {
+        // font-size: 32px;
+        color    : $section-title-color;
+        @include media-query($on-laptop) {
+            font-size: 32px;
+        }
+    }
+
     h2 {
-        font-size: 32px;
-        color    : $green-color-light;
+        // font-size: 32px;
+        color    : $section-title-color;
         @include media-query($on-laptop) {
             font-size: 28px;
         }
@@ -223,7 +232,7 @@
 
     h3 {
         font-size: 26px;
-        color       : $green-color-light;
+        color       : $section-title-color;
         @include media-query($on-laptop) {
             font-size: 22px;
         }
@@ -231,7 +240,7 @@
 
     h4 {
         font-size: 20px;
-        color       : $green-color-light;
+        color       : $section-title-color;
         @include media-query($on-laptop) {
             font-size: 18px;
         }
