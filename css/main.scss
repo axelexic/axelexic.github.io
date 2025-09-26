@@ -6,15 +6,15 @@
 
 
 // Our variables
-$base-font-family: Georgia,"Times New Roman",Times, serif, sans-serif;
-$base-font-size:   16px;
+$base-font-family: "PT Serif", Georgia,"Times New Roman",Times, serif, sans-serif;
+$base-font-size:   18px;
 $small-font-size:  $base-font-size * 0.875;
 $base-line-height: 1.5;
 
 $spacing-unit:     30px;
 
 $text-color:       #111;
-$background-color: #fdfdfd;
+$background-color: #f3f2ee;
 $brand-color:      #2a7ae2;
 
 $grey-color:       #828282;
@@ -45,7 +45,10 @@ $green-color-super-light: lighten($green-color-light, 10%);
     }
 }
 
-
+$site-title-color : $navy-blue-color-light;
+$section-title-color: $navy-blue-color-light;
+$site-title-font : "PT Serif";
+$section-title-font : "PT Serif";
 
 // Import partials from `sass_dir` (defaults to `_sass`)
 @import

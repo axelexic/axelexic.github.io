@@ -1,54 +1,65 @@
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width initial-scale=1" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="keywords" content="Cryptography, Security, Network Security, Provable Security, Reductionist Security" />
-	<meta name="author" content="Yogesh Prem Swami" />
-	<meta name="description" content="Website of Yogesh Swami delving into the theoretical and practical aspects of Cryptography and Network Security." />
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width initial-scale=1" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta
+    name="keywords"
+    content="Cryptography, Security, Network Security, Provable Security, Reductionist Security"
+  />
+  <meta name="author" content="Yogesh Prem Swami" />
+  <meta
+    name="description"
+    content="Website of Yogesh Swami delving into the theoretical and practical aspects of Cryptography, Zero-Knowledge Proofs, MPC and FHE schemes."
+  />
 
-	<script type="text/x-mathjax-config">
-	  MathJax.Hub.Config({
-        tex2jax: {
-            inlineMath: [ ['$','$'], ["\\(","\\)"] ],
-            displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
-            processEscapes: true
-        },
-	      TeX: {
-            equationNumbers: { autoNumber: "AMS" },
-	          Macros: {
-                FqBar   :  "{\\overline\{\\mathbb\{F\}\}_q}",
-                Fq      :  "{\\mathbb \{F\}_q}",
-                Fp      :  "{\\mathbb \{F\}_p}",
-                FpBar   :  "{\\overline\{\\mathbb\{F\}\}_p}",
-	              ZZ      :  "{\\mathbb \{Z\}}",
-	              RR      :  "{\\mathbb \{R\}}",
-	              CC      :  "{\\mathbb \{C\}}",
-	              QQ      :  "{\\mathbb \{Q\}}",
-	              P       :  "{\\mathsf \{P\} }",
-	              NP      :  "{\\mathsf \{NP\} }",
-	              coNP    :  "{\\mathsf \{coNP\} }",
-	              BPP     :  "{\\mathsf \{BPP\} }",
-	              RP      :  "{\\mathsf \{RP\} }",
-	              AM      :  "{\\mathsf \{AM\} }",
-	              PSPACE  :  "{\\mathsf \{PSPACE\} }",
-	              NL      :  "{\\mathsf \{NL\} }",
-	              IP      :  "{\\mathsf \{IP\} }",
-                PRIMES  :  "{\\mathsf \{PRIMES\}}",
-	              vec     :  ["\\mathbf \{#1\}", 1],
-                ord     :  ["\\text\{ord\}(#1)", 1]
-	          }
-	      }
-	  });
-	</script>
-	<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js?config=TeX-MML-AM_CHTML"></script>
-<!-- 
-	<script type="text/javascript"
-	src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML">
-	</script> -->
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+         tex2jax: {
+             inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+             displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+             processEscapes: true
+         },
+        TeX: {
+             equationNumbers: { autoNumber: "AMS" },
+            Macros: {
+                 FqBar   :  "{\\overline\{\\mathbb\{F\}\}_q}",
+                 Fq      :  "{\\mathbb \{F\}_q}",
+                 Fp      :  "{\\mathbb \{F\}_p}",
+                 FpBar   :  "{\\overline\{\\mathbb\{F\}\}_p}",
+                ZZ      :  "{\\mathbb \{Z\}}",
+                RR      :  "{\\mathbb \{R\}}",
+                CC      :  "{\\mathbb \{C\}}",
+                QQ      :  "{\\mathbb \{Q\}}",
+                P       :  "{\\mathsf \{P\} }",
+                NP      :  "{\\mathsf \{NP\} }",
+                coNP    :  "{\\mathsf \{coNP\} }",
+                BPP     :  "{\\mathsf \{BPP\} }",
+                RP      :  "{\\mathsf \{RP\} }",
+                AM      :  "{\\mathsf \{AM\} }",
+                PSPACE  :  "{\\mathsf \{PSPACE\} }",
+                NL      :  "{\\mathsf \{NL\} }",
+                IP      :  "{\\mathsf \{IP\} }",
+                 PRIMES  :  "{\\mathsf \{PRIMES\}}",
+                vec     :  ["\\mathbf \{#1\}", 1],
+                 ord     :  ["\\text\{ord\}(#1)", 1]
+            }
+        }
+    });
+  </script>
+  <script
+    id="MathJax-script"
+    async
+    src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js?config=TeX-MML-AM_CHTML"
+  ></script>
 
-    <title>{% if page.title %}{{ page.title }}{% else %}{{ site.title }}{% endif %}</title>
-    <meta name="description" content="{{ site.description }}">
+  <title>
+    {% if page.title %}{{ page.title }}{% else %}{{ site.title }}{% endif %}
+  </title>
+  <meta name="description" content="{{ site.description }}" />
 
-    <link rel="stylesheet" href="{{ "/css/main.css" | prepend: site.baseurl }}">
-    <link rel="canonical" href="{{ page.url | replace:'index.html','' | prepend: site.baseurl | prepend: site.url }}">
+  <link rel="stylesheet" href="{{ "/css/main.css" | prepend: site.baseurl }}">
+  <link
+    rel="canonical"
+    href="{{ page.url | replace:'index.html','' | prepend: site.baseurl | prepend: site.url }}"
+  />
 </head>
