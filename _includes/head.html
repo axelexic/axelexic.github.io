@@ -3,8 +3,8 @@
   <meta name="viewport" content="width=device-width initial-scale=1" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta
-    name="keywords"
-    content="Cryptography, Security, Network Security, Provable Security, Reductionist Security"
+  name="keywords"
+  content="Cryptography, Post-quantum Cryptography, Zero-Knowledge Interactive Proofs, SNARKs, zkSNARKS, IOP, PCP, MPC, NTT, Galois Rings, Finite Fields, Extension Fields, Zero-Knowledge PCP, Zero-Knowledge IOP, Oracle Proofs, Probabilistically Checkable Proofs, secure Multiparty Computation, Provable Security, Reductionist Security"
   />
   <meta name="author" content="Yogesh Prem Swami" />
   <meta
@@ -12,44 +12,24 @@
     content="Website of Yogesh Swami delving into the theoretical and practical aspects of Cryptography, Zero-Knowledge Proofs, MPC and FHE schemes."
   />
 
-  <script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-         tex2jax: {
-             inlineMath: [ ['$','$'], ["\\(","\\)"] ],
-             displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
-             processEscapes: true
-         },
-        TeX: {
-             equationNumbers: { autoNumber: "AMS" },
-            Macros: {
-                 FqBar   :  "{\\overline\{\\mathbb\{F\}\}_q}",
-                 Fq      :  "{\\mathbb \{F\}_q}",
-                 Fp      :  "{\\mathbb \{F\}_p}",
-                 FpBar   :  "{\\overline\{\\mathbb\{F\}\}_p}",
-                ZZ      :  "{\\mathbb \{Z\}}",
-                RR      :  "{\\mathbb \{R\}}",
-                CC      :  "{\\mathbb \{C\}}",
-                QQ      :  "{\\mathbb \{Q\}}",
-                P       :  "{\\mathsf \{P\} }",
-                NP      :  "{\\mathsf \{NP\} }",
-                coNP    :  "{\\mathsf \{coNP\} }",
-                BPP     :  "{\\mathsf \{BPP\} }",
-                RP      :  "{\\mathsf \{RP\} }",
-                AM      :  "{\\mathsf \{AM\} }",
-                PSPACE  :  "{\\mathsf \{PSPACE\} }",
-                NL      :  "{\\mathsf \{NL\} }",
-                IP      :  "{\\mathsf \{IP\} }",
-                 PRIMES  :  "{\\mathsf \{PRIMES\}}",
-                vec     :  ["\\mathbf \{#1\}", 1],
-                 ord     :  ["\\text\{ord\}(#1)", 1]
-            }
-        }
-    });
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [
+          ["$", "$"],
+          ["\\(", "\\)"],
+        ],
+      },
+      svg: {
+        fontCache: "global",
+      },
+    };
   </script>
   <script
+    type="text/javascript"
     id="MathJax-script"
     async
-    src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js?config=TeX-MML-AM_CHTML"
+    src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"
   ></script>
 
   <title>
