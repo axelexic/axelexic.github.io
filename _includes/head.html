@@ -3,8 +3,8 @@
   <meta name="viewport" content="width=device-width initial-scale=1" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta
-  name="keywords"
-  content="Cryptography, Post-quantum Cryptography, Zero-Knowledge Interactive Proofs, SNARKs, zkSNARKS, IOP, PCP, MPC, NTT, Galois Rings, Finite Fields, Extension Fields, Zero-Knowledge PCP, Zero-Knowledge IOP, Oracle Proofs, Probabilistically Checkable Proofs, secure Multiparty Computation, Provable Security, Reductionist Security"
+    name="keywords"
+    content="Cryptography, Post-quantum Cryptography, Learning With Errors, Ring Learning With Errors, Zero-Knowledge Interactive Proofs, Zero-Knowledge PCP, Oblivious Transfer,  Zero-Knowledge IOP, Oracle Proofs, Probabilistically Checkable Proofs, secure Multiparty Computation, Provable Security, Reductionist Security, SNARKs, zkSNARKS, IOP, PCP, MPC, VOLE, MPC In the Head, MPCitH, NTT, Galois Rings, Finite Fields, Extension Fields, Number Fields, Ring-LWE, LWE, RLWE"
   />
   <meta name="author" content="Yogesh Prem Swami" />
   <meta
@@ -12,13 +12,17 @@
     content="Website of Yogesh Swami delving into the theoretical and practical aspects of Cryptography, Zero-Knowledge Proofs, MPC and FHE schemes."
   />
 
-  <!-- <script>
-    window.MathJax = {
+  <script>
+    MathJax = {
       tex: {
-        inlineMath: [
-          ["$", "$"],
-          ["\\(", "\\)"],
+        inlineMath: { "[+]": [["$", "$"]] },
+        displayMath: [
+          ["$$", "$$"],
+          ["\\[", "\\]"],
         ],
+        processEscapes: true,
+        processEnvironments: true,
+        processRefs: true,
       },
       svg: {
         fontCache: "global",
@@ -26,30 +30,9 @@
     };
   </script>
   <script
-    type="text/javascript"
-    id="MathJax-script"
-    async
-    src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"
-  ></script> -->
-
-  <script>
-MathJax = {
-  tex: {
-    inlineMath: {'[+]': [['$', '$']]},
-    displayMath: [
-      ['$$', '$$'],
-      ['\\[', '\\]']
-    ],
-    processEscapes: true,
-    processEnvironments: true,
-    processRefs: true
-  },
-  svg: {
-    fontCache: 'global'
-  }
-};
-</script>
-<script defer src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-svg.js"></script>
+    defer
+    src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-svg.js"
+  ></script>
 
   <title>
     {% if page.title %}{{ page.title }}{% else %}{{ site.title }}{% endif %}
