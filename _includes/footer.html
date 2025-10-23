@@ -3,7 +3,7 @@
     <div class="footer-col-wrapper">
       <div class="footer-col  footer-col-1">
         <ul class="contact-list">
-          <li>{{ site.title }}. Last modified on {% last_modified_at %}.</li>
+          <li>{{ site.title }}.{% if page.last_modified_at %} Last modified on {% last_modified_at %}. {% endif %}</li>
           <li>Copyright &copy; by <a href="mailto:{{ site.email }}">Yogesh Swami<a href="mailto:{{ site.email }}"></a>. All rights reserved.
         </ul>
       </div>
