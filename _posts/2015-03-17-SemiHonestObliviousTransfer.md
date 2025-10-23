@@ -48,11 +48,7 @@ The correctness requirements for an OT protocol are obvious: If Bob's choice bit
 >
 >   $$\textsf{View}_{\mathbb{A}}(m_0, m_1, r_{\mathbb{A}};\; b)$$
 >
->   where $r_{\mathbb{A}}$ is Alice's private randomness used during that particular execution of the protocol.
->
->   $$ \textsf{View}_{\mathbb{A}}(m_0, m_1, r_{\mathbb{A}};\; b) $$
->
->   consists of all of Alice's local inputs $(m_0, m_1, r_\mathbb{A})$ as well as all the messages she has received from Bob. Note that at any point in time, Alice's view contains all the information to _deterministically generate_ all the messages sent from Alice to Bob.
+>   where $r_{\mathbb{A}}$ is Alice's private randomness used during that particular execution of the protocol. $$ \textsf{View}_{\mathbb{A}}(m_0, m_1, r_{\mathbb{A}};\; b) $$ consists of all of Alice's local inputs $(m_0, m_1, r_\mathbb{A})$ as well as all the messages she has received from Bob. Note that at any point in time, Alice's view contains all the information to _deterministically generate_ all the messages sent from Alice to Bob.
 > * Similarly **Bob**'s **view** is denoted by
 >
 >   $$\textsf{View}_{\mathbb{B}}(b, r_{\mathbb{B}};\; m_0, m_1)$$
@@ -95,7 +91,7 @@ The privacy requirements for Alice and Bob can be summarized as:
 
    $$\forall \mathcal{D}' \in \text{p.p.t}\wedge \forall \tau:\;\mathbf{Pr}\left[\mathcal{D}'(m_1, m_0, \tau) = b\right] < \frac{1}{2} + \textsf{negl}$$
 
-   where the probability is taken over the random choices made by $\mathcal{D}'$.
+   where the probability is taken over the private random choices of Alice and Bob as well as the internal randomness of $\mathcal{D'}$.
 
 ## OT Theoretical Results
 ---
@@ -220,6 +216,7 @@ Assuming semi-honest adversary, the following scheme uses RSA hardcore predicate
 >   * Depending upon the choice bit $b$, $\mathbb{B}$ prepares a message $\Omega$ consisting of two Ring element from $\mathbb{Z}/n\mathbb{Z}$ as follows:
 >
 >     $$\Omega := \begin{cases}(S,T) & \text{if } b = 0\\(T,S) & \text{if } b = 1  \end{cases}$$
+>
 >     and sends $\Omega$ to $\mathbb{A}$ in the left to right tuple order (i.e., sends $S$ then $T$ if $b=0$, otherwise, sends $T$ then $S$).
 > * $\mathbb{A} \longrightarrow \mathbb{B}$: $\left[\right.\mathbb{A}$'s input messages are $\left. m_0, m_1 \in \{0,1\}\right]$
 >   * Suppose $\mathbb{A}$ receives $\Omega = (X,Y)$. Since $\mathbb{A}$ has access to RSA trapdoor information $d$, it computes
