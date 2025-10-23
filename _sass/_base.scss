@@ -76,8 +76,8 @@ ul, ol, dl, figure,
  * Images
  */
 img {
-    max-width: 100%;
-    vertical-align: middle;
+    max-width: 70%;
+    display: block;
 }
 
 
@@ -114,10 +114,22 @@ li {
 /**
  * Headings
  */
-h1, h2, h3, h4, h5, h6 {
-    font-weight: 300;
+h1, h2, h3, h4 {
+    font-weight: 600;
 }
 
+h5, h6 {
+    font-weight: 800;
+    text-decoration: underline;
+}
+
+article > hr  {
+    margin-top: -5*$spacing-unit/8;
+    margin-bottom: $spacing-unit/2;
+    height: 0.5px;
+    border: none;
+    background-color: $blockquote-color;
+}
 
 
 /**
@@ -143,19 +155,21 @@ a {
  * Blockquotes
  */
 blockquote {
-    color: $grey-color;
-    border-left: 4px solid $grey-color-light;
+    border-left: 4px solid $blockquote-color;
     padding-left: $spacing-unit / 2;
-    font-size: 18px;
-    letter-spacing: -1px;
-    font-style: italic;
-
+    padding-right: $spacing-unit / 2;
+    padding-top: $spacing-unit / 4;
+    padding-bottom: $spacing-unit / 4;
+    color: black;
+    background-color: color-mix(in oklab, $background-color 96%, black );
     > :last-child {
         margin-bottom: 0;
     }
 }
 
-
+strong {
+    font-weight: bold;
+}
 
 /**
  * Code formatting
