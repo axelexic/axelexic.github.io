@@ -1,9 +1,9 @@
 ---
 layout: post
-title: Semi-Honest Oblivious Transfer OT Primitives
+title: Semi-Honest Oblivious Transfer (OT) Primitives
 date: 2015-03-17
 tags : [ "mpc", "oblivious transfer" ]
-last_modified: 2025-10-2
+author : Yogesh Swami
 ---
 
 This page describes a few basic protocols for oblivious transfer ($\textsf{OT}$) schemes and some theoretical results related to them. The [next post]({% post_url 2015-04-11-ObliviousTransferExtensions %}) will consider $\textsf{OT}$ extensions &mdash; which are needed when performing a large number of oblivious transfers.
@@ -116,7 +116,8 @@ $$\exists \; \textsf{OT}(m_0, m_1;\; b) \implies \exists \; \textsf{2pc}_{\wedge
 Second, we will prove that there does not exist _any_ information theoretically secure $$\textsf{2pc}_{\wedge}(a;\;b)$$ and conclude the contrapositive that there _does not
 exist_ any information-theoretically $\textsf{OT}$ scheme.
 
-> ###### Proof <span> [ $ \textsf{OT} \implies 2\textsf{pc}_\wedge $ ] </span>:
+> ###### Proof
+> [ $ \textsf{OT} \implies 2\textsf{pc}_\wedge $ ]
 >
 > Suppose $\textsf{Alice}$ has bit $a$ and $\textsf{Bob}$ has bit $b$ and $\textsf{Alice}$ and $\textsf{Bob}$ want to jointly compute $\textsf{2pc}_{\wedge}(a;\;b)$ using $\textsf{OT}(m_0, m_1;\; b)$ as a black box.
 >
@@ -393,7 +394,7 @@ Notice that the ${2 \choose 1}$ string-$\textsf{OT}$ hides each and every bit $\
 For the security proof to work, it's important that $\mathbb{B}$ performs $\ell$ parallel ${2 \choose 1}\;\textsf{OT}$ invocations _before_ the sender sends $\{ C_k \}_{k \in [n]}$. A formal (and very enlightening) proof of security can be found in the original paper.
 
 >
-> **Example**
+> ##### Example
 >
 > Let $n=4$ and $\ell = 2$. Let the list of key-pairs be
 >
