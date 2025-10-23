@@ -1,12 +1,12 @@
 ---
 layout: post
-title: Semi-Honest Oblivious Transfer ($\textsf{OT}$) Primitives
+title: Semi-Honest Oblivious Transfer OT Primitives
 date: 2015-03-17
 tags : [ "mpc", "oblivious transfer" ]
 last_modified: 2025-10-2
 ---
 
-This page describes a few basic protocols for oblivious transfer ($\textsf{OT}$) schemes and some theoretical results related to them. The next post will consider $\textsf{OT}$ extensions &mdash; which are needed when performing a large number of oblivious transfers.
+This page describes a few basic protocols for oblivious transfer ($\textsf{OT}$) schemes and some theoretical results related to them. The [next post]({% post_url 2015-04-11-ObliviousTransferExtensions %}) will consider $\textsf{OT}$ extensions &mdash; which are needed when performing a large number of oblivious transfers.
 
 ## Semi-Honest Base OT: Syntax and Semantics
 ---
