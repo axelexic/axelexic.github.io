@@ -71,7 +71,7 @@ The correctness requirements for an OT protocol are obvious: If Bob's choice bit
 
 The privacy requirements for Alice and Bob can be summarized as:
 
-#### Privacy Requirements
+### Privacy Requirements
 
 
 1. **Alice's Privacy**: Let Bob's choice bit be $b$ and let $\mathcal{D}$ be a polynomial time algorithm (called a distinguisher) that a corrupt Bob is trying to use to glean extra information about $m_{1-b}$ from its message transcript
@@ -116,7 +116,7 @@ $$\exists \; \textsf{OT}(m_0, m_1;\; b) \implies \exists \; \textsf{2pc}_{\wedge
 Second, we will prove that there does not exist _any_ information theoretically secure $$\textsf{2pc}_{\wedge}(a;\;b)$$ and conclude the contrapositive that there _does not
 exist_ any information-theoretically $\textsf{OT}$ scheme.
 
-> **Proof** [ $ \textsf{OT} \implies 2\textsf{pc}_\wedge $ ]:
+> ###### Proof <span> [ $ \textsf{OT} \implies 2\textsf{pc}_\wedge $ ] </span>:
 >
 > Suppose $\textsf{Alice}$ has bit $a$ and $\textsf{Bob}$ has bit $b$ and $\textsf{Alice}$ and $\textsf{Bob}$ want to jointly compute $\textsf{2pc}_{\wedge}(a;\;b)$ using $\textsf{OT}(m_0, m_1;\; b)$ as a black box.
 >
@@ -146,7 +146,7 @@ We now prove that its impossible to have an information theoretically secure two
 Suppose there exists such an information theoretically secure $2\textsf{pc}_\wedge(a;\;b)$ MPC protocol and suppose one of the parties $\textsf{Alice}$ (whose input is $a$) is malicious. We will show that if $\textsf{Alice}$ is computationally unbounded, then just based on the protocol transcript $\tau(a,b)$, she can breach $\textsf{Bob}$'s privacy (whose input is $b$). Note that breaching $\textsf{Bob}$'s privacy is only meaningful when $\textsf{Alice}$'s own input $a$ is $0$. This is because when $a = 1$, the value of $b$ is readily available to $\textsf{Alice}$ (as the final result of the computation) and there's no expectation of privacy in that case. In short, $\textsf{Alice}$'s concrete goal is to find the value of $b$ given that her own input $a = 0$.
 
 >
-> **<u>Proof</u>:**
+> ###### Proof:
 >
 > The high level idea of the proof is to build a distinguisher for $b$ by exploiting the properties of the transcript set $$\mathbb{T}(a,b) := \left \{ \tau(a,b) \right \}_{r_\textsf{Alice}, r_\textsf{Bob}}$$ for different values of $a$ and $b$. In particular, it's based on the observation that the transcript set of _any_ $$2\textsf{pc}_\wedge(a;\;b)$$ MPC protocol with _perfect correctness_ and _perfect privacy_ must be identical when either $a=0$ or $b=0$, i.e.,
 >
@@ -176,7 +176,7 @@ Suppose there exists such an information theoretically secure $2\textsf{pc}_\wed
 >
 > **<u>Claim</u>**: $\mathbb{T}(0,0) = \mathbb{T}(1,0)$
 >
-> **<u>Proof</u>**: First note that the output of $2\textsf{pc}_\wedge(a;\;b)$ is the same when either $a=0$ or $b = 0$. We will show that if $\mathbb{T}(0,0) \neq \mathbb{T}(1,0)$ then it will lead to the breach of perfect privacy assumption.
+> Proof: First note that the output of $2\textsf{pc}_\wedge(a;\;b)$ is the same when either $a=0$ or $b = 0$. We will show that if $\mathbb{T}(0,0) \neq \mathbb{T}(1,0)$ then it will lead to the breach of perfect privacy assumption.
 >
 > Let's suppose that $\mathbb{T}(0,0) \neq \mathbb{T}(1,0)$. That means, there must exist at least one transcript $\gamma$ that is present in $\mathbb{T}(0,0)$ but not in $\mathbb{T}(1,0)$ (or vice versa). Let $r_\gamma := (r_\textsf{Alice}^\gamma,r_\textsf{Bob}^\gamma)$ be the private randomness that was used to generate transcript $\gamma$. Since the protocol must terminate in finite number of steps, the length of $r_\gamma$ is finite. That means, a computationally unbounded adversary can enumerate all possible bit strings of length $$ \mid r_\gamma \mid $$ and run the protocol on $(a,b) := (0,0)$ and $(a,b) := (1,0)$ and find out whether $\gamma$ corresponds to $(a=0) \wedge (b=0)$ or $(a=1) \wedge (b=0).$ In other words, based on $\gamma$ alone, the adversary can find out if $a=0$ of $a=1$ with non-zero probability. This, however, is a breach of _perfect privacy assumption_ which requires that the transcripts are identically distributed.
 >
