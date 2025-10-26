@@ -58,8 +58,6 @@ body {
     -webkit-text-size-adjust: 100%;
 }
 
-
-
 /**
  * Set `margin-bottom` to maintain vertical rhythm
  */
@@ -111,16 +109,11 @@ li {
 
 
 
-/**
- * Headings
- */
-h1, h2, h3, h4 {
-    font-weight: 600;
-}
-
 h5, h6 {
-    font-weight: 800;
     text-decoration: underline;
+    font-variant: small-caps;
+    font-size: 1.3rem;
+    color: $blockquote-color;
 }
 
 article > hr  {

@@ -1,0 +1,27 @@
+body  {
+    counter-reset: section_counter 0;
+}
+
+.post-content h2 {
+    counter-reset: subsection_counter 0;
+}
+
+
+.post-content h3 {
+    counter-reset: subsubsection_counter 0;
+}
+
+.post-content h2::before {
+    counter-increment: section_counter; /* Increment H2 counter */
+    content: counter(section_counter) ". "; /* Display the H2 number */
+}
+
+.post-content h3::before {
+    counter-increment: subsection_counter;
+    content: counter(section_counter) "." counter(subsection_counter) ". ";
+}
+
+.post-content h4::before {
+    counter-increment: subsubsection_counter;
+    content: counter(section_counter) "." counter(subsection_counter) "." counter(subsubsection_counter) ". ";
+}
