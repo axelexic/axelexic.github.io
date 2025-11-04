@@ -13,15 +13,15 @@ body  {
 
 .post-content h2::before {
     counter-increment: section_counter; /* Increment H2 counter */
-    content: counter(section_counter) ". "; /* Display the H2 number */
+    content: "\00A7" counter(section_counter) ". "; /* Display the H2 number */
 }
 
 .post-content h3::before {
     counter-increment: subsection_counter;
-    content: counter(section_counter) "." counter(subsection_counter) ". ";
+    content: "\00A7" counter(section_counter) "." counter(subsection_counter) ". ";
 }
 
 .post-content h4::before {
     counter-increment: subsubsection_counter;
-    content: counter(section_counter) "." counter(subsection_counter) "." counter(subsubsection_counter) ". ";
+    content: "\00A7" counter(section_counter) "." counter(subsection_counter) "." counter(subsubsection_counter) ". ";
 }
