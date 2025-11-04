@@ -190,7 +190,26 @@ pre {
     }
 }
 
+.footnotes {
+    display: block;
+    font-size: medium;
+    padding-top: 20px;
+    margin:20px;
+    border-top: 1px dotted $blockquote-color;
+}
 
+sup[role="doc-noteref"] {
+    vertical-align: inherit;
+    font-size: inherit;
+}
+
+sup[role="doc-noteref"]::before {
+    content: "[";
+}
+
+sup[role="doc-noteref"]::after {
+    content: "]";
+}
 
 /**
  * Wrapper
