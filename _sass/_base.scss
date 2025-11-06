@@ -52,7 +52,7 @@ body {
     font-family: $base-font-family;
     font-size: $base-font-size;
     line-height: $base-line-height;
-    font-weight: 300;
+    font-weight: 400;
     color: $text-color;
     background-color: $background-color;
     -webkit-text-size-adjust: 100%;
@@ -211,6 +211,21 @@ sup[role="doc-noteref"]::after {
     content: "]";
 }
 
+sup[role="doc-noteref"] > a {
+    color: magenta;
+    text-decoration: none;
+
+    &:visited {
+        color: magenta;
+    }
+
+    &:hover {
+        color: $text-color;
+        text-decoration: underline;
+    }
+}
+
+
 /**
  * Wrapper
  */
@@ -224,8 +239,8 @@ sup[role="doc-noteref"]::after {
     @extend %clearfix;
 
     @include media-query($on-laptop) {
-        max-width: -webkit-calc(1200px - (#{$spacing-unit}));
-        max-width:         calc(1200px - (#{$spacing-unit}));
+        max-width: -webkit-calc(1600px - (#{$spacing-unit}));
+        max-width:         calc(1600px - (#{$spacing-unit}));
         padding-right: $spacing-unit / 2;
         padding-left: $spacing-unit / 2;
     }
