@@ -7,7 +7,7 @@ author : Yogesh Swami
 ---
 
 The [previous post]({% post_url 2015-03-17-SemiHonestObliviousTransfer
-%}){:target="_blank"} covered basic oblivious transfer primitives for
+%}) covered basic oblivious transfer primitives for
 ${2 \choose 1}$ bit-$\textsf{OT}$ and String-$\textsf{OT}$. Both of
 these protocols require some form of public-key operation. Frequently,
 in real world MPC use cases, one needs to perform a large number of
@@ -20,8 +20,8 @@ This begs the question, can one construct $\textsf{OT}$ schemes that are
 qualified) answer to this question is no, but one can achieve the next
 best thing: **$\textsf{OT}$ Extensions** [^B96] [^IKNP03]. $\textsf{OT}$
 Extensions use a small number of public-key operations to bootstrap a
-symmetric-key based $\textsf{OT}$ scheme, which can be used to compute a
-large number of $\textsf{OT}$s.
+symmetric-key based $\textsf{OT}$ scheme, which can then be used to
+compute a large number of $\textsf{OT}$s.
 
 But why can't oblivious transfer be realized purely from symmetric-key
 operations? [Section &sect;1](#textsfot-from-one-way-function-owf)
@@ -38,18 +38,68 @@ continuity.
 
 Recall that Impagliazzo, Levin, and Luby [^ILL89] proved that
 One-Way-Functions are _necessary and sufficient_ for building
-symmetric-key cryptographic primitive, especially Pseudo Random
+symmetric-key cryptographic primitives, especially Pseudo Random
 Generators (PRGs). In this section, we examine if $\textsf{OT}$ can be
 realized from black box OWFs, without making any additional hardness
 assumption?
 
-Kilian [^K88] famously proved that $\mathsf{OT}$ is complete for cryptography!
-That is, given any $\textsf{OT}$ protocol as a _black box_, Alice and Bob can
-jointly evaluate _any_ function $f(x,y)$ while keeping their respective inputs
-$x$ and $y$ private. What's novel about Kilian's protocol is that apart from the
-existence of oblivious transfer as a black box, it makes no other cryptographic
-hardness assumptions. That is, the rest of the protocol is information
+Kilian [^K88] famously proved that $\mathsf{OT}$ is complete for
+cryptography! That is, given any $\textsf{OT}$ protocol as a _black
+box_, Alice and Bob can jointly evaluate _any_ function $f(x,y)$ while
+keeping their respective inputs $x$ and $y$ private. What's novel about
+Kilian's protocol is that apart from the existence of oblivious transfer
+as a black box, it makes no additional cryptographic hardness
+assumptions. That is, the rest of the protocol is information
 theoretically secure.
+
+Since $\textsf{OT}$ is complete, that means one can construct a
+key-exchange protocol using $\textsf{OT}$ alone. However, a result by
+Impagliazzo and Rudich [^IR89] provides strong evidence that one cannot
+realize a key-exchange protocol purely using _black box_ access to a
+One-Way-Permutation (OWP) alone. So if $\textsf{OT}$ could be
+constructed from black box OWP alone, then that would imply that
+key-exchange could also be constructed from black box OWP (by simply
+using $\textsf{OT}$ as an intermediate subroutine). This contradicts
+Impagliazzo and Rudich theorem and rules out the possibility.
+
+The rest of this section describes in detail the three ingredients of
+the above argument, that is:
+1. $\textsf{OT}$ is complete,
+2. $\textsf{OT} \implies $ key-exchange, and
+3. Impagliazzo and Rudich relativized reduction
+
+>
+> ###### Remark:
+>
+> The argument above only rules out the possibility that $\textsf{OT}$
+> can be constructed from _black box use of OWF/OWP_. It does not rule
+> out the possibility of $\textsf{OT}$ from non-black-box use of
+> OWF/OWP. However till date, no such construction has been found.
+>
+
+
+### $\textsf{OT}$ is complete for cryptography
+
+An algorithm $\mathcal{P}$ is complete for cryptography if it can be
+used to emulate any _interactive_ cryptographic primitive or protocol
+&mdash; public-key encryption, key-exchange, etc., &mdash; without
+relying upon additional computational hardness assumption. Since a
+_maliciously_ secure MPC protocol can evaluate any function
+$f(x_1,\cdots, x_n)$ between $n$ mutually distrusting parties, if one
+can construct an MPC protocol purely from oracle access to
+$\mathcal{P}$, then $\mathcal{P}$ will be complete for cryptography.
+
+Kilian described a way to construct a two-party _maliciously secure_
+MPC protocol from oracle access to oblivious transfer. His protocol
+consists of two distinct components:
+1. An information theoretically secure two-party protocol for
+   semi-honest _oblivious circuit evaluation_, and
+2. A bit-commitment and non-interactive Zero-Knowledge protocol using
+   $\textsf{OT}$ as an oracle.
+
+Since any semi-honest MPC protocol can be compiled to a maliciously
+secure MPC protocol using zero-knowledge proof, the combined protocol
+can simulate any maliciously secure cryptographic primitive.
 
 > ##### Yao vs. Kilian
 >
@@ -61,58 +111,19 @@ theoretically secure.
 > existence of  oblivious transfer and nothing else.
 >
 > Another distinction: Unlike GC, Kilian’s protocol is secure even if
-> one of the two parties is malicious. To achieve this, he constructs a
-> bit-commitment and a (non-interactive) zero-knowledge proof _from
-> oblivious transfer alone_ and uses it to force malicious parties from
-> misbehaving. (See Theorem 1 and 2 of [^K88] for further details.)
-
-Since $\textsf{OT}$ is complete, that means one can construct a
-key-exchange protocol using $\textsf{OT}$ alone. However, a result by
-Impagliazzo and Rudich [^IR89] provides strong evidence that one cannot
-realize a key-exchange protocol using black box access to a
-One-Way-Permutation (OWP) alone. So if $\textsf{OT}$ could be
-constructed from black box OWP alone, then that would imply that
-key-exchange could also be constructed from black box OWP, by simply
-using $\textsf{OT}$ as an intermediate subroutine. This would contradict
-Impagliazzo and Rudich theorem that key-exchange cannot be realized from
-black-box OWP alone.
-
-The rest of this section describes in detail the three ingredients of
-the above argument, that is:
-1. $\textsf{OT}$ is complete,
-2. $\textsf{OT} \implies $ key-exchange, and
-3. Impagliazzo and Rudich theorem
-
-### $\textsf{OT}$ is complete for cryptography
-
-An algorithm $\mathcal{P}$ is complete for cryptography if it can be
-used to emulate any cryptographic primitive or protocol &mdash;
-public-key encryption, key-exchange, etc., &mdash; without relying upon
-any additional computational hardness assumption. Since a _maliciously_
-secure MPC protocol can evaluate any function $f(x_1,\cdots, x_n)$
-between $n$ mutually distrusting parties, any construction of such an
-MPC protocol &mdash; _purely from oracle access to $\mathcal{P}$_
-&mdash; is sufficient to prove that $\mathcal{P}$ is complete.
-
-Kilian described a way to instantiate a two-party _maliciously secure_
-MPC protocol from oracle access to oblivious transfer. His protocol
-consists of two distinct components:
-1. An information theoretically secure two-party protocol for
-   semi-honest _oblivious circuit evaluation_, and
-2. A bit-commitment and non-interactive Zero-Knowledge protocol using
-   $\textsf{OT}$ as an oracle
-
-Since any semi-honest MPC protocol can be compiled to a maliciously
-secure MPC protocol using zero-knowledge proof, the combined protocol
-can simulate any maliciously secure cryptographic primitive.
+> one of the two parties is malicious.
 
 Instead of developing Kilian's protocol in detail, we present a more
-modern and practical instantiation of the same result based on the work
-of Ishai, Prabhakaran and Sahai [^IPS08].
+modern and practical instantiation of the same result based on the works
+of Ishai, Prabhakaran and Sahai [^IPS08], which we will refer to as
+IPS08 protocol.
+
+#### MPC-in-the-Head Paradigm for Zero-Knowledge Proofs
 
 ### Key-exchange from black box $\textsf{OT}$
 
-Intuitively, $\textsf{OT} \implies $ key-exchange, is almost immediate! To see this, notice that the $\textsf{OT}$ transcript that the
+Intuitively, $\textsf{OT} \implies $ key-exchange, is almost immediate!
+To see this, notice that the $\textsf{OT}$ transcript that the
 
 ### Key-exchange and black box OWP
 
