@@ -15,7 +15,7 @@
 	--rawblock-edit-panel-bd: #e5e5e5;
 
 	--select-text-bg-color: rgba(32, 43, 51, 0.63);
-  --select-text-font-color: white;
+    --select-text-font-color: white;
 }
 
 pre {
@@ -83,15 +83,30 @@ img {
 /**
  * Figures
  */
+
+figure {
+    text-align: center;
+}
+
 figure > img {
     display: block;
+    margin-left: auto;
+    margin-right: auto;
 }
 
-figcaption {
+
+figurecaption {
     font-size: $small-font-size;
+    counter-increment: figure_counter;
+    color: $blockquote-color;
+    font-weight: bold;
 }
 
-
+figurecaption::before {
+  content: "Fig. " counter(figure_counter) ": ";
+  color: $blockquote-color;
+  font-weight: bolder;
+}
 
 /**
  * Lists

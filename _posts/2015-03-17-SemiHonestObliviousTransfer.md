@@ -22,7 +22,10 @@ Bob. Bob, depending upon his choice bit $b$, wants to access $m_b$ but
 does not want Alice to know which message he picked. This interaction is
 summarized in the following diagram:
 
-<img id="basic-ot" src="/Diagrams/BasicOT.svg" style="margin-left:auto; margin-right:auto"/>
+<figure>
+<img id="basic-ot" src="/Diagrams/BasicOT.svg"/>
+<figurecaption>Oblivious Transfer Schematic</figurecaption>
+</figure>
 
 > ##### Generalization
 >
@@ -221,9 +224,11 @@ $\textsf{OT}$ scheme.
 > $\textsf{2pc}_{\wedge}(a;\;b)$ using $\textsf{OT}(m_0, m_1;\; b)$ as a
 > black box.
 >
-> <img id="ot2pc-and-gate" src="/Diagrams/OT2PCAnd.svg"
-> style="margin-left:auto; margin-right:auto" alt="OT to 2PC And Gate
+> <figure>
+> <img id="ot2pc-and-gate" src="/Diagrams/OT2PCAnd.svg" alt="OT to 2PC And Gate
 > reduction"/>
+> <figurecaption>Two party <code>and</code> gate from oblivious transfer</figurecaption>
+> </figure>
 >
 > Here's how the two parties proceed (See figure above for pictorial
 > representation of these steps):
@@ -464,7 +469,10 @@ Assuming semi-honest adversary, the following scheme uses RSA hardcore predicate
 
 The figure below summarizes the protocol pictorially:
 
-<img id="bit-ot-from-rsa" src="/Diagrams/BitOTFromRSA.svg" style="margin-left:auto; margin-right:auto" alt="Bit-OT From RSA Hardcore Predicate Assumption"/>
+<figure>
+<img id="bit-ot-from-rsa" src="/Diagrams/BitOTFromRSA.svg" alt="Bit-OT From RSA Hardcore Predicate Assumption"/>
+<figurecaption>${2 \choose 1 }$ bit-$\textsf{OT}$ from RSA Hardcore Predicate</figurecaption>
+</figure>
 
 ### ${2 \choose 1}\;$ String-$\textsf{OT}$ from DDH Assumption [^NP01]
 
@@ -554,10 +562,12 @@ Assuming semi-honest adversary, the following scheme use DDH assumption to build
 
 The figure below summarizes the protocol pictorially:
 
+<figure>
 <img id="string-ot-from-ddh" src="/Diagrams/StringOTFromDDH.svg" style="margin-left:auto; margin-right:auto" alt="String-OT From DDH Assumption"/>
+<figurecaption>${2 \choose 1}\;$ String-$\textsf{OT}$ from DDH Assumption</figurecaption>
+</figure>
 
-
-### ${n \choose 1}\, \textsf{OT}$ from ${2 \choose 1}$ String-$\textsf{OT}$ [^NP99]
+### ${n \choose 1}$ String-$\textsf{OT}$ from ${2 \choose 1}$ String-$\textsf{OT}$ [^NP99]
 
 In an ${n \choose 1}\; \textsf{OT}$ scheme, semi-honest sender Alice ($\mathbb{A}$) has $n$ messages $\lbrace  x_0, \cdots, x_{n-1} \rbrace$, where each $x_i$ is of length $m$ bits. Semi-honest receiver Bob ($\mathbb{B}$) has a choice index $i$ with $0 \leq i < n$. Similar to ${2 \choose 1}\;\textsf{OT}$ scheme, $\mathbb{A}$ wants to send one &mdash; and only one &mdash; of $x_j$'s to $\mathbb{B}$ but doesn't want to reveal any additional additional information about  other messages. $\mathbb{B}$, on the other hand, doesn't want $\mathbb{A}$ to learn about his choice index $i$.
 
@@ -650,7 +660,10 @@ For the security proof to work, it's important that $\mathbb{B}$ performs $\ell$
 
 The figure below summarizes the protocol pictorially:
 
+<figure>
 <img id="n-choose-one-ot" src="/Diagrams/NChoose1OT.svg" style="margin-left:auto; margin-right:auto" alt="N choose 1 OT"/>
+<figurecaption>Efficient ${n \choose 1}\; \textsf{OT}$ from oracle access to ${2 \choose 1}\; \textsf{OT}$</figurecaption>
+</figure>
 
 [^ACGS88]: W. Alexi, B. Chor, O. Goldreich, and C. P. Schnorr, "[RSA and
     Rabin Functions: Certain Parts are as Hard as the

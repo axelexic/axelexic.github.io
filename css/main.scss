@@ -50,6 +50,38 @@ $section-title-color: #0808f8;
 $site-title-font : "PT Serif";
 $section-title-font : "PT Serif";
 
+@media print {
+  /* Define styles for print output within this block */
+
+  body {
+    font-size: 12pt; /* Sets the base font size for the body in print */
+  }
+
+  .post-content h1 {
+    font-size: 24px;
+   }
+
+   .post-content h2 {
+    font-size: 20px;
+   }
+
+   .post-content h3 {
+    font-size: 18px;
+   }
+
+   .post-content h4 {
+    font-size: 16px;
+   }
+
+    .post-content h5 {
+    font-size: 14px;
+   }
+
+   .post-content h6 {
+        font-size: 14px;
+   }
+}
+
 // Import partials from `sass_dir` (defaults to `_sass`)
 @import
         "base",
