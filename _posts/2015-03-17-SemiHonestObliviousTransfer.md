@@ -30,12 +30,12 @@ summarized in the following diagram:
 > ##### Generalization
 >
 > The scheme described above, where $m_0$ and $m_1$ are bits is called
-> bit-$\textsf{OT}$. This definition can be naturally generalized to
-> string-$\textsf{OT}$, where $m_0$ and $m_1$ are not bits but _strings
+> Bit-$\textsf{OT}$. This definition can be naturally generalized to
+> String-$\textsf{OT}$, where $m_0$ and $m_1$ are not bits but _strings
 > of the same length_. That is, $m_0, m_1 \in \lbrace  0,1 \rbrace
 > ^\kappa$, where $\kappa$ is well known in advance to each party.
-> Oblivious transfer of this form is called string-$\textsf{OT}$. Note
-> that in addition to having the same length, string-$\textsf{OT}$ is
+> Oblivious transfer of this form is called String-$\textsf{OT}$. Note
+> that in addition to having the same length, String-$\textsf{OT}$ is
 > only meaningful if $m_0$ and $m_1$ are drawn from computationally
 > indistinguishable distributions. Otherwise, a semi-honest Bob can
 > trivially break Alice's privacy  by simply observing the distribution

@@ -8,7 +8,7 @@ author : Yogesh Swami
 
 The [previous post]({% post_url 2015-03-17-SemiHonestObliviousTransfer
 %}) covered basic oblivious transfer primitives for
-${2 \choose 1}$ bit-$\textsf{OT}$ and String-$\textsf{OT}$. Both of
+${2 \choose 1}$ Bit-$\textsf{OT}$ and String-$\textsf{OT}$. Both of
 these protocols require some form of public-key operation. Frequently,
 in real world MPC use cases, one needs to perform a large number of
 oblivious transfers. In these scenarios, the computational cost of
@@ -77,7 +77,6 @@ the above argument, that is:
 > OWF/OWP. However till date, no such construction has been found.
 >
 
-
 ### $\textsf{OT}$ is complete for cryptography
 
 An algorithm $\mathcal{P}$ is complete for cryptography if it can be
@@ -115,17 +114,21 @@ can simulate any maliciously secure cryptographic primitive.
 
 Instead of developing Kilian's protocol in detail, we present a more
 modern and practical instantiation of the same result based on the works
-of Ishai, Prabhakaran and Sahai [^IPS08], which we will refer to as
-IPS08 protocol.
+of Ishai, Prabhakaran and Sahai [^IPS08]. From now on, will refer to the
+protocol in [^IPS08] as IPS08 protocol.
+
+#### Bird's eye view of IPS08 protocol
 
 #### MPC-in-the-Head Paradigm for Zero-Knowledge Proofs
+
+#### Semi-honest two-party protocol
 
 ### Key-exchange from black box $\textsf{OT}$
 
 Intuitively, $\textsf{OT} \implies $ key-exchange, is almost immediate!
 To see this, notice that the $\textsf{OT}$ transcript that the
 
-### Key-exchange and black box OWP
+### Relativized separation of OWF and key-exchange
 
 ## $\textsf{OT}$ Extension Protocols
 <hr/>
