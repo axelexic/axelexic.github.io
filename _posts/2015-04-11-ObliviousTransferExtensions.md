@@ -114,8 +114,8 @@ can simulate any maliciously secure cryptographic primitive.
 
 Instead of developing Kilian's protocol in detail, we present a more
 modern and practical instantiation of the same result based on the works
-of Ishai, Prabhakaran and Sahai [^IPS08]. From now on, will refer to the
-protocol in [^IPS08] as IPS08 protocol.
+of Ishai, Prabhakaran and Sahai [^IPS08] (full version [^IPS08Full]).
+From now on, will refer to the protocol in [^IPS08Full] as IPS08 protocol.
 
 #### Bird's eye view of IPS08 protocol
 
@@ -142,6 +142,10 @@ To see this, notice that the $\textsf{OT}$ transcript that the
     on Oblivious Transfer –
     Efficiently](https://link.springer.com/chapter/10.1007/978-3-540-85174-5_32){:target="_blank"},"
     in Crypto 2008.
+
+[^IPS08Full]: Y. Ishai, M. Prabhakaran and A. Sahai, "[Founding Cryptography
+    on Oblivious Transfer –
+    Efficiently](https://www.cse.iitb.ac.in/~mp/pub/mpc-ot.pdf){:target="_blank"}," 2010 full version, IIT Bombay.
 
 [^GKMRV]: Y. Gertner, S. Kannan, T. Malkin, O. Reingold and  M.
     Viswanathan, "[The relationship between public key encryption and
