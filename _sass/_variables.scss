@@ -1,0 +1,47 @@
+@use "sass:color";
+
+$base-font-family: "PT Serif", Georgia, "Times New Roman", Times, serif, sans-serif;
+$base-font-size: 18px;
+$small-font-size: $base-font-size * 0.875;
+$base-line-height: 1.5;
+
+$spacing-unit: 30px;
+
+$text-color: #111;
+$background-color: snow;
+$brand-color: #2a7ae2;
+
+$grey-color: #828282;
+$grey-color-light: color.adjust($grey-color, $lightness: 40%);
+$grey-color-dark: color.adjust($grey-color, $lightness: -25%);
+
+$on-palm: 600px;
+$on-laptop: 1200px;
+
+$navy-blue-color: #000080;
+$navy-blue-color-light: #3333ff;
+$navy-blue-color-super-light: color.adjust($navy-blue-color-light, $lightness: 5%);
+
+$green-color: #006030;
+$green-color-light: color.adjust($green-color, $lightness: 10%);
+$green-color-super-light: color.adjust($green-color-light, $lightness: 10%);
+$blockquote-color: #0808f8;
+
+$site-title-color: #0808f8;
+$section-title-color: #0808f8;
+$site-title-font: "PT Serif";
+$section-title-font: "PT Serif";
+
+@mixin media-query($device) {
+    @media screen and (max-width: $device) {
+        @content;
+    }
+}
+
+@mixin clearfix {
+    &:after {
+        content: "";
+        display: table;
+        clear: both;
+    }
+}
