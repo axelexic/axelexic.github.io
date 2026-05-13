@@ -10,3 +10,13 @@ encoding: utf-8
 
 # Build settings
 markdown: kramdown
+kramdown:
+  input: Kramdown
+  math_engine: mathjax
+  syntax_highlighter: rouge
+
+plugins:
+  - jekyll-last-modified-at
+
+last-modified-at:
+    date-format: '%d-%b-%Y'
