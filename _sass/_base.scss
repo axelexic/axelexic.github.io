@@ -1,3 +1,7 @@
+@use "sass:color";
+@use "sass:math";
+@use "variables" as *;
+
 /**
  * Reset some basic elements
  */
@@ -65,7 +69,7 @@ h1, h2, h3, h4, h5, h6,
 p, blockquote, pre,
 ul, ol, dl, figure,
 %vertical-rhythm {
-    margin-bottom: $spacing-unit / 2;
+    margin-bottom: math.div($spacing-unit, 2);
 }
 
 
@@ -117,8 +121,8 @@ h5, h6 {
 }
 
 article > hr  {
-    margin-top: -5*$spacing-unit/8;
-    margin-bottom: $spacing-unit/2;
+    margin-top: math.div(-5 * $spacing-unit, 8);
+    margin-bottom: math.div($spacing-unit, 2);
     height: 0.5px;
     border: none;
     background-color: $blockquote-color;
@@ -133,7 +137,7 @@ a {
     text-decoration: none;
 
     &:visited {
-        color: darken($brand-color, 15%);
+        color: color.adjust($brand-color, $lightness: -15%);
     }
 
     &:hover {
@@ -149,10 +153,10 @@ a {
  */
 blockquote {
     border-left: 4px solid $blockquote-color;
-    padding-left: $spacing-unit / 2;
-    padding-right: $spacing-unit / 2;
-    padding-top: $spacing-unit / 4;
-    padding-bottom: $spacing-unit / 4;
+    padding-left: math.div($spacing-unit, 2);
+    padding-right: math.div($spacing-unit, 2);
+    padding-top: math.div($spacing-unit, 4);
+    padding-bottom: math.div($spacing-unit, 4);
     color: black;
     background-color: color-mix(in oklab, $background-color 96%, black );
     > :last-child {
@@ -202,28 +206,14 @@ pre {
     margin-left: 60;
     padding-right: $spacing-unit;
     padding-left: $spacing-unit;
-    @extend %clearfix;
 
     @include media-query($on-laptop) {
         max-width: -webkit-calc(1200px - (#{$spacing-unit}));
         max-width:         calc(1200px - (#{$spacing-unit}));
-        padding-right: $spacing-unit / 2;
-        padding-left: $spacing-unit / 2;
+        padding-right: math.div($spacing-unit, 2);
+        padding-left: math.div($spacing-unit, 2);
     }
-}
-
-
-
-/**
- * Clearfix
- */
-%clearfix {
-
-    &:after {
-        content: "";
-        display: table;
-        clear: both;
-    }
+    @include clearfix;
 }
 
 
