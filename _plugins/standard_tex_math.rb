@@ -9,7 +9,7 @@ module StandardTexMath
     masked, math = mask_standard_tex_math(content)
     html = super(masked)
     math.each_with_index do |source, index|
-      html = html.gsub(format(TOKEN, index: index), CGI.escapeHTML(source))
+      html = html.gsub(format(TOKEN, index: index)) { CGI.escapeHTML(source) }
     end
     html
   end

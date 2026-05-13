@@ -259,6 +259,7 @@ Let $\mathbb{G}$ be a cyclic group of order $\ell$. Let $a,b,c \xleftarrow{\$} \
 Assuming semi-honest adversary, the following scheme use DDH assumption to build a $2 \choose 1$ OT scheme where the two message can be arbitrary group elements.
 
 **Setup**:
+
 >
 > Based on the security parameter $\lambda$ the $\textsf{OT}$ sender Alice ($\mathbb{A}$) and Bob ($\mathbb{B}$) agree upon:
 >    1. An appropriate cyclic group $\mathbb{G}$ of _prime_ order $\ell$ such that DDH assumption holds with $2^{-\lambda}$ distinguishing probability
