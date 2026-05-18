@@ -67,7 +67,7 @@ body {
     font-family: $base-font-family;
     font-size: $base-font-size;
     line-height: $base-line-height;
-    font-weight: 300;
+    font-weight: 400;
     color: $text-color;
     background-color: $background-color;
     -webkit-text-size-adjust: 100%;
@@ -100,15 +100,30 @@ img {
 /**
  * Figures
  */
+
+figure {
+    text-align: center;
+}
+
 figure > img {
     display: block;
+    margin-left: auto;
+    margin-right: auto;
 }
 
-figcaption {
+
+figurecaption {
     font-size: $small-font-size;
+    counter-increment: figure_counter;
+    color: $blockquote-color;
+    font-weight: bold;
 }
 
-
+figurecaption::before {
+  content: "Fig. " counter(figure_counter) ": ";
+  color: $blockquote-color;
+  font-weight: bolder;
+}
 
 /**
  * Lists
@@ -209,6 +224,41 @@ pre {
     }
 }
 
+
+.footnotes {
+    display: block;
+    font-size: medium;
+    padding-top: 20px;
+    margin:20px;
+    border-top: 1px dotted $blockquote-color;
+}
+
+sup[role="doc-noteref"] {
+    vertical-align: inherit;
+    font-size: inherit;
+}
+
+sup[role="doc-noteref"]::before {
+    content: "[";
+}
+
+sup[role="doc-noteref"]::after {
+    content: "]";
+}
+
+sup[role="doc-noteref"] > a {
+    color: magenta;
+    text-decoration: none;
+
+    &:visited {
+        color: magenta;
+    }
+
+    &:hover {
+        color: $text-color;
+        text-decoration: underline;
+    }
+}
 
 
 /**
