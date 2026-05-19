@@ -19,7 +19,7 @@
 	--rawblock-edit-panel-bd: #e5e5e5;
 
 	--select-text-bg-color: rgba(32, 43, 51, 0.63);
-  --select-text-font-color: white;
+    --select-text-font-color: white;
 }
 
 pre {
@@ -186,7 +186,7 @@ blockquote {
     padding-top: math.div($spacing-unit, 4);
     padding-bottom: math.div($spacing-unit, 4);
     color: black;
-    background-color: color-mix(in oklab, $background-color 96%, black );
+    background-color: $blockquote-background-color;
     > :last-child {
         margin-bottom: 0;
     }
@@ -330,5 +330,33 @@ mjx-container[display="true"] {
         path {
             fill: $grey-color;
         }
+    }
+}
+
+@media print {
+    body {
+        font-size: 10pt;
+    }
+
+    h1,
+    h1.post-title,
+    h1.page-heading,
+    .post-content h1 {
+        font-size: 18pt;
+    }
+
+    h2,
+    .post-content h2,
+    h2 .post-link {
+        font-size: 14pt;
+    }
+
+    h3,
+    h4,
+    h5,
+    body .post-content h3,
+    body .post-content h4,
+    body .post-content h5 {
+        font-size: 12pt;
     }
 }

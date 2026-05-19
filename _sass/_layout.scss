@@ -11,19 +11,19 @@
 
     // Positioning context for the mobile navigation icon
     position: relative;
+    background-color: cornsilk;
 }
 
 .site-title {
     color: $site-title-color;
-    font-family : "PT Serif", helvetica, serif, ariel, sans-serif;
+    font-family : $site-title-font;
     font-size: 42px;
     line-height: 56px;
     letter-spacing: -1px;
     margin-bottom: 0;
     float: left;
-    &,
-    &:visited {
-        color: $grey-color-dark;
+    &, &:visited {
+        color: $site-title-color /* $grey-color-dark */;
     }
 }
 
@@ -203,7 +203,7 @@
 }
 
 .post-title {
-    font-family : helvetica, serif, ariel, sans-serif;
+    font-family : helvetica, "PT Serif", serif, ariel, sans-serif;
     color       : $section-title-color;
     font-size   : 36px;
     letter-spacing: -1px;

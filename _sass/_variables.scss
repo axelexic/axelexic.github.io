@@ -26,11 +26,12 @@ $green-color: #006030;
 $green-color-light: color.adjust($green-color, $lightness: 10%);
 $green-color-super-light: color.adjust($green-color-light, $lightness: 10%);
 $blockquote-color: #0808f8;
+$blockquote-background-color: color-mix(in oklab, snow 96%, black);
 
 $site-title-color: #0808f8;
 $section-title-color: #0808f8;
-$site-title-font: "PT Serif";
-$section-title-font: "PT Serif";
+$site-title-font:  "PT Serif", "Helvetica", serif, ariel, sans-serif;
+$section-title-font: "PT Serif", "Helvetica", serif, ariel, sans-serif;
 
 @mixin media-query($device) {
     @media screen and (max-width: $device) {
