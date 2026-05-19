@@ -216,7 +216,7 @@ Suppose there exists such an information theoretically secure $2\textsf{pc}_\wed
 >
 > **<u>Claim</u>**: $\mathbb{T}(0,0) = \mathbb{T}(1,0)$
 >
-> Proof: First note that the output of $2\textsf{pc}_\wedge(a;\;b)$ is the same when either $a=0$ or $b = 0$. We will show that if $\mathbb{T}(0,0) \neq \mathbb{T}(1,0)$ then it will lead to the breach of perfect privacy assumption.
+> **<u>Proof</u>**: First note that the output of $2\textsf{pc}_\wedge(a;\;b)$ is the same when either $a=0$ or $b = 0$. We will show that if $\mathbb{T}(0,0) \neq \mathbb{T}(1,0)$ then it will lead to the breach of perfect privacy assumption.
 >
 > Let's suppose that $\mathbb{T}(0,0) \neq \mathbb{T}(1,0)$. That means, there must exist at least one transcript $\gamma$ that is present in $\mathbb{T}(0,0)$ but not in $\mathbb{T}(1,0)$ (or vice versa). Let $r_\gamma := (r_\textsf{Alice}^\gamma,r_\textsf{Bob}^\gamma)$ be the private randomness that was used to generate transcript $\gamma$. Since the protocol must terminate in finite number of steps, the length of $r_\gamma$ is finite. That means, a computationally unbounded adversary can enumerate all possible bit strings of length $ \mid r_\gamma \mid $ and run the protocol on $(a,b) := (0,0)$ and $(a,b) := (1,0)$ and find out whether $\gamma$ corresponds to $(a=0) \wedge (b=0)$ or $(a=1) \wedge (b=0).$ In other words, based on $\gamma$ alone, the adversary can find out if $a=0$ of $a=1$ with non-zero probability. This, however, is a breach of _perfect privacy assumption_, therefore $\mathbb{T}(0,0) = \mathbb{T}(1,0)$.
 >
