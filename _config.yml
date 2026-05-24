@@ -36,3 +36,6 @@ plugins:
 
 last-modified-at:
     date-format: '%d-%b-%Y'
+
+sass:
+  style: compressed
