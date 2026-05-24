@@ -1,9 +1,8 @@
 ---
 layout: post
-title: Hard Lattice problems and the labyrinth of their reductions
+title: Lattices of Cryptography -- Basic Results
 date: 2020-06-08
 tags: [Lattice, Lattice Based Cryptography, Post-quantum Cryptography]
-last_modified: 2026-3-11
 ---
 
 A lattice $\mathcal{L}$ is a _discrete_ additive subgroup of $\mathbb{R}^n$. That means
