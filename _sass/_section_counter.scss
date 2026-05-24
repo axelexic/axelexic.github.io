@@ -3,7 +3,8 @@ body {
 }
 
 .post-content h2 {
-    counter-reset: subsection_counter 0 statement_counter 0;
+    counter-reset: subsection_counter 0;
+    counter-set: statement_counter 0;
 }
 
 

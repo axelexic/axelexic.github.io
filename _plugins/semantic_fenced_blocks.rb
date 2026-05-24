@@ -7,7 +7,7 @@ module SemanticFencedBlocks
     "algorithm" => "Algorithm",
     "assumption" => "Assumption",
     "claim" => "Claim",
-    "construction" => "Construction",
+    "reduction" => "Reduction",
     "corollary" => "Corollary",
     "definition" => "Definition",
     "example" => "Example",
@@ -21,7 +21,7 @@ module SemanticFencedBlocks
     "theorem" => "Theorem"
   }.freeze
 
-  UNNUMBERED_TYPES = %w[note proof].freeze
+  UNNUMBERED_TYPES = %w[claim note proof].freeze
 
   def convert(content)
     super(rewrite_semantic_fences(content))
