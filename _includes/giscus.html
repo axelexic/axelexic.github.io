@@ -1,0 +1,44 @@
+{% assign giscus = site.giscus %}
+{% unless page.comments == false %}
+  {% if giscus.enabled %}
+    {% assign repo = giscus.repo | default: "" %}
+    {% assign repo_id = giscus.repo_id | default: "" %}
+    {% assign category = giscus.category | default: "" %}
+    {% assign category_id = giscus.category_id | default: "" %}
+    {% if repo != "" and repo_id != "" and category != "" and category_id != "" %}
+      <section class="post-comments" aria-labelledby="comments-title">
+        <h2 class="post-comments-title" id="comments-title">Comments</h2>
+        <div class="giscus"></div>
+        {% comment %}
+          GitHub Discussions renders Markdown math inside the giscus iframe, so
+          commenters can use GitHub's LaTeX syntax in their comments.
+        {% endcomment %}
+        <script
+          src="https://giscus.app/client.js"
+          data-repo="{{ repo | escape }}"
+          data-repo-id="{{ repo_id | escape }}"
+          data-category="{{ category | escape }}"
+          data-category-id="{{ category_id | escape }}"
+          data-mapping="{{ giscus.mapping | default: 'pathname' | escape }}"
+          data-strict="{{ giscus.strict | default: '0' | escape }}"
+          data-reactions-enabled="{{ giscus.reactions_enabled | default: '1' | escape }}"
+          data-emit-metadata="{{ giscus.emit_metadata | default: '0' | escape }}"
+          data-input-position="{{ giscus.input_position | default: 'bottom' | escape }}"
+          data-theme="{{ giscus.theme | default: 'light' | escape }}"
+          data-lang="{{ giscus.lang | default: 'en' | escape }}"
+          data-loading="{{ giscus.loading | default: 'lazy' | escape }}"
+          crossorigin="anonymous"
+          async
+        ></script>
+      </section>
+    {% elsif jekyll.environment != "production" %}
+      <section class="post-comments post-comments-missing" aria-labelledby="comments-title">
+        <h2 class="post-comments-title" id="comments-title">Comments</h2>
+        <p>
+          Giscus comments are enabled, but the embed is waiting for a
+          <code>giscus.category_id</code> value in <code>_config.yml</code>.
+        </p>
+      </section>
+    {% endif %}
+  {% endif %}
+{% endunless %}

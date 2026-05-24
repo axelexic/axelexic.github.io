@@ -249,3 +249,30 @@
         }
     }
 }
+
+.post-comments {
+    border-top: 1px solid $grey-color-light;
+    margin-top: $spacing-unit;
+    padding-top: math.div($spacing-unit, 2);
+}
+
+.post-comments-title {
+    color: $section-title-color;
+    font-family: $section-title-font;
+    font-size: 28px;
+    line-height: 1.2;
+    margin-bottom: math.div($spacing-unit, 2);
+}
+
+.post-comments-missing {
+    color: $grey-color-dark;
+
+    code {
+        color: $text-color;
+    }
+}
+
+.giscus,
+.giscus-frame {
+    width: 75%;
+}
