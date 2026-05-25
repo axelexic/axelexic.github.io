@@ -1,0 +1,32 @@
+  <script>
+    MathJax = {
+      tex: {
+        inlineMath: { "[+]": [["$", "$"]] },
+        displayMath: [
+          ["$$", "$$"],
+          ["\\[", "\\]"],
+        ],
+        processEscapes: true,
+        processEnvironments: true,
+        processRefs: true,
+        macros : {
+            ZZ : "{\\mathbb{Z}}",
+            QQ : "{\\mathbb{Q}}",
+            RR : "{\\mathbb{R}}",
+            CC : "{\\mathbb{C}}",
+            Mat : ['{\\mathbf{#1}}', 1]
+        }
+      },
+      output: {
+        mtextInheritFont: true,
+        merrorInheritFont: true,
+      },
+      svg: {
+        fontCache: "global",
+      },
+    };
+  </script>
+  <script
+    defer
+    src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-svg.js"
+  ></script>
