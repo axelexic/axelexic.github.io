@@ -65,9 +65,13 @@ module SemanticFencedBlocks
       end
 
       output.concat(
+<<<<<<< HEAD
         if block_type == "aside"
           render_aside_block(indent, info, body, seen_ids, fallback_counts)
         elsif block_type == "mathjax"
+=======
+        if block_type == "mathjax"
+>>>>>>> 1fb28b0 (Add mathjax marker)
           render_mathjax_block(indent, body)
         else
           render_semantic_block(indent, block_type, info, body, seen_ids, fallback_counts)
@@ -123,6 +127,7 @@ module SemanticFencedBlocks
     ]
   end
 
+<<<<<<< HEAD
   def render_aside_block(indent, info, body, seen_ids, fallback_counts)
     metadata = parse_info(info)
     title = metadata.fetch(:title)
@@ -142,6 +147,8 @@ module SemanticFencedBlocks
     ]
   end
 
+=======
+>>>>>>> 1fb28b0 (Add mathjax marker)
   def parse_info(info)
     stripped = info.to_s.strip
     explicit_id = nil
