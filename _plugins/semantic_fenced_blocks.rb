@@ -50,7 +50,7 @@ module SemanticFencedBlocks
       indent, fence, block_type, info = opening_match.captures
       block_type = block_type.downcase
 
-      unless block_type == "mathjax" || BLOCK_TYPES.key?(block_type)
+      unless %w[aside mathjax].include?(block_type) || BLOCK_TYPES.key?(block_type)
         output << lines[index]
         index += 1
         next
@@ -65,7 +65,9 @@ module SemanticFencedBlocks
       end
 
       output.concat(
-        if block_type == "mathjax"
+        if block_type == "aside"
+          render_aside_block(indent, info, body, seen_ids, fallback_counts)
+        elsif block_type == "mathjax"
           render_mathjax_block(indent, body)
         else
           render_semantic_block(indent, block_type, info, body, seen_ids, fallback_counts)
@@ -118,6 +120,25 @@ module SemanticFencedBlocks
       "#{indent}<div id=\"mathjax-macros\" style=\"display: none;\">\n",
       *escaped_body,
       "#{indent}</div>\n"
+    ]
+  end
+
+  def render_aside_block(indent, info, body, seen_ids, fallback_counts)
+    metadata = parse_info(info)
+    title = metadata.fetch(:title)
+    aside_id = section_id_for(metadata.fetch(:id), "aside", title, seen_ids, fallback_counts)
+    anchor_label = title.empty? ? "Aside" : title
+    title_markup = title.empty? ? "" : "<span class=\"semantic-block-title-text\">(#{CGI.escapeHTML(title)})</span>"
+
+    [
+      "#{indent}<aside id=\"#{CGI.escapeHTML(aside_id)}\" class=\"semantic-block aside unnumbered\" markdown=\"block\">\n",
+      "#{indent}<details class=\"semantic-block-details\" markdown=\"block\">\n",
+      "#{indent}<summary class=\"semantic-block-title\"><a class=\"semantic-block-anchor\" href=\"##{CGI.escapeHTML(aside_id)}\" aria-label=\"Link to #{CGI.escapeHTML(anchor_label)}\"></a>#{title_markup}</summary>\n",
+      "\n",
+      *body,
+      "\n",
+      "#{indent}</details>\n",
+      "#{indent}</aside>\n"
     ]
   end
 

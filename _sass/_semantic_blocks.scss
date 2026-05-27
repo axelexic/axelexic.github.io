@@ -36,6 +36,18 @@
     margin-bottom: 20px;
 }
 
+.post-content .semantic-block-details {
+    margin: 0;
+
+    > :last-child {
+        margin-bottom: 0;
+    }
+}
+
+.post-content .semantic-block-details > summary {
+    cursor: pointer;
+}
+
 
 .post-content .semantic-block-anchor {
     position: absolute;
@@ -113,6 +125,10 @@
 
 .post-content .algorithm > .semantic-block-title::before {
     content: "Algorithm " counter(section_counter) "." counter(statement_counter) ".";
+}
+
+.post-content .aside > .semantic-block-details > .semantic-block-title::before {
+    content: "Aside:";
 }
 
 .post-content .assumption > .semantic-block-title::before {
@@ -199,6 +215,10 @@
 .post-content .remark {
     border-left-color: #9a6b00;
     background-color: color-mix(in oklab, #{$background-color} 93%, #9a6b00);
+}
+
+.post-content .aside {
+    border-left-color: $grey-color;
 }
 
 .post-content .proof {
