@@ -360,3 +360,8 @@ mjx-container[display="true"] {
         font-size: 12pt;
     }
 }
+
+/** MathJax **/
+.MJX-TEX, .MJX-TEX * {
+  font-family: "PT Serif", serif !important;
+}
