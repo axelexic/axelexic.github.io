@@ -14,6 +14,13 @@ tags: [Lattice, Lattice Based Cryptography, Post-quantum Cryptography]
 \]
 ```
 
+
+<figure id="LatticeBasicFigure">
+<img src="/Diagrams/2020-06-08/LatticeBasic.svg" style="width : 40vw;min-width: 300px;"/>
+<figurecaption>Same lattice with different bases and distinctly shaped parallelepiped.</figurecaption>
+</figure>
+
+
 ## Basic Definitions
 <hr/>
 
@@ -23,7 +30,7 @@ $\RR^n$. This means
 1. $\L$ inherits the additive group structure of $\RR^n$,
 2. $\L$ is equipped with a notion of distance (typically
   $\ell_2$ norm), and
-3. There exits a _fixed non-zero radius_ $\epsilon$, such that around
+3. There exits a _fixed non-zero radius_ $\epsilon$ (see [Fig. 1](#LatticeBasicFigure)), such that around
    every lattice point $\vec{x} \in \L$, the (open) ball
 
    $$S_\epsilon(\vec{x}) := \left \lbrace y \in \RR^n \; :\; \norm{x -
@@ -111,11 +118,6 @@ $$
 $$
 
 ```
-
-<figure>
-<img id="LatticeBasicFigure" src="/Diagrams/2020-06-08/LatticeBasic.svg"/>
-<figurecaption>Lattice represented with distinct bases $\lbrace\vec{a}_1, \vec{a}_2\rbrace$ and $\lbrace\vec{b}_1, \vec{b}_2\rbrace$. Shaded region represents parallelepiped corresponding to distinct bases.</figurecaption>
-</figure>
 
 
 While $\P(\B)$ depends on the choice of $\B$, when $\P(\B)$ is translated by lattice vectors in $\L$ (regardless of what basis was used for generating $\L$), it _partitions_ and _spans_ $\RR^n$, i.e.,

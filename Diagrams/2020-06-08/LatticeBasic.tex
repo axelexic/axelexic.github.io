@@ -11,10 +11,20 @@
     \coordinate (XAxisMax) at (3,0);
     \coordinate (YAxisMin) at (0,-3);
     \coordinate (YAxisMax) at (0,3);
+    \coordinate (OpenBall) at (-2.8,0.79100652);
+
     \draw [red,-latex] (XAxisMin) -- (XAxisMax);% Draw x axis
     \draw [red,-latex] (YAxisMin) -- (YAxisMax);% Draw y axis
 
     \clip (-7,-3.5) rectangle (3cm,3.5cm); % Clips the picture...
+
+    % Draw the epsilon ball
+        \filldraw[fill=yellow, draw=purple, fill opacity=0.2, dashed, thin] (OpenBall) circle (0.4cm);
+
+        % Draw the arrow from the center to the circumference at 45 degrees
+        \draw[thick, ->] (OpenBall) -- ++(64:0.4cm) node[midway, left, scale=0.8] {$\epsilon$};
+
+
     \pgftransformcm{.7}{-0.2}{0.5}{1}{\pgfpoint{0cm}{0cm}}
         \coordinate (Bone) at (0,2);
         \coordinate (Btwo) at (2,0);
@@ -30,7 +40,8 @@
         }
         }
 
-        \fill[fill=gray, fill opacity=0.3] (Origin)
+
+        \fill[fill=purple, fill opacity=0.1] (Origin)
         rectangle ($ (Bone) + (Btwo)$);
 
         \draw [ultra thick,-latex,blockQuoteColor] (Origin)
@@ -38,7 +49,7 @@
         \draw [ultra thick,-latex,blockQuoteColor] (Origin)
             -- (Btwo) node[midway, below] {$\displaystyle\vec{b}_2$};
 
-        \fill[fill=gray, fill opacity=0.3] (Origin) -- (Aone) -- ($ (Aone) + (Atwo) $) -- (Atwo) -- cycle;
+        \fill[fill=green, fill opacity=0.2] (Origin) -- (Aone) -- ($ (Aone) + (Atwo) $) -- (Atwo) -- cycle;
 
         \draw [ultra thick,-latex,blockQuoteColor] (Origin)
             -- (Aone) node[midway, above] {$\displaystyle\vec{a}_1$};
@@ -48,6 +59,9 @@
         \node[font = {\large}] at ($0.5*(Aone) + 0.5*(Atwo)+ (-.25, -1.25)$) {$\mathcal{P}([\vec{a}_1, \vec{a}_2])$};
 
         \node[font = {\large}] at ($0.5*(Bone) + 0.5*(Btwo)+ (.25, 1.5)$) {$\mathcal{P}([\vec{b}_1, \vec{b}_2])$};
+
+        \node[draw,circle,inner sep=2pt,fill] at (0,0) {};
+
 
   \end{tikzpicture}
 \end{document}
