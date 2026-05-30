@@ -25,6 +25,7 @@
 
 .post-content .semantic-block h6 {
     text-decoration: none;
+    margin-top: 1px;
     margin-bottom: 5px;
     font-variant: normal;
     font-size: 1.1rem;
@@ -94,7 +95,8 @@
 }
 
 .post-content .semantic-block-title {
-    margin-bottom: math.div($spacing-unit, 1.5);
+    margin-top: 0;
+    margin-bottom: math.div($spacing-unit, 4);
     // color: $section-title-color;
     color: $site-title-color /* color-mix(in oklab, darkviolet 70%, black) */ ;
     font-variant: normal;
@@ -188,7 +190,7 @@
 }
 
 .post-content .proof::after {
-    content: "\25A1";
+    content: "\25A0";
     display: block;
     line-height: 1;
     text-align: right;
@@ -224,4 +226,9 @@
 .post-content .proof {
     border-left-color: $grey-color;
     background-color: color-mix(in oklab, #{$background-color} 94%, #{$grey-color});
+}
+
+.post-content .proof .proof-part {
+    margin-left: 40pt;
+    margin-bottom: 1.3rem;
 }
