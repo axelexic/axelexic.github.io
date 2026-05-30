@@ -20,6 +20,8 @@
 
 	--select-text-bg-color: rgba(32, 43, 51, 0.63);
     --select-text-font-color: white;
+    // For mathjax
+    --math-accent: fuchsia;
 }
 
 pre {
@@ -54,7 +56,6 @@ html, body {
 body, h1, h2, h3, h4, h5, h6,
 p, blockquote, pre, hr,
 dl, dd, ol, ul, figure {
-    margin: 0;
     padding: 0;
 }
 
@@ -79,7 +80,7 @@ body {
  */
 h1, h2, h3, h4, h5, h6,
 p, blockquote, pre,
-ul, ol, dl, figure,
+ul, ol, dl,
 %vertical-rhythm {
     margin-bottom: math.div($spacing-unit, 2);
 }
@@ -103,6 +104,10 @@ img {
 
 figure {
     text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 10px;
+    margin-bottom: 30px;
 }
 
 figure > img {
@@ -361,10 +366,6 @@ mjx-container[display="true"] {
     }
 }
 
-/** MathJax **/
-.MJX-TEX, .MJX-TEX * {
-  font-family: "PT Serif", serif !important;
-}
 
 a[target="_blank"]::after {
   content: "";
@@ -379,4 +380,13 @@ a[target="_blank"]::after {
   background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>');
   background-size: contain;
   background-repeat: no-repeat;
+}
+
+/** MathJax **/
+.MJX-TEX, .MJX-TEX * {
+  font-family: "PT Serif", serif !important;
+}
+
+mjx-container .math-accent {
+  color: var(--math-accent);
 }
