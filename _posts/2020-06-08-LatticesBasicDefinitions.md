@@ -10,127 +10,390 @@ tags: [Lattice, Lattice Based Cryptography, Post-quantum Cryptography]
 \[
   \newcommand{\L}{\mathcal{L}}
   \newcommand{\P}{\mathcal{P}}
+  \newcommand{\hatP}{\widehat{\mathcal{P}}}
+  \newcommand{\A}{\mathbf{A}}
   \newcommand{\B}{\mathbf{B}}
+  \newcommand{\C}{\mathbf{C}}
+  \newcommand{\U}{\mathbf{U}}
+  \newcommand{\V}{\mathbf{V}}
+  \newcommand{\I}{\mathbf{I}}
+  \newcommand{\vol}{\operatorname{covol}}
 \]
 ```
 
+This post is a grab bag of basic definitions and elementary results
+related to unstructured lattices.
 
-<figure id="LatticeBasicFigure">
-<img src="/Diagrams/2020-06-08/LatticeBasic.svg" style="width : 40vw;min-width: 300px;"/>
-<figurecaption>Same lattice with different bases and distinctly shaped parallelepiped.</figurecaption>
-</figure>
-
-
-## Basic Definitions
+## Basis Independent Characterization
 <hr/>
 
-A lattice $\L$ is a _discrete_ additive subgroup of
-$\RR^n$. This means
+A lattice $\L$ is a _discrete_ additive subgroup of $\RR^n$, that is,
 
-1. $\L$ inherits the additive group structure of $\RR^n$,
-2. $\L$ is equipped with a notion of distance (typically
-  $\ell_2$ norm), and
-3. There exits a _fixed non-zero radius_ $\epsilon$ (see [Fig. 1](#LatticeBasicFigure)), such that around
-   every lattice point $\vec{x} \in \L$, the (open) ball
+  1. $\L$ inherits the additive group structure of $\RR^n$,
+  2. $\L$ is equipped with a notion of size (e.g., Lebesgue measure) and
+     a notion of distance (typically $\ell_2$ norm), and
+  3. there exits a _fixed non-zero radius_ $\epsilon$ (see [Fig.
+     1](#LatticeBasicFigure)), such that around every lattice point
+     $\vec{x} \in \L$, the (open) ball
+     $$S_\epsilon(\vec{x}) := \left \lbrace y \in \RR^n \; :\; \norm{x - y} < \epsilon \right \rbrace$$
+     contains no _other_ elements of $\L$, i.e.,
+     $$\begin{equation}
+     \exists \epsilon > 0,\; \forall \vec{x} \in \L:\quad S_\epsilon(\vec{x}) \cap \L = \{ \vec{x} \}.
+     \label{basis-free-defn}
+     \end{equation}
+     $$
 
-   $$S_\epsilon(\vec{x}) := \left \lbrace y \in \RR^n \; :\; \norm{x -
-   y} < \epsilon \right \rbrace$$
+```Note
+Lattices can be defined more broadly as finitely generated modules over
+an integral domain embedded into a vector space over its fraction field,
+but for the purposes of this post, the above limited definition is
+sufficient. Full generality comes with extra full complexity, which does
+not always aid understanding.
+```
 
-   contains no _other_ elements of $\L$, i.e.,
+Since $\L$ is an additive subgroup of $\RR^n$, translations of $\L$ by
+an arbitrary vector $\vec{v} \in \RR^n$ forms the usual equivalence
+class of cosets defined by $$[\vec{v}] := \vec{v} + \L = \left \lbrace
+\vec{v} + \vec{x}\;:\; \vec{x} \in \L \right \rbrace \in \RR^n/\L.$$
 
-   $$\begin{equation}
-   \exists \epsilon > 0,\; \forall \vec{x} \in \L:\quad S_\epsilon(\vec{x}) \cap \L = \{ \vec{x} \}.
-   \label{basis-free-defn}
-   \end{equation}
-   $$
+It's worth emphasizing that a coset is a set, and two vectors $\vec{x},
+\vec{y} \in \RR^n$ are elements of the same coset, if and only if
+$\vec{x} - \vec{y} \in \L.$ Any set $\hatP \subset \RR^n$ that contains
+exactly one representative element $\vec{v}$ _from each coset_
+$[\vec{v}] \in \RR^n/\L $ is called a **strict fundamental domain** of
+$\L$, and is defined as $$ \begin{equation} \hatP := \bigcup_{[\vec{v}]
+  \;\in\;\RR^n/\L} \vec{v}. \label{eq:strict-fundamental-domain}
+\end{equation}$$
 
-The above definition is _basis independent_ and ideal for
-exploring algebraic and topological properties of lattices.
-However, it's not very useful for computational purposes.
-For that, the following _basis dependent_ definition is more
-suitable. (Theorem
-[1.4](#thm-discrete-subgroup-defn-equivalence) states and
-proves the equivalence.)
+Since the choice of representative $\vec{v} \in [\vec{v}]$ is arbitrary,
+$\hatP$ is not uniquely determined. However, since $\RR^n/\L$ partitions
+$\RR^n$ into its cosets, $\hatP$ tiles $\RR^n$ _without overlap_, i.e.,
+$$\begin{aligned}\bigcup_{\vec{x} \in \L} \left (\hatP + \vec{x}\right) &= \RR^n \quad \text{and }\\
+\forall\, \vec{x}, \vec{y} \in \L,\;\vec{x} \neq \vec{y}:\quad \left (\hatP + \vec{x}\right) \bigcap \left(\hatP + \vec{y}\right) &= \emptyset. \end{aligned}$$
+
+The **covolume** (sometimes also called **volume**) is the volume of any
+of its strict fundamental domains (i.e., a measure of its size). For any
+translation invariant measure, like the Lebesgue measure, the covolume
+is independent of the choice of representatives in $\hatP$.
+
+## Basis Dependent Characterization
+<hr/>
+
+The characterization of a lattice so far has been entirely _basis
+independent_. This is ideal for exploring algebraic and topological
+properties of lattices, however, it's not very useful for computational
+purposes. For that, the following _basis dependent_ characterization is
+more suitable.
 
 
 ```Definition [Lattice with basis] {#lattice-definition}
 
-A lattice $\L$ of _rank_ $m$ and _dimension_ $n$ is the set of _all possible_ **integer linear combination** of $m$ _linearly independent_
-(over $\RR$) vectors $\vec{b}_1, \cdots, \vec{b}_m \in \RR^n$ (where $m \leq n$), i.e.,
+A lattice $\L$ of _rank_ $m$ and _dimension_ $n$ is the set of _all
+possible_ **integer linear combinations** of $m$ _linearly independent_
+(over $\RR$) vectors $\vec{b}_1, \cdots, \vec{b}_m \in \RR^n$ (where $m
+\leq n$), i.e.,
 
 $$\begin{equation}
-\L := \left\{ z_1\vec{b}_1 + \cdots + z_m\vec{b}_m \;:\; z_i \in \ZZ  \right \} \subseteq \RR^n.
+\L := \left\{ z_1\vec{b}_1 + \cdots + z_m\vec{b}_m \;:\; z_i \in \ZZ \right \} \subseteq \RR^n.
 \label{with-basis-defn}
 \end{equation}
 $$
 
-Since $\lbrace \vec{b}_i \rbrace$s are assumed to be linearly independent, its convenient to treat them as _basis vectors_ of $\L$ and represent them as a matrix
-$$\B := \begin{pmatrix} \vert & & \vert \\ \vec{a}_1  & \cdots & \vec{a}_m \\ \vert & & \vert\end{pmatrix} \in \RR^{n\times m}.$$
+Since $\lbrace \vec{b}_i \rbrace$s are assumed to be linearly
+independent, its convenient to treat them as _basis vectors_ of $\L$ and
+represent them as columns of a matrix $$\B := \begin{pmatrix} \vert & &
+\vert \\ \vec{a}_1  & \cdots & \vec{a}_m \\ \vert & & \vert\end{pmatrix}
+\in \RR^{n\times m}.$$
 
-We use the notation $\L(\B)$ to emphasize that $\L$ is generated by $\B$, and use **$\ZZ$-span of $\B$** to emphasize its linear algebraic properties. In summary:
+We use the notation $\L(\B)$ to emphasize that $\L$ is generated by
+$\B$, and use **$\ZZ$-span of $\B$** to emphasize its linear algebraic
+properties. In summary:
 
 $$\L(\B) = \ZZ{-}\textsf{span}(\B) =  \B\cdot\ZZ^m := \left\{ z_1\vec{b}_1 + \cdots + z_m\vec{b}_m \;:\; z_i \in \ZZ  \right \}.$$
 ```
-
-For the basis-free definition to be equivalent to the
-basis-dependent definition it's crucial that $\lbrace
-b_i\rbrace$s are linearly independent over $\RR$ and not
-just $\ZZ$. That is, not every [_free_
-$\ZZ$-module](https://en.wikipedia.org/wiki/Free_module){:target="_blank"}
-of $\RR$ is a lattice --- the geometry is important.
-
-To see why, consider the set $\lbrace 1, \sqrt{2}\rbrace$. This set is
-linearly independent over $\ZZ$ because $$\forall \alpha, \beta \in
-\ZZ:\quad \alpha + \beta\cdot\sqrt{2} = 0 \iff \alpha = \beta = 0.$$
-
-On the other hand, _for all_ $\epsilon > 0$, there exists $\gamma,
-\delta \in \ZZ$ such that $$ 0 < |(\gamma + \delta\cdot\sqrt{2}) - (\alpha +
-\beta\cdot\sqrt{2})| < \epsilon.$$ One can prove this using [Dirichlet’s
-approximation
-theorem](https://en.wikipedia.org/wiki/Dirichlet%27s_approximation_theorem){:target="_blank"}.
-Therefore, even though $\lbrace 1, \sqrt{2}\rbrace$ is linearly
- independent over $\ZZ$, it does not generate a lattice in $\RR$.
 
 A few additional definitions are listed below, which should largely be familiar to most readers:
 
 ```Definition {#basic-defn}
 
-<span class="highlight">Dimension</span>: The dimension of $\L$ is the dimension of the ambient vector space $\RR^n$, which is $n$.
+<span class="highlight">Dimension</span>: The dimension of $\L$ is the
+dimension of the ambient vector space $\RR^n$, which is $n$.
 
-<span class="highlight">Rank</span>: The rank of $\L$ is the rank of **free $\ZZ$-module** generated by $\lbrace  \vec{b}_1, \cdots, \vec{b}_m \rbrace$. Since $\L$ is a free $\ZZ$-module, its rank is well defined and independent of choice of a basis. (<span class="highlight">Note</span>: This definition of rank does not assume that the set $\lbrace \vec{b}_i \rbrace$ is linearly independent.)
+<span class="highlight">Rank</span>: Algebraically, a lattice is also a
+[free $\ZZ$-module](https://en.wikipedia.org/wiki/Free_module){:target="_blank"},
+and the rank of $\L$ is defined to be the rank of the corresponding
+free $\ZZ$-module. Since the rank of a _free_ module
+is independent of the choice of its basis, rank of $\L$ as a $\ZZ$-module,
+is well defined and _independent of the choice of basis_. When
+a basis $\B \in \RR^{n\times everyis -th columnexplicitly given, the rank of $\L(\B)$ is the
+number of linearly independent columns of $\B.$
 
-<span class="highlight">Full Rank Lattice</span>: A lattice is full rank if it's rank is same as it's dimension, i.e., $m = n$.
-
-<span class="highlight">Span</span>: The span of a lattice $\L(\B)$ is the span of $\B$ as a $\RR$-vector space, i.e.,
-$$ \textsf{span}(\L(\B)) := \textsf{span}(\B) = \left \lbrace \B\cdot\vec{y} : y \in \RR^m \right \rbrace$$
+<span class="highlight">Full Rank Lattice</span>: A lattice whose rank
+is same as its dimension (that is, $m=n$) is called a full r"highlight">Span</span>: The span of a lattice $\L(\B)$ is
+the span of $\B$ as a $\RR$-vector space, i.e.,
+$$ \textsf{span}_\RR(\L(\B)) := \textsf{span}_\RR(\B) = \left \lbrace \B\cdot\vec{y} : y \in \RR^m \right \rbrace$$
 
 ```
 
+When do two bases $\B_1$ and $\B_2$ generate the same lattice? The
+following theorem characterizes this precisely:
+
+```Theorem [Basis Equivalence] {#basis-equivalence}
+Let $\B_1, \B_2 \in \RR^{n\times m}$ be two matrices with column rank
+$m \leq n,$ then, $\B_1$ and $\B_2$ generate the same lattice $\L$
+_if and only if_ there exists an integer matrix $\U \in \ZZ^{m\times m}$
+such that $$\B_2 = \B_1\cdot\U\;\text{and}\; \det(\U) = \pm 1.$$
+```
+
+```Proof {#proof-basis-equivalence}
+We first show that if $\L(\B_2) = \L(\B_1)$ then
+$\exists\, \U \in \ZZ^{m\times m}$ such that $\det(U) = 1$ and $\B_2 = \B_1$.
+
+###### ($\Rightarrow$):
+<div class="proof-part">
+  <p>
+  Since $\L(\B_2) = \L(\B_1)$, each column
+  $\lbrace b_1, \cdots, b_m \rbrace$ of $\B_2$ is also an element of $\L(\B_1)$.
+  Therefore, for every $i$-th column of $\B_2$, there exists $\vec{u}_i \in \ZZ^m$, such that
+  $b_i = \B_1\cdot \vec{u}_i$. If we define $\U$ to be the matrix whose
+  columns are $\vec{u}_i$s, then $\U \in \ZZ^{m\times m}$ satisfies the relation:
+  $$\B_2 = \B_1\cdot \U.$$
+
+  By a similar argument, there exists $\V \in \ZZ^{m\times m}$ such that
+  $$\B_1 = \B_2\cdot \V.$$
+
+  Therefore,
+  $$\begin{aligned}
+  \B_2 = (\B_2\cdot \V)\cdot \U  & = \B_2\cdot (\V\cdot \U)  \\ \implies   \B_2\cdot(\I_{m} - \V\cdot \U) &= \vec{0},
+  \end{aligned}
+  $$
+  where $\I_m \in \ZZ^{m\times m}$ is the identity matrix, and
+  $\vec{0} \in \RR^n$ is all zero vector.
+  </p>
+
+  <p>
+  Since columns of $\B_i$s are assumed to be linearly independent,
+  the linear transformation $\vec{z} \mapsto \B_i\cdot{\vec{z}}$ is injective,
+  i.e., $\B_i\cdot \vec{z} = 0 \highlight{\iff} \vec{z} = \vec{0}$.
+  Therefore,
+  $$\B_2\cdot(\I_{m} - \V\cdot \U) = \vec{0} \highlight{\implies} (\I_{m} - \V\cdot \U) = \vec{0} \highlight{\implies} \V\cdot \U = \I_m.$$
+  </p>
+
+  <p>
+  That means, $\U$ and $\V$ are inverses of each other! However, $\U$
+  and $\V$ are both integer matrices, and they can be inverses of
+  each other <em>if and only if</em> $\det(\U) = \det(\V) = \pm 1.$
+  </p>
+</div>
+
+Conversely, if $\U \in \ZZ^{m\times n}$ is such that $\B_2 = \B_1\cdot\U$
+  and $\det(\U) = \pm 1$, then we need to show that $\L(\B_2) = \L(\B_1)$.
+
+###### ($\Leftarrow$):
+<div class="proof-part">
+  <p>
+  Given that $\U$ is an integer matrix, $\U\cdot \ZZ^m \highlight{\subseteq} \ZZ^m$.
+  Therefore, $$\L(\B_2) = \B_2 \cdot \ZZ^m = (\B_1\cdot \U) \cdot \ZZ^m = \B_1 \cdot (\U \cdot \ZZ^m) \highlight{\subseteq} \B_1 \cdot \ZZ^m = \L(\B_1).$$
+  </p>
+
+  <p>Since $\det(\U) =\pm 1$, $\U$ is non-singular and $\U^{-1}$ has
+  <em>integer entries</em> (because $\frac{1}{\det(\U)} = \pm 1$). Therefore,
+  using the relation $\B_1 = \B_2\cdot \U^{-1}$ and arguments similar as
+  before, we get
+  $$\L(\B_1) = \B_1 \cdot \ZZ^m = (\B_2\cdot \U^{-1}) \cdot \ZZ^m = \B_2 \cdot (\U^{-1} \cdot \ZZ^m) \highlight{\subseteq} \B_2 \cdot \ZZ^m = \L(\B_2).$$
+  </p>
+  Since $\L(\B_2) \subseteq \L(\B_1)$ and $\L(\B_1) \subseteq \L(\B_2)$
+  $\implies$ $\L(\B_1) = \L(\B_2).$
+</div>
+```
+
+Integer matrices whose _inverse_ also happen to be an integer matrix
+have a special name:
+
+```Definition [Unimodular Matrix]
+An integer matrix $\U \in \ZZ^{m\times m}$ is called
+ **Unimodular** if $$\det(\U) = \pm 1.$$
+
+Since the determinant of $\U$ is $\pm 1$, and the $(i,j)$-th [cofactor
+entry](https://en.wikipedia.org/wiki/Minor_(linear_algebra)#Inverse_of_a_matrix){:target="_blank"}
+of an integer matrix is always an integer, inverse of $\U$ exists
+and has integer entries, that is, $\U^{-1} \in \ZZ^{m\times m}$.
+Furthermore, if $\U$ and $\V$ are unimodular and have the same dimension,
+then so is $\U\cdot \V$ because $\det(\U\cdot \V) = \det(\U)\det(\V) = \pm 1.$
+
+To summarize, unimodular matrices _form a group_ under usual matrix
+multiplication. This group is called **General Linear Group over Integers**
+and is denoted by $\mathrm{GL}_m(\ZZ).$
+```
+
+```Note
+
+While lattices in general are defined over reals, for computational
+problems, only _integral_ lattices (i.e., lattices where $\mathbf{B} \in
+\ZZ^{n\times m} \subseteq \RR^{n\times m}$) are of cryptographic
+interest. Furthermore, the _number of bits_ needed to represent the
+basis matrix $\B$ is assumed to be a fixed polynomial in $n.$ These
+seemingly artificial restrictions are necessary for understanding the
+asymptotic behavior of lattice problems as a function of its rank.
+```
+
+### Fundamental Parallelepiped
+
+<figure id="LatticeBasicFigure">
+<img src="/Diagrams/2020-06-08/LatticeBasic.svg"
+    style="width : 40vw;min-width: 300px;"/>
+<figurecaption>Same lattice with different bases and distinctly shaped
+parallelepiped.</figurecaption>
+</figure>
+
 Rank and dimension are crude invariants of a lattice. A more
-fundamental invariant is the **volume of a lattice**, which
-requires new definitions:
+fine-grained invariant is the **Fundamental Parallelepiped**
+of a lattice and its covolume, which is defined as follows:
 
 ```Definition [Fundamental Parallelepiped] {#defn-fundamental-parallelepiped}
 
-Given a basis $\B$, the **fundamental parallelepiped** of $\B$ is a region in space that  is enclosed between the basis vectors. More formally,
-$$
-  \P(\B) := \left \lbrace \B\cdot \vec{u}\;:\; \vec{u} \in [0, 1)^m \subseteq \RR^m \right \rbrace.
+Given a basis $\B \in \RR^{n\times m}$, the **fundamental parallelepiped**
+$\P(\B)$ is the set of points in $\RR^n$ that's generated
+by taking _fractional_ linear combination of the basis vectors, i.e.,
+
+$$\begin{equation}
+  \P(\B) := \left \lbrace \B\cdot \vec{u}\;:\; \vec{u} \in \highlight{[0, 1)}^m \subseteq \RR^m \right \rbrace.
+  \label{eq:fundamental-parallelepiped-defn}
+  \end{equation}
 $$
 
+The **covolume** (also called **determinant** or just **volume**) of $\L$ is the _volume_
+of the fundamental parallelepiped $\P(\B)$, which can be computed from the
+[_Gram matrix_](https://en.wikipedia.org/wiki/Gram_matrix){:target="_blank"} $\;\B^\top \B$ as:
+$$\begin{equation}\vol(\L) = \vol(\P(\B)) = \sqrt{\B^\top \B} > 0. \label{eq:volume-of-lattice}\end{equation}$$
+(The basis independent notation $\vol(L)$ is justified because of the [Volume Invariant Lemma](#lattice-volume-invariant) proved later in this document.)
+
+<span class="highlight">Note</span>: If $\vec{x}$ and $\vec{y}$ are
+elements of $\P(\B),$ then
+$$\forall\,\highlight{t}\in [0,1] \subseteq \RR:\; \highlight{t}\cdot \vec{x} + (\highlight{1-t})\cdot \vec{y} \in \P(\B).$$
+Therefore, $\P(\B)$ is a connected convex set.
+```
+
+In [Fig. 1](#LatticeBasicFigure), the region shaded in green is the
+fundamental parallelepiped associated with the basis vectors $\B_1 :=
+\lbrace \vec{a}_1, \vec{a}_2\rbrace.$ Similarly, the region shaded in
+purple is also the fundamental parallelepiped, albeit associated with
+$\B_2 := \lbrace \vec{b}_1, \vec{b}_2\rbrace.$ Even though a lattice is
+independent of the basis, the shape of its fundamental parallelepiped is
+dependent on the choice of its basis.
+
+However, in spite of this superficial difference, the fundamental
+parallelepiped for any basis $\B$ has three remarkable properties:
+
+1. $\P(\B)$ does not contain any _non-zero_ lattice point,
+2. The covolume of a lattice is independent of the choice of the basis, and
+3. $\P(\B)$ is a (connected) **convex** strict fundamental domain,
+   as defined in \eqref{eq:strict-fundamental-domain}.
+
+The next few lemmas make these observations precise.
+
+```Lemma {#parallelepiped-basis-lemma}
+Let $\L$ be a lattice of rank $m$ and let
+$\C := \lbrace \vec{c}_1,\cdots, \vec{c}_m \in \L \rbrace$ be
+$m$ linearly independent elements of $\L.$ ($\C$ will be interpreted
+both as a set and a matrix whose $i$-th column is $c_i$.) Then, $\C$ forms a basis of $\L,$
+_if and only if_ $$\P(\C) \cap \L = \lbrace \vec{0} \rbrace.$$
+
+**<u>Note</u>**: For this lemma to hold, it's crucial that $\vec{c}_i$s
+are _a priori_ known to be elements of $\L.$ If $\C$ is any arbitrary
+linearly independent set in $\RR^n$ that satisfies
+$\P(\C) \cap \L = \lbrace \vec{0} \rbrace$, then such a $\C$ will not
+necessarily form a basis of $\L.$ This substantially reduces the usability
+of this theorem for computational problems.
+```
+
+```Proof
+###### ($\Rightarrow$): If $\C$ is a basis of $\L \highlight{\implies} \P(\B) \cap \L = \lbrace \vec{0}\rbrace.$
+<div class="proof-part">
+  <p> By definition, $\P(\C)$ is the $\RR$-span of columns of $\C$ restricted to
+  the half-open set $[0,1)$. The only integer in this half-open set
+  is $0$, therefore, $$\P(\C) \cap \L = \lbrace \C\cdot \vec{0} \rbrace = \lbrace \vec{0} \rbrace.$$
+  </p>
+</div>
+
+###### ($\Leftarrow$): If $\C \subseteq \L$ and $\P(\C) \cap \L = \lbrace \vec{0} \rbrace \highlight{\implies} \C$ is a basis of $\L.$
+
+<div class="proof-part">
+  <p>
+    Since rank of $\L$ is $m$, and $\vec{c}_1, \dots, \vec{c}_m$ are
+    linearly independent, each lattice vector $\vec{x} \in \L$ can be
+    trivially written as an $\RR$-linear combination of $\vec{c}_i$s,
+    that is:
+    $$\forall\,\vec{x}\in\L,\; \exists\,r_1,\cdots,r_m \in \RR:\quad \vec{x} = r_1\vec{c}_1 + \cdots + r_m\vec{c}_m.$$
+    Since $r_i$s are real, they can be written as the sum of an integral and fractional part as:
+    $$r_i = \floor{r_i} + \fractional{r_i}\quad\text{where }\; \floor{r_i} \in \ZZ\; \text{and }\; \fractional{\vec{r}_i} := \vec{r}_i - \floor{\vec{r}_i} \in [0, 1)^n \subseteq \RR^n,$$
+    then
+    $$\vec{x} = \sum_{i=1}^m (\floor{r_i} + \fractional{r_i})\cdot\vec{c}_i = \sum_{i=1}^m \floor{r_i}\cdot\vec{c}_i + \sum_{i=1}^m \fractional{r_i}\cdot\vec{c}_i$$
+    and
+    $$\begin{equation}\vec{x} - \left ( \sum_{i=1}^m \floor{r_i}\cdot\vec{c}_i \right) = \left ( \sum_{i=1}^m \fractional{r_i}\cdot\vec{c}_i \right ) \in \P(\C).\label{eq:lattice-parallelepiped-thm} \end{equation}$$
+
+    By assumption, each $\vec{c}_i$ is an element of $\L,$ which means
+    $\left ( \vec{x} - \sum_{i=1}^m \floor{r_i}\cdot\vec{c}_i \right) \in \L.$ On the other hand, the
+    right hand side of \eqref{eq:lattice-parallelepiped-thm} is an element
+    of $\P(\C)$. But $\P(\C) \cap \L = \{ \vec{0} \}$, so the equality can only
+    hold if
+    $$\vec{x} - \sum_{i=1}^m \floor{r_i}\cdot\vec{c}_i = \vec{0}.$$
+
+    Therefore, each $r_i$ must be an integer and every $\vec{x}$ can be
+    written as an integer linear combination of columns of $\C.$ In
+    short, $\C$ is a basis of $\L.$
+  </p>
+
+</div>
+```
+
+```Lemma [Volume Invariance] {#lattice-volume-invariant}
+Let $\B_1, \B_2 \in \RR^{n\times m}$ be two different bases for the
+same lattice $\L.$ Then, the volume of $\L$ is independent of the choice
+of the basis. In particular, $$\vol(\L) := \vol(\P(\B_1)) = \vol(\P(\B_2)).$$
+```
+
+```Proof
+Since $\B_1$ and $\B_2$ both generate $\L$, by the
+[Basis Equivalence Theorem](#basis-equivalence), there exists
+$\U \in \ZZ^{m\times m}$ with $\det(U) = 1$ such that $\B_1 = \B_2\U.$
+Therefore,
+$$\det(\B_1^\top\cdot \B_1) = \det(\U^\top\B_2^\top\cdot \B_2\U)= \det(\U^\top)\det(\B_2^\top\cdot \B_2)\det(\U)) = \det(\B_2^\top\cdot \B_2)$$
+and $\vol(\P(\B_1)) = \vol(\P(\B_2)).$
+```
+
+```Lemma {#convexity-lemma}
+Let $\L$ be a lattice generated by a basis $\B$, then the fundamental
+parallelepiped $\P(\B)$ is a maximal (under set inclusion) connected convex
+set such that
+$$\bigsqcup_{\vec{x} \in \L} \vec{x} + \P(\B) = \RR^n.$$
 ```
 
 
-While $\P(\B)$ depends on the choice of $\B$, when $\P(\B)$ is translated by lattice vectors in $\L$ (regardless of what basis was used for generating $\L$), it _partitions_ and _spans_ $\RR^n$, i.e.,
+```Remark
+The fundamental parallelepiped $\P(\B)$ for a lattice generated by $\B$
+is a strict fundamental domain as defined in \eqref{eq:strict-fundamental-domain},
+where the set of representatives are picked from a convex connected set.
+```
 
-$$ \RR^n = \bigcup_{\vec{x} \in \L} \vec{x} + \P(\B)\quad\text{and }\quad\forall \vec{x}, \vec{y} \in \L, \vec{x} \neq \vec{y}:\; [\vec{x} + \P(\B)] \cap [\vec{y} + \P(\B)] = \emptyset.$$ (This fact requires a proof, which is be provided later in the document.)
+## Equivalence of definitions
 
-We first state and prove that the basis dependent and basis independent definitions are equivalent.
+Finally, the following theorem states and proves that the
+basis-dependent and basis-independent definitions of a lattice are
+equivalent:
 
 ```Theorem [$\ZZ$-span of $\lbrace b_1, \cdots, b_m \rbrace$ $\iff$ Discrete Subgroup of $\RR^n$ ] {#thm-discrete-subgroup-defn-equivalence}
 
-A subset $\L \subseteq \RR^n$ is a _discrete_ subgroup of $\RR^n$ if and only if there exist $m$ linearly independent vectors $\B := \lbrace \vec{b}_1, \cdots, \vec{b}_m \rbrace$ (where $0 < m \leq n$) such that $\L$ is the set of _all_ integer linear combinations of $\vec{b}_i$s.
+A subset $\L \subseteq \RR^n$ is a _discrete_ subgroup of $\RR^n$ if
+and only if there exist $m$ linearly independent vectors
+$\B := \lbrace \vec{b}_1, \cdots, \vec{b}_m \rbrace$
+(where $0 < m \leq n$) such that $\L$ is the set of _all_ integer
+linear combinations of $\vec{b}_i$s.
 
-Recall that a set $\L \subseteq \RR^n$ is _discrete_ if there exists a ball $S_\epsilon(\vec{x}) \in \RR^n$ of radius $\epsilon > 0$, such that $\forall \vec{x} \in \L:\; S_\epsilon(\vec{x}) \cap \L = \lbrace \vec{x} \rbrace.$
+Recall that a set $\L \subseteq \RR^n$ is _discrete_ if there exists a
+ball $S_\epsilon(\vec{x}) \in \RR^n$ of radius $\epsilon > 0$, such
+that $\forall \vec{x} \in \L:\; S_\epsilon(\vec{x}) \cap \L = \lbrace \vec{x} \rbrace.$
+
 ```
 
 ```Proof  {#proof-discrete-subgroup-defn-equivalence}
@@ -175,15 +438,28 @@ Next we prove the converse: That is, given a set $\L \subseteq \RR^n$ and a radi
 
 ```
 
-```Remark
-While lattices in general are defined over reals, for computational
-problems only _integral_ lattices are of cryptographic interest, i.e.,
-lattices where $\mathbf{B} \in \ZZ^{n\times m} \subseteq \RR^{n\times m}$.
-Furthermore, the _number of bits_ needed to represent the basis
-vector $\vec{b}_i$ is assumed to be a fixed polynomial
-in the dimension $n$. These seemingly artificial restrictions are
-necessary for understanding how rank of a lattice
-affects computational resources required to solve the problem.
+
+```
+For the basis-free definition to be equivalent to the
+basis-dependent definition, it's crucial that $\lbrace
+b_i\rbrace$s are linearly independent over $\RR$ and not
+just $\ZZ$. That is, not every [_free_
+$\ZZ$-module](https://en.wikipedia.org/wiki/Free_module){:target="_blank"}
+of $\RR$ is a lattice --- the geometry is important.
+
+To see why, consider the set $\lbrace 1, \sqrt{2}\rbrace$. This set is
+linearly independent over $\ZZ$ because $$\forall \alpha, \beta \in
+\ZZ:\quad \alpha + \beta\cdot\sqrt{2} = 0 \iff \alpha = \beta = 0.$$
+
+On the other hand, _for all_ $\epsilon > 0$, there exists
+$\gamma, \delta \in \ZZ$ such that $$ 0 < |(\gamma +
+\delta\cdot\sqrt{2}) - (\alpha + \beta\cdot\sqrt{2})| <
+\epsilon.$$ (One can prove this claim using [Dirichlet’s
+approximation
+theorem](https://en.wikipedia.org/wiki/Dirichlet%27s_approximation_theorem){:target="_blank"}.)
+ Therefore, even though $\lbrace 1, \sqrt{2}\rbrace$ is
+ linearly independent over $\ZZ$, it does not generate a
+ lattice in $\RR$.
 ```
 
 
