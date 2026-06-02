@@ -197,6 +197,10 @@ blockquote {
     }
 }
 
+blockquote > h5, blockquote h6 {
+    margin-top: 5px;
+}
+
 strong {
     font-weight: bold;
 }
