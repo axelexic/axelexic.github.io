@@ -15,14 +15,6 @@
     }
 }
 
-.post-content .semantic-block .highlight {
-    text-decoration: underline;
-    text-decoration-thickness: 1px;
-    text-underline-offset: 3px;
-    font-weight: bold;
-    font-size: 1.1rem;
-}
-
 .post-content .semantic-block h5,
 .post-content .semantic-block h6 {
     text-decoration: none;
@@ -231,6 +223,9 @@
 }
 
 .post-content .proof .proof-part {
-    margin-left: 40pt;
+    margin-left: $spacing-unit;
     margin-bottom: 1.3rem;
+    padding: 0 math.div($spacing-unit, 2);
+    background-color: color-mix(in oklab, #{$background-color} 91%, #{$grey-color});
+    border-radius: math.div($spacing-unit, 2);
 }
