@@ -24,8 +24,6 @@ tags: [Lattice, Lattice Based Cryptography, Post-quantum Cryptography]
 
 This post is a grab bag of basic definitions and elementary results
 related to unstructured lattices.
-Section [&#167;3](#computationally-hard-problems) lists computationally
-hard exact lattice problems.
 
 ## Basis Independent Characterization {#basis-independent-characterization}
 <hr/>
@@ -376,10 +374,19 @@ Definitions and notation in this section are somewhat different from standard
 literature.
 ```
 
-Since lattices are discrete subgroups of $\RR^n,$ $\vec{0}$ is always an
-element of every lattice, and has the smallest possible length $0.$
-Therefore, _the shortest vector_ in a lattice is defined to be any one
-of the shortest _non-zero_ vectors into the lattice. More formally
+Since lattices are _discrete_ subgroups of $\RR^n,$ each lattice vector
+$\vec{x} \in \L$ can be enumerated and _partially_ ordered according to
+its length. The all zero vector $\vec{0} \in \RR^n$ is always an element
+of all $n$-dimensional lattices, and it's the unique lattice vector with
+length $0.$ Let $\nu_0 := 0,$ and let $\nu_j$ denote the length of
+$j$-th shortest vectors in $\L$, i.e., $$\nu_0 \lt \cdots \lt \nu_{j-1}
+\lt \nu_j \lt \nu_{j+1} \lt \cdots$$ is a strict ordering of _lengths_
+of the lattice vectors in $\L$. Since multiple lattice vectors in $\L$
+can have the same distance, let
+$$\mathcal{S}_{j} := \left \lbrace \vec{x}\;\Big |\; \abs{\vec{x}} = \nu_j \right \rbrace$$
+denote the list of all lattice vectors whose length is exactly $\nu_j.$
+
+Notice that for all $j,$
 
 ```Definition [Shortest Vector] {#shortest-vector-definition}
 Let $\L$ be a lattice, then the **set of shortest vectors in $\L$** is
