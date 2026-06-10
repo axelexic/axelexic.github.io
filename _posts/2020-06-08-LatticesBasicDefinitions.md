@@ -18,13 +18,16 @@ tags: [Lattice, Lattice Based Cryptography, Post-quantum Cryptography]
   \newcommand{\V}{\mathbf{V}}
   \newcommand{\I}{\mathbf{I}}
   \newcommand{\vol}{\operatorname{covol}}
+  \renewcommand{\abs}[1]{\lVert #1 \rVert}
 \]
 ```
 
 This post is a grab bag of basic definitions and elementary results
 related to unstructured lattices.
+Section [&#167;3](#computationally-hard-problems) lists computationally
+hard exact lattice problems.
 
-## Basis Independent Characterization
+## Basis Independent Characterization {#basis-independent-characterization}
 <hr/>
 
 A lattice $\L$ is a _discrete_ additive subgroup of $\RR^n$, that is,
@@ -76,7 +79,7 @@ of its strict fundamental domains (i.e., a measure of its size). For any
 translation invariant measure, like the Lebesgue measure, the covolume
 is independent of the choice of representatives in $\hatP$.
 
-## Basis Dependent Characterization
+## Basis Dependent Characterization {#basis-dependent-characterization}
 <hr/>
 
 The characterization of a lattice so far has been entirely _basis
@@ -116,24 +119,27 @@ A few additional definitions are listed below, which should largely be familiar 
 
 ```Definition {#basic-defn}
 
-<span class="highlight">Dimension</span>: The dimension of $\L$ is the
-dimension of the ambient vector space $\RR^n$, which is $n$.
+Dimension
+:   The dimension of $\L \subseteq \RR^n$ is the dimension of the ambient vector space
+    $\RR^n$, which is $n$.
 
-<span class="highlight">Rank</span>: Algebraically, a lattice is also a
-[free $\ZZ$-module](https://en.wikipedia.org/wiki/Free_module){:target="_blank"},
-and the rank of $\L$ is defined to be the rank of the corresponding
-free $\ZZ$-module. Since the rank of a _free_ module
-is independent of the choice of its basis, rank of $\L$ as a $\ZZ$-module,
-is well defined and _independent of the choice of basis_. When
-a basis $\B \in \RR^{n\times everyis -th columnexplicitly given, the rank of $\L(\B)$ is the
-number of linearly independent columns of $\B.$
+Rank
+:   Algebraically, a lattice is also a
+    [free $\ZZ$-module](https://en.wikipedia.org/wiki/Free_module){:target="_blank"},
+    and the rank of $\L$ is the rank of the corresponding $\ZZ$-module.
+    Since the rank of a _free_ module is independent of the choice of
+    its basis, rank of $\L$ is well defined and
+    _independent of the choice of its basis_. When a basis
+    $\B \in \RR^{n\times m}$ is explicitly given, the rank of $\L(\B)$
+    is the number of linearly independent columns of $\B.$
 
-<span class="highlight">Full Rank Lattice</span>: A lattice whose rank
-is same as its dimension (that is, $m=n$) is called a full rank lattice.
+Full Rank
+:   A lattice whose rank is same as its dimension (that is, $m=n$) is
+    called a full rank lattice.
 
-<span class="highlight">Span</span>: The span of a lattice $\L(\B)$ is
-the span of $\B$ as a $\RR$-vector space, i.e.,
-$$ \textsf{span}_\RR(\L(\B)) := \textsf{span}_\RR(\B) = \left \lbrace \B\cdot\vec{y} : y \in \RR^m \right \rbrace$$
+Span
+:   The span of a lattice $\L(\B)$ is the span of $\B$ as a $\RR$-vector
+    space, i.e., $$ \textsf{span}_\RR(\L(\B)) := \textsf{span}_\RR(\B) = \left \lbrace \B\cdot\vec{y} : y \in \RR^m \right \rbrace$$
 
 ```
 
@@ -212,7 +218,7 @@ Conversely, if $\U \in \ZZ^{m\times n}$ is such that $\B_2 = \B_1\cdot\U$
 Integer matrices whose _inverse_ also happen to be an integer matrix
 have a special name:
 
-```Definition [Unimodular Matrix]
+```Definition [Unimodular Matrix] {#unimodular-defn}
 An integer matrix $\U \in \ZZ^{m\times m}$ is called
  **Unimodular** if $$\det(\U) = \pm 1.$$
 
@@ -239,7 +245,7 @@ seemingly artificial restrictions are necessary for understanding the
 asymptotic behavior of lattice problems as a function of its rank.
 ```
 
-### Fundamental Parallelepiped
+### Fundamental Parallelepiped {#fundamental-parallelepiped-subsection}
 
 <figure id="LatticeBasicFigure">
 <img src="/Diagrams/2020-06-08/LatticeBasic.svg"
@@ -361,7 +367,53 @@ $$\det(\B_1^\top\cdot \B_1) = \det(\U^\top\B_2^\top\cdot \B_2\U)= \det(\U^\top)\
 and $\vol(\P(\B_1)) = \vol(\P(\B_2)).$
 ```
 
-## Upper Bounds
+
+## Lengths of Lattice Vectors {#computationally-hard-problems}
+<hr/>
+
+```Note
+Definitions and notation in this section are somewhat different from standard
+literature.
+```
+
+Since lattices are discrete subgroups of $\RR^n,$ $\vec{0}$ is always an
+element of every lattice, and has the smallest possible length $0.$
+Therefore, _the shortest vector_ in a lattice is defined to be any one
+of the shortest _non-zero_ vectors into the lattice. More formally
+
+```Definition [Shortest Vector] {#shortest-vector-definition}
+Let $\L$ be a lattice, then the **set of shortest vectors in $\L$** is
+defined as:
+$$ S_\L := \left \lbrace \vec{x}\;\;\Big| \,\; \vec{x} \in \L\setminus \{ \vec{0} \}\;\text{and } \forall\,\vec{y} \in \L:\; \abs{x} \le \abs{y} \right \rbrace.$$
+
+The set $S_\L$ is a lattice invariant and is independent of the choice
+of basis. Abusing terminology, an element of $S_\L$ will often be
+referred as **a short vector** of $\L,$ and even **the** short vector of
+$\L.$
+```
+
+Notice that if $\vec{x}$ is in $S_\L$, then so is $-\vec{x},$ since
+$\abs{\vec{x}} = \abs{-\vec{x}}.$ Furthermore, the cardinality of $S_\L$
+is even, because $\vec{x} \neq -\vec{x}$ for all non-zero values
+$\vec{x}$ (and $\vec{0}$ is explicitly forbidden from joining the set
+$S_\L$).
+
+```Definition [Unique Shortest Vector] {#unique-shortest-vector-definition}
+A lattice $\L$ has a **unique shortest vector** if  $S_\L$ has only two
+elements $\vec{x}$ and $-\vec{x}.$
+```
+
+In addition to the notion of a short vector in $\L,$ one can also define
+the notion of a short basis for $\L,$
+
+### Shortest Vector Problem {#svp-section}
+
+Suppose a lattice has basis $\B \in \RR^{n \times m}$ where the columns
+are arranged according to its lengths, i.e., $\abs{\vec{b}_1} \leq
+\cdots \leq \abs{\vec{b}_j} \leq \cdots \leq \abs{\vec{b}_m}$.
+
+
+## Existential Upper Bounds
 <hr/>
 Since a lattice is a discrete set with vectors in $n$-dimensional space,
 it's natural to ask what's the shortest _non-zero_ vector in this set?
