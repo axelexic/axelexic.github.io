@@ -1,0 +1,54 @@
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage{xcolor}
+\usepackage{enumitem}
+\usepackage{mathtools}
+
+\hypersetup{
+  colorlinks=true,
+  linkcolor=blue,
+  urlcolor=blue,
+  citecolor=blue
+}
+
+\numberwithin{equation}{section}
+
+% Site-wide MathJax-style macros used by posts.
+\newcommand{\ZZ}{\mathbb{Z}}
+\newcommand{\QQ}{\mathbb{Q}}
+\newcommand{\RR}{\mathbb{R}}
+\newcommand{\CC}{\mathbb{C}}
+\newcommand{\Mat}[1]{\mathbf{#1}}
+\newcommand{\norm}[1]{\left\lVert #1 \right\rVert}
+\newcommand{\floor}[1]{\left\lfloor #1 \right\rfloor}
+\newcommand{\ceil}[1]{\left\lceil #1 \right\rceil}
+\newcommand{\fractional}[1]{\left\{ #1 \right\}}
+\newcommand{\highlight}[1]{#1}
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+
+\theoremstyle{plain}
+\newtheorem{statement}{Statement}[section]
+\newtheorem{theorem}[statement]{Theorem}
+\newtheorem{lemma}[statement]{Lemma}
+\newtheorem{proposition}[statement]{Proposition}
+\newtheorem{corollary}[statement]{Corollary}
+\newtheorem{claim}{Claim}
+\newtheorem{reduction}[statement]{Reduction}
+
+\theoremstyle{definition}
+\newtheorem{definition}[statement]{Definition}
+\newtheorem{example}[statement]{Example}
+\newtheorem{examples}[statement]{Examples}
+\newtheorem{exercise}[statement]{Exercise}
+\newtheorem{algorithm}[statement]{Algorithm}
+\newtheorem{assumption}[statement]{Assumption}
+\newtheorem{aside}[statement]{Aside}
+
+\theoremstyle{remark}
+\newtheorem{note}{Note}
+\newtheorem{remark}[statement]{Remark}
