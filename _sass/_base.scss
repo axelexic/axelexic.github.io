@@ -6,122 +6,183 @@
  * Reset some basic elements
  */
 
- @include-when-export url(https://fonts.googleapis.com/css?family=PT+Serif:400,400italic,700,700italic&subset=latin,cyrillic-ext,cyrillic,latin-ext);
-
+@include-when-export url(https://fonts.googleapis.com/css?family=PT+Serif:400,400italic,700,700italic&subset=latin,cyrillic-ext,cyrillic,latin-ext);
 
 :root {
-	--active-file-bg-color: #dadada;
-	--active-file-bg-color: rgba(32, 43, 51, 0.63);
-	--active-file-text-color: white;
-	--bg-color: #f3f2ee;
-	--text-color: #1f0909;
-	--control-text-color: #444;
-	--rawblock-edit-panel-bd: #e5e5e5;
+  --active-file-bg-color: #dadada;
+  --active-file-bg-color: rgba(32, 43, 51, 0.63);
+  --active-file-text-color: white;
+  --bg-color: #f3f2ee;
+  --text-color: #1f0909;
+  --control-text-color: #444;
+  --rawblock-edit-panel-bd: #e5e5e5;
 
-	--select-text-bg-color: rgba(32, 43, 51, 0.63);
-    --select-text-font-color: white;
-    // For mathjax
-    --math-accent: fuchsia;
+  --select-text-bg-color: rgba(32, 43, 51, 0.63);
+  --select-text-font-color: white;
+  // For mathjax
+  --math-accent: fuchsia;
 }
 
 pre {
-	--select-text-bg-color: #36284e;
-	--select-text-font-color: #fff;
+  --select-text-bg-color: #36284e;
+  --select-text-font-color: #fff;
 }
 
 html {
-	font-size: 16px;
-	-webkit-font-smoothing: antialiased;
-	box-sizing: border-box;
-	max-width: 100%;
-	overflow-x: hidden;
+  font-size: 16px;
+  -webkit-font-smoothing: antialiased;
+  box-sizing: border-box;
+  max-width: 100%;
+  overflow-x: hidden;
 }
 
 *,
 *::before,
 *::after {
-    box-sizing: inherit;
+  box-sizing: inherit;
 }
 
-html, body {
-	background-color: #f3f2ee;
-	font-family: "PT Serif", 'Times New Roman', 'SF Pro', Times, serif;
-	color: #1f0909;
-	line-height: 1.5em;
-	max-width: 100%;
-	overflow-x: hidden;
+html,
+body {
+  background-color: #f3f2ee;
+  font-family: "PT Serif", "Times New Roman", "SF Pro", Times, serif;
+  color: #1f0909;
+  line-height: 1.5em;
+  max-width: 100%;
+  overflow-x: hidden;
 }
 
-
-body, h1, h2, h3, h4, h5, h6,
-p, blockquote, pre, hr,
-dl, dd, ol, ul, figure {
-    padding: 0;
+body,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+blockquote,
+pre,
+hr,
+dl,
+dd,
+ol,
+ul,
+figure {
+  padding: 0;
 }
 
+.post-content > p {
+  margin-left: $spacing-unit;
+  margin-right: $spacing-unit;
+}
 
+.post-content > ol,
+.post-content > ul {
+  margin-left: 1.5 * $spacing-unit;
+  margin-right: math.div($spacing-unit, 2);
+}
+
+dl {
+    display: block; // remove grid
+    margin: 10 0;
+    dt {
+        float: left;
+        clear: left;
+        margin: 0 math.div($spacing-unit, 3) 0 0; // about 10px after dt
+        text-decoration: underline;
+        text-decoration-style: solid;
+        text-decoration-thickness: 0.75px;
+        text-underline-offset: 5px;
+        font-family: sans-serif;
+        font-weight: bolder;
+        color: $section-title-color;
+    }
+
+    dt::after {
+        content: ": ";
+    }
+
+    dd {
+        margin: 0 0 math.div($spacing-unit, 2) 2*$spacing-unit;
+        // left margin controls wrapped-line indent, about 10px
+    }
+
+    dd + dd {
+        text-indent: $spacing-unit;
+    }
+
+    &::after {
+        content: "";
+        display: block;
+        clear: both;
+    }
+}
 
 /**
  * Basic styling
  */
 body {
-    font-family: $base-font-family;
-    font-size: $base-font-size;
-    line-height: $base-line-height;
-    font-weight: 400;
-    color: $text-color;
-    background-color: $background-color;
-    -webkit-text-size-adjust: 100%;
-    overflow-x: hidden;
+  font-family: $base-font-family;
+  font-size: $base-font-size;
+  line-height: $base-line-height;
+  font-weight: 400;
+  color: $text-color;
+  background-color: $background-color;
+  -webkit-text-size-adjust: 100%;
+  overflow-x: hidden;
 }
 
 /**
  * Set `margin-bottom` to maintain vertical rhythm
  */
-h1, h2, h3, h4, h5, h6,
-p, blockquote, pre,
-ul, ol, dl,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+blockquote,
+pre,
+ul,
+ol,
+dl,
 %vertical-rhythm {
-    margin-bottom: math.div($spacing-unit, 2);
+  margin-bottom: math.div($spacing-unit, 2);
 }
-
-
 
 /**
  * Images
  */
 img {
-    max-width: 70%;
-    height: auto;
-    display: block;
+  max-width: 70%;
+  height: auto;
+  display: block;
 }
-
-
 
 /**
  * Figures
  */
 
 figure {
-    text-align: center;
-    margin-left: auto;
-    margin-right: auto;
-    margin-top: 10px;
-    margin-bottom: 30px;
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 10px;
+  margin-bottom: 30px;
 }
 
 figure > img {
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
 }
 
-
 figurecaption {
-    font-size: $small-font-size;
-    counter-increment: figure_counter;
-    color: $blockquote-color;
-    font-weight: bold;
+  font-size: $small-font-size;
+  counter-increment: figure_counter;
+  color: $blockquote-color;
+  font-weight: bold;
 }
 
 figurecaption::before {
@@ -133,76 +194,74 @@ figurecaption::before {
 /**
  * Lists
  */
-ul, ol {
-    margin-left: $spacing-unit;
+ul,
+ol {
+  margin-left: $spacing-unit;
 }
 
 li {
-    > ul,
-    > ol {
-         margin-bottom: 0;
-    }
+  > ul,
+  > ol {
+    margin-bottom: 0;
+  }
 }
 
-
-
-h5, h6 {
-    text-decoration: underline;
-    font-variant: small-caps;
-    font-size: 1.3rem;
-    color: $blockquote-color;
+h5,
+h6 {
+  text-decoration: underline;
+  font-variant: small-caps;
+  font-size: 1.3rem;
+  color: $blockquote-color;
 }
 
-article > hr  {
-    margin-top: math.div(-5 * $spacing-unit, 8);
-    margin-bottom: math.div($spacing-unit, 2);
-    height: 0.5px;
-    border: none;
-    background-color: $blockquote-color;
+article > hr {
+  margin-top: math.div(-5 * $spacing-unit, 8);
+  margin-bottom: math.div($spacing-unit, 2);
+  height: 0.5px;
+  border: none;
+  background-color: $blockquote-color;
 }
-
 
 /**
  * Links
  */
 a {
-    color: $brand-color;
-    text-decoration: none;
+  color: $brand-color;
+  text-decoration: none;
 
-    &:visited {
-        color: color.adjust($brand-color, $lightness: -15%);
-    }
+  &:visited {
+    color: color.adjust($brand-color, $lightness: -15%);
+  }
 
-    &:hover {
-        color: $text-color;
-        text-decoration: underline;
-    }
+  &:hover {
+    color: $text-color;
+    text-decoration: underline;
+  }
 }
-
-
 
 /**
  * Blockquotes
  */
 blockquote {
-    border-left: 4px solid $blockquote-color;
-    padding-left: math.div($spacing-unit, 2);
-    padding-right: math.div($spacing-unit, 2);
-    padding-top: math.div($spacing-unit, 4);
-    padding-bottom: math.div($spacing-unit, 4);
-    color: black;
-    background-color: $blockquote-background-color;
-    > :last-child {
-        margin-bottom: 0;
-    }
+  border-left: 4px solid $blockquote-color;
+  padding-left: math.div($spacing-unit, 2);
+  padding-right: math.div($spacing-unit, 2);
+  padding-top: math.div($spacing-unit, 4);
+  padding-bottom: math.div($spacing-unit, 4);
+  color: black;
+  background-color: $blockquote-background-color;
+  > :last-child {
+    margin-bottom: 0;
+  }
 }
 
-blockquote > h5, blockquote h6 {
-    margin-top: 5px;
+blockquote > h5,
+blockquote h6 {
+  margin-top: 5px;
 }
 
 strong {
-    font-weight: bold;
+  font-weight: bold;
 }
 
 /**
@@ -210,173 +269,169 @@ strong {
  */
 pre,
 code {
-    font-size: 15px;
-    border: 1px solid $grey-color-light;
-    border-radius: 3px;
-    background-color: #eef;
+  font-size: 15px;
+  border: 1px solid $grey-color-light;
+  border-radius: 3px;
+  background-color: #eef;
 }
 
 code {
-    padding: 1px 5px;
+  padding: 1px 5px;
 }
 
 pre {
-    padding: 8px 12px;
-    max-width: 100%;
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
+  padding: 8px 12px;
+  max-width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
 
-    > code {
-        border: 0;
-        padding-right: 0;
-        padding-left: 0;
-    }
+  > code {
+    border: 0;
+    padding-right: 0;
+    padding-left: 0;
+  }
 }
 
-
 .footnotes {
-    display: block;
-    font-size: medium;
-    padding-top: 20px;
-    margin:20px;
-    border-top: 1px dotted $blockquote-color;
+  display: block;
+  font-size: medium;
+  padding-top: 20px;
+  margin: 20px;
+  border-top: 1px dotted $blockquote-color;
 }
 
 sup[role="doc-noteref"] {
-    vertical-align: inherit;
-    font-size: inherit;
+  vertical-align: inherit;
+  font-size: inherit;
 }
 
 sup[role="doc-noteref"]::before {
-    content: "[";
+  content: "[";
 }
 
 sup[role="doc-noteref"]::after {
-    content: "]";
+  content: "]";
 }
 
 sup[role="doc-noteref"] > a {
+  color: magenta;
+  text-decoration: none;
+
+  &:visited {
     color: magenta;
-    text-decoration: none;
+  }
 
-    &:visited {
-        color: magenta;
-    }
-
-    &:hover {
-        color: $text-color;
-        text-decoration: underline;
-    }
+  &:hover {
+    color: $text-color;
+    text-decoration: underline;
+  }
 }
-
 
 /**
  * Wrapper
  */
 .wrapper {
-    width: 100%;
-    max-width: -webkit-calc(1600px - (#{$spacing-unit} * 2));
-    max-width:         calc(1600px - (#{$spacing-unit} * 2));
-    margin-right: auto;
-    margin-left: auto;
-    padding-right: $spacing-unit;
-    padding-left: $spacing-unit;
+  width: 100%;
+  max-width: -webkit-calc(1600px - (#{$spacing-unit} * 2));
+  max-width: calc(1600px - (#{$spacing-unit} * 2));
+  margin-right: auto;
+  margin-left: auto;
+  padding-right: $spacing-unit;
+  padding-left: $spacing-unit;
 
-    @include media-query($on-laptop) {
-        max-width: -webkit-calc(1200px - (#{$spacing-unit}));
-        max-width:         calc(1200px - (#{$spacing-unit}));
-        padding-right: math.div($spacing-unit, 2);
-        padding-left: math.div($spacing-unit, 2);
-    }
-    @include clearfix;
+  @include media-query($on-laptop) {
+    max-width: -webkit-calc(1200px - (#{$spacing-unit}));
+    max-width: calc(1200px - (#{$spacing-unit}));
+    padding-right: math.div($spacing-unit, 2);
+    padding-left: math.div($spacing-unit, 2);
+  }
+  @include clearfix;
 }
 
 .post-content {
-    overflow-wrap: break-word;
+  overflow-wrap: break-word;
 }
 
 .post-content a {
-    overflow-wrap: anywhere;
+  overflow-wrap: anywhere;
 }
 
 .post-content table,
 .post-content pre,
 .post-content blockquote,
 .post-content figure {
-    max-width: 100%;
+  max-width: 100%;
 }
 
 .post-content table {
-    display: block;
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
+  display: block;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
 }
 
 mjx-container {
-    max-width: 100%;
+  max-width: 100%;
 }
 
 mjx-container[display="true"] {
-    display: block;
-    overflow-x: auto;
-    overflow-y: hidden;
-    -webkit-overflow-scrolling: touch;
+  display: block;
+  overflow-x: auto;
+  overflow-y: hidden;
+  -webkit-overflow-scrolling: touch;
+  margin-right: math.div($spacing-unit, 2) !important;
 }
-
-
 
 /**
  * Icons
  */
 .icon {
+  > svg {
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    vertical-align: middle;
 
-    > svg {
-        display: inline-block;
-        width: 16px;
-        height: 16px;
-        vertical-align: middle;
-
-        path {
-            fill: $grey-color;
-        }
+    path {
+      fill: $grey-color;
     }
+  }
 }
 
 @media print {
-    body {
-        font-size: 10pt;
-    }
+  body {
+    font-size: 10pt;
+  }
 
-    h1,
-    h1.post-title,
-    h1.page-heading,
-    .post-content h1 {
-        font-size: 18pt;
-    }
+  h1,
+  h1.post-title,
+  h1.page-heading,
+  .post-content h1 {
+    font-size: 18pt;
+  }
 
-    h2,
-    .post-content h2,
-    h2 .post-link {
-        font-size: 14pt;
-    }
+  h2,
+  .post-content h2,
+  h2 .post-link {
+    font-size: 14pt;
+  }
 
-    h3,
-    h4,
-    h5,
-    body .post-content h3,
-    body .post-content h4,
-    body .post-content h5 {
-        font-size: 12pt;
-    }
+  h3,
+  h4,
+  h5,
+  body .post-content h3,
+  body .post-content h4,
+  body .post-content h5 {
+    font-size: 12pt;
+  }
 }
+
 
 .highlight {
-    text-decoration: underline;
-    text-decoration-thickness: 1px;
-    text-underline-offset: 3px;
-    font-weight: bold;
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+  font-weight: bold;
 }
-
 
 a[target="_blank"]::after {
   content: "";
@@ -394,7 +449,8 @@ a[target="_blank"]::after {
 }
 
 /** MathJax **/
-.MJX-TEX, .MJX-TEX * {
+.MJX-TEX,
+.MJX-TEX * {
   font-family: "PT Serif", serif !important;
 }
 

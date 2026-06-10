@@ -1,17 +1,21 @@
 @use "sass:math";
 @use "variables" as *;
 
+
 .post-content .semantic-block {
     position: relative;
     scroll-margin-top: $spacing-unit;
-    margin: math.div($spacing-unit, 2) math.div($spacing-unit, 4) math.div($spacing-unit, 2) $spacing-unit;
+    margin: math.div($spacing-unit, 2) math.div($spacing-unit, 2) math.div($spacing-unit, 2) $spacing-unit;
     padding: math.div($spacing-unit, 2) math.div($spacing-unit, 1.75);
     border-left: 4px solid $blockquote-color;
-    // border-radius: 3px;
     background-color: $blockquote-background-color;
-
     > :last-child {
         margin-bottom: 0;
+    }
+
+    strong {
+        font-weight: 600;
+        color: $text-color;
     }
 }
 
@@ -39,51 +43,6 @@
 
 .post-content .semantic-block-details > summary {
     cursor: pointer;
-}
-
-
-.post-content .semantic-block-anchor {
-    position: absolute;
-    top: math.div($spacing-unit, 2);
-    left: -1.45rem;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 1.1rem;
-    height: 1.1rem;
-    color: $grey-color;
-    font-size: 0.85rem;
-    line-height: 1;
-    opacity: 0;
-    text-decoration: none;
-    transition: opacity 120ms ease, color 120ms ease;
-}
-
-.post-content .semantic-block-anchor::before {
-    content: "";
-    width: 0.95rem;
-    height: 0.95rem;
-    background-color: currentColor;
-    -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M10 13a5 5 0 0 0 7.1 0l2.8-2.8a5 5 0 0 0-7.1-7.1l-1.6 1.6'/%3E%3Cpath d='M14 11a5 5 0 0 0-7.1 0l-2.8 2.8a5 5 0 0 0 7.1 7.1l1.6-1.6'/%3E%3C/svg%3E") center / contain no-repeat;
-    mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M10 13a5 5 0 0 0 7.1 0l2.8-2.8a5 5 0 0 0-7.1-7.1l-1.6 1.6'/%3E%3Cpath d='M14 11a5 5 0 0 0-7.1 0l-2.8 2.8a5 5 0 0 0 7.1 7.1l1.6-1.6'/%3E%3C/svg%3E") center / contain no-repeat;
-}
-
-.post-content .semantic-block:hover .semantic-block-anchor,
-.post-content .semantic-block:focus-within .semantic-block-anchor {
-    opacity: 0.3;
-}
-
-.post-content .semantic-block-anchor:hover,
-.post-content .semantic-block-anchor:focus {
-    color: $brand-color;
-    opacity: 0.55;
-    outline: none;
-}
-
-@include media-query($on-palm) {
-    .post-content .semantic-block-anchor {
-        left: math.div($spacing-unit, 6);
-    }
 }
 
 .post-content .semantic-block-title {
