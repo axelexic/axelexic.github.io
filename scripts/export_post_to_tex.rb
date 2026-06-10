@@ -92,10 +92,14 @@ def strip_kramdown_inline_attributes(content)
 end
 
 def normalize_inline_math_spacing(content)
+  content = content.gsub(/(^|[ \t])\$\s*\n([^$\n]*?\S)\s*\$(?=\s|[.,;:!?)\]}]|$)/) do
+    "#{Regexp.last_match(1)}$#{Regexp.last_match(2)}$"
+  end
+
   content.lines.map do |line|
     next line if line.match?(/\A[ \t]{0,3}(`{3,}|~{3,})/)
 
-    line.gsub(/(^|[ \t])\$([^$\n]*?\S)\s+\$(?=\s|[.,;:!?)\]}]|$)/) do
+    line.gsub(/(^|[ \t])\$\s*([^$\n]*?\S)\s*\$(?=\s|[.,;:!?)\]}]|$)/) do
       "#{Regexp.last_match(1)}$#{Regexp.last_match(2)}$"
     end
   end.join
@@ -103,6 +107,149 @@ end
 
 def normalize_kramdown_headings(content)
   content.gsub(/^([ \t]{0,3}\#{1,6})([^#\s])/, "\\1 \\2")
+end
+
+def rewrite_html_figures(content, input, output)
+  content = content.gsub(%r{<figure\b([^>]*)>(.*?)</figure>}mi) do
+    figure_attrs = html_attributes(Regexp.last_match(1))
+    figure_html = Regexp.last_match(2)
+    img_match = figure_html.match(%r{<img\b([^>]*)/?>}mi)
+
+    next "" unless img_match
+
+    img_attrs = html_attributes(img_match[1])
+    caption_html = figure_html[%r{<(?:figurecaption|figcaption)\b[^>]*>(.*?)</(?:figurecaption|figcaption)>}mi, 1]
+    render_figure_div(figure_attrs, img_attrs, html_to_markdown(caption_html), input, output)
+  end
+
+  content.gsub(/^[ \t]*(?:>\s*)?<img\b([^>]*)\/?>[ \t]*$/i) do
+    img_attrs = html_attributes(Regexp.last_match(1))
+    render_figure_div({}, img_attrs, img_attrs.fetch("alt", ""), input, output)
+  end
+end
+
+def html_attributes(attribute_text)
+  attributes = {}
+  attribute_text.to_s.scan(/([A-Za-z_:][-A-Za-z0-9_:.]*)\s*=\s*(?:"([^"]*)"|'([^']*)'|([^\s"'>]+))/) do |name, double_quoted, single_quoted, bare|
+    attributes[name.downcase] = CGI.unescapeHTML(double_quoted || single_quoted || bare || "")
+  end
+  attributes
+end
+
+def html_to_markdown(html)
+  CGI.unescapeHTML(
+    html.to_s
+        .gsub(/\r\n?/, "\n")
+        .gsub(%r{<br\s*/?>}i, "\n")
+        .gsub(%r{</p>}i, "\n\n")
+        .gsub(%r{<[^>]+>}, "")
+  ).strip
+end
+
+def render_figure_div(figure_attrs, img_attrs, caption, input, output)
+  src = img_attrs.fetch("src", "")
+  asset = prepare_figure_asset(src, input, output)
+  figure_id = figure_attrs["id"] || img_attrs["id"] || generated_figure_id(src)
+  width = latex_figure_width(img_attrs)
+
+  attributes = [".tex-figure"]
+  attributes << "##{figure_id}" unless figure_id.empty?
+  attributes << %(src="#{pandoc_attribute(asset.fetch(:tex_path))}") unless asset.fetch(:tex_path).empty?
+  attributes << %(width="#{pandoc_attribute(width)}")
+  attributes << %(original-src="#{pandoc_attribute(src)}") unless src.empty?
+  attributes << %(missing="true") if asset.fetch(:missing)
+
+  caption = caption.strip
+  caption = img_attrs.fetch("alt", "").strip if caption.empty?
+
+  [
+    "\n::: {#{attributes.join(' ')}}\n",
+    caption,
+    "\n:::\n"
+  ].join
+end
+
+def generated_figure_id(src)
+  basename = File.basename(src.to_s, File.extname(src.to_s))
+  slug = basename.downcase.gsub(/[^a-z0-9]+/, "-").gsub(/\A-|-+\z/, "")
+  slug.empty? ? "" : "fig-#{slug}"
+end
+
+def latex_figure_width(img_attrs)
+  width = img_attrs["width"] || img_attrs.fetch("style", "")[/\bwidth\s*:\s*([^;]+)/i, 1]
+  return "0.8\\linewidth" if width.to_s.strip.empty?
+
+  normalized = width.strip
+  case normalized
+  when /\A(\d+(?:\.\d+)?)%\z/
+    "#{format_latex_decimal(Regexp.last_match(1).to_f / 100.0)}\\linewidth"
+  when /\A(\d+(?:\.\d+)?)vw\z/i
+    "#{format_latex_decimal([Regexp.last_match(1).to_f / 100.0, 1.0].min)}\\linewidth"
+  when /\A(\d+(?:\.\d+)?)(?:in|cm|mm|pt|pc|em|ex)\z/i
+    normalized
+  else
+    "0.8\\linewidth"
+  end
+end
+
+def format_latex_decimal(number)
+  format("%.3f", number).sub(/0+\z/, "").sub(/\.\z/, "")
+end
+
+def prepare_figure_asset(src, input, output)
+  local_path = resolve_figure_source(src, input)
+  original_source = local_path || src
+
+  unless local_path && File.file?(local_path)
+    warn "Warning: figure source not found: #{src}"
+    return { tex_path: "", missing: true, source: original_source }
+  end
+
+  if File.extname(local_path).casecmp(".svg").zero?
+    converted_path = convert_svg_figure(local_path, output)
+    return { tex_path: relative_tex_path(output, converted_path), missing: false, source: original_source } if converted_path
+
+    return { tex_path: "", missing: true, source: original_source }
+  end
+
+  { tex_path: relative_tex_path(output, local_path), missing: false, source: original_source }
+end
+
+def resolve_figure_source(src, input)
+  return nil if src.to_s.empty? || src.match?(%r{\Ahttps?://}i)
+
+  if src.start_with?("/")
+    File.join(ROOT, src.sub(%r{\A/+}, ""))
+  else
+    File.expand_path(src, File.dirname(input))
+  end
+end
+
+def convert_svg_figure(source, output)
+  converter = executable_path("rsvg-convert")
+
+  unless converter
+    warn "Warning: rsvg-convert was not found; cannot convert SVG figure: #{source}"
+    return nil
+  end
+
+  asset_dir = File.join(File.dirname(output), "assets", File.basename(output, ".tex"))
+  FileUtils.mkdir_p(asset_dir)
+  target = File.join(asset_dir, "#{File.basename(source, ".svg")}.pdf")
+  return target if File.file?(target) && File.mtime(target) >= File.mtime(source)
+
+  _stdout, stderr, status = Open3.capture3(converter, "-f", "pdf", "-o", target, source)
+  return target if status.success?
+
+  warn "Warning: could not convert SVG figure #{source}: #{stderr.strip}"
+  nil
+end
+
+def executable_path(name)
+  ENV.fetch("PATH", "").split(File::PATH_SEPARATOR).find do |directory|
+    candidate = File.join(directory, name)
+    File.file?(candidate) && File.executable?(candidate)
+  end&.then { |directory| File.join(directory, name) }
 end
 
 def rewrite_custom_fences(content)
@@ -256,6 +403,7 @@ def run_pandoc(markdown, filter)
       "pandoc",
       "--from", "markdown+fenced_divs+raw_tex+tex_math_dollars+tex_math_single_backslash",
       "--to", "latex",
+      "--shift-heading-level-by", "-1",
       "--lua-filter", filter,
       tempfile.path
     ]
@@ -380,6 +528,7 @@ def export_post(input, options, input_count)
   body = strip_kramdown_inline_attributes(body)
   body = normalize_inline_math_spacing(body)
   body = normalize_kramdown_headings(body)
+  body = rewrite_html_figures(body, input, output)
   preprocessed, macros = rewrite_custom_fences(body)
   latex_body = run_pandoc(preprocessed, File.expand_path(options.filter))
   document = wrap_latex_document(latex_body, metadata, macros, output, File.expand_path(options.preamble))
