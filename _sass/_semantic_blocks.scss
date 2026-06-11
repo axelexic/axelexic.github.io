@@ -1,14 +1,25 @@
 @use "sass:math";
 @use "variables" as *;
 
+$semantic-block-border-color: $blockquote-color;
+$definition-border-color: #006030;
+$theorem-border-color: $blockquote-color;
+$example-border-color: $grey-color;
+$aside-border-color: $grey-color;
+$proof-border-color: $blockquote-color;
+
+
+@function semantic-block-background($border-color, $background-weight: 93%) {
+    @return color-mix(in oklab, #{$background-color} #{$background-weight}, #{$border-color});
+}
 
 .post-content .semantic-block {
     position: relative;
     scroll-margin-top: $spacing-unit;
     margin: math.div($spacing-unit, 2) math.div($spacing-unit, 2) math.div($spacing-unit, 2) $spacing-unit;
     padding: math.div($spacing-unit, 2) math.div($spacing-unit, 1.75);
-    border-left: 4px solid $blockquote-color;
-    background-color: $blockquote-background-color;
+    border-left: 4px solid $semantic-block-border-color;
+    background-color: semantic-block-background($semantic-block-border-color, 96%);
     > :last-child {
         margin-bottom: 0;
     }
@@ -55,7 +66,7 @@
     text-decoration: none;
 }
 
- .post-content .semantic-block-title::before {
+.post-content .semantic-block-title::before {
     color: $site-title-color;
     font-size: 1.2rem;
     font-variant: small-caps;
@@ -71,12 +82,8 @@
     text-decoration: none;
 }
 
-.post-content .semantic-block.numbered {
-    counter-increment: statement_counter;
-}
-
 .post-content .algorithm > .semantic-block-title::before {
-    content: "Algorithm " counter(section_counter) "." counter(statement_counter) ":";
+    content: "Algorithm:";
 }
 
 .post-content .aside > .semantic-block-details > .semantic-block-title::before {
@@ -84,7 +91,7 @@
 }
 
 .post-content .assumption > .semantic-block-title::before {
-    content: "Assumption " counter(section_counter) "." counter(statement_counter) ":";
+    content: "Assumption:";
 }
 
 .post-content .claim > .semantic-block-title::before {
@@ -92,31 +99,31 @@
 }
 
 .post-content .reduction > .semantic-block-title::before {
-    content: "Reduction " counter(section_counter) "." counter(statement_counter) ":";
+    content: "Reduction:";
 }
 
 .post-content .corollary > .semantic-block-title::before {
-    content: "Corollary " counter(section_counter) counter(statement_counter) ":";
+    content: "Corollary:";
 }
 
 .post-content .definition > .semantic-block-title::before {
-    content: "Definition " counter(section_counter) "." counter(statement_counter) ":";
+    content: "Definition:";
 }
 
 .post-content .example > .semantic-block-title::before {
-    content: "Example " counter(section_counter) "." counter(statement_counter) ":";
+    content: "Example:";
 }
 
 .post-content .examples > .semantic-block-title::before {
-    content: "Examples " counter(section_counter) "." counter(statement_counter) ":";
+    content: "Examples:";
 }
 
 .post-content .exercise > .semantic-block-title::before {
-    content: "Exercise " counter(section_counter) "." counter(statement_counter) ":";
+    content: "Exercise:";
 }
 
 .post-content .lemma > .semantic-block-title::before {
-    content: "Lemma " counter(section_counter) "." counter(statement_counter) ":";
+    content: "Lemma:";
 }
 
 .post-content .note > .semantic-block-title::before {
@@ -124,15 +131,15 @@
 }
 
 .post-content .proposition > .semantic-block-title::before {
-    content: "Proposition " counter(section_counter) "." counter(statement_counter) ":";
+    content: "Proposition:";
 }
 
 .post-content .remark > .semantic-block-title::before {
-    content: "Remark " counter(section_counter) "." counter(statement_counter) ":";
+    content: "Remark:";
 }
 
 .post-content .theorem > .semantic-block-title::before {
-    content: "Theorem " counter(section_counter) "." counter(statement_counter) ":";
+    content: "Theorem:";
 }
 
 .post-content .proof > .semantic-block-title::before {
@@ -148,8 +155,8 @@
 }
 
 .post-content .definition {
-    border-left-color: #006030;
-    background-color: color-mix(in oklab, #{$background-color} 93%, #006030);
+    border-left-color: $definition-border-color;
+    background-color: semantic-block-background($definition-border-color);
 }
 
 .post-content .theorem,
@@ -157,8 +164,8 @@
 .post-content .corollary,
 .post-content .proposition,
 .post-content .claim {
-    border-left-color: $blockquote-color;
-    background-color: color-mix(in oklab, #{$background-color} 93%, #0808f8);
+    border-left-color: $theorem-border-color;
+    background-color: semantic-block-background($theorem-border-color);
 }
 
 .post-content .example,
@@ -166,23 +173,24 @@
 .post-content .exercise,
 .post-content .note,
 .post-content .remark {
-    border-left-color: #9a6b00;
-    background-color: color-mix(in oklab, #{$background-color} 93%, #9a6b00);
+    border-left-color: $example-border-color;
+    background-color: semantic-block-background($example-border-color);
 }
 
 .post-content .aside {
-    border-left-color: $grey-color;
+    border-left-color: $aside-border-color;
+    background-color: semantic-block-background($aside-border-color, 96%);
 }
 
 .post-content .proof {
-    border-left-color: $grey-color;
-    background-color: color-mix(in oklab, #{$background-color} 94%, #{$grey-color});
+    border-left-color: $proof-border-color;
+    background-color: color-mix(in oklab, snow 96%, black);
 }
 
 .post-content .proof .proof-part {
     margin-left: $spacing-unit;
     margin-bottom: 1.3rem;
     padding: 0 math.div($spacing-unit, 2);
-    background-color: color-mix(in oklab, #{$background-color} 91%, #{$grey-color});
+    background-color: color-mix(in oklab, snow 94%, black);
     border-radius: math.div($spacing-unit, 2);
 }
