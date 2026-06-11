@@ -2,11 +2,11 @@
 @use "variables" as *;
 
 $semantic-block-border-color: $blockquote-color;
-$definition-border-color: #006030;
+$definition-border-color:  #006030;
 $theorem-border-color: $blockquote-color;
 $example-border-color: $grey-color;
 $aside-border-color: $grey-color;
-$proof-border-color: $blockquote-color;
+$proof-border-color: brown;
 
 
 @function semantic-block-background($border-color, $background-weight: 93%) {
@@ -184,13 +184,16 @@ $proof-border-color: $blockquote-color;
 
 .post-content .proof {
     border-left-color: $proof-border-color;
-    background-color: color-mix(in oklab, snow 96%, black);
+    background-color: semantic-block-background($proof-border-color, 98%);
+    // background-color: color-mix(in oklab, snow 96%, black) ;
 }
 
 .post-content .proof .proof-part {
     margin-left: $spacing-unit;
     margin-bottom: 1.3rem;
     padding: 0 math.div($spacing-unit, 2);
-    background-color: color-mix(in oklab, snow 94%, black);
     border-radius: math.div($spacing-unit, 2);
+    background-color: semantic-block-background($proof-border-color, 97%);
+    // background-color: color-mix(in oklab, snow 94%, black);
+
 }
