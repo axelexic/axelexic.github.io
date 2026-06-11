@@ -23,10 +23,11 @@ tags: [Lattice, Lattice Based Cryptography, Post-quantum Cryptography]
 ```
 
 This post is a grab bag of basic definitions and elementary results
-related to unstructured lattices.
+related to unstructured lattices. Also see [^CaiECCC99] for a more condensed
+version of similar topics.
 
 ## Basis Independent Characterization {#basis-independent-characterization}
-<hr/>
+---
 
 A lattice $\L$ is a _discrete_ additive subgroup of $\RR^n$, that is,
 
@@ -78,7 +79,7 @@ translation invariant measure, like the Lebesgue measure, the covolume
 is independent of the choice of representatives in $\hatP$.
 
 ## Basis Dependent Characterization {#basis-dependent-characterization}
-<hr/>
+---
 
 The characterization of a lattice so far has been entirely _basis
 independent_. This is ideal for exploring algebraic and topological
@@ -232,7 +233,7 @@ multiplication. This group is called **General Linear Group over Integers**
 and is denoted by $\mathrm{GL}_m(\ZZ).$
 ```
 
-```Note
+```Remark {#integral-lattice-remark}
 
 While lattices in general are defined over reals, for computational
 problems, only _integral_ lattices (i.e., lattices where $\mathbf{B} \in
@@ -366,54 +367,128 @@ and $\vol(\P(\B_1)) = \vol(\P(\B_2)).$
 ```
 
 
-## Lengths of Lattice Vectors {#computationally-hard-problems}
-<hr/>
+## Hard Lattice Problems {#computationally-hard-problems}
+---
+Since lattices are _discrete_ subgroups of $\RR^n,$ each lattice vector
+$\vec{x} \in \L$ can be _partially_ ordered according to its length.
+(The ordering is partial because more than one lattice vector can have
+the same length.) Let $\mathcal{S}_j \subseteq \L$ denote the $j$-th
+collection of lattice vectors in the partial order and let $\nu_j$
+denote the length of any vector in $\mathcal{S}_j$. Then, by
+construction, the ordering of $\nu_j$s is a lattice invariant. That is,
+the following ordering
 
-```Note
-Definitions and notation in this section are somewhat different from standard
-literature.
+$$\nu_0 \lt \cdots \lt \nu_{j-1} \lt \nu_j \lt \nu_{j+1} \lt \cdots$$
+
+does not depend on the choice of $\B.$
+
+```Aside [Kissing Number and Cardinality of $\mathcal{S}_j$]
+
 ```
 
-Since lattices are _discrete_ subgroups of $\RR^n,$ each lattice vector
-$\vec{x} \in \L$ can be enumerated and _partially_ ordered according to
-its length. The all zero vector $\vec{0} \in \RR^n$ is always an element
-of all $n$-dimensional lattices, and it's the unique lattice vector with
-length $0.$ Let $\nu_0 := 0,$ and let $\nu_j$ denote the length of
-$j$-th shortest vectors in $\L$, i.e., $$\nu_0 \lt \cdots \lt \nu_{j-1}
-\lt \nu_j \lt \nu_{j+1} \lt \cdots$$ is a strict ordering of _lengths_
-of the lattice vectors in $\L$. Since multiple lattice vectors in $\L$
-can have the same distance, let
-$$\mathcal{S}_{j} := \left \lbrace \vec{x}\;\Big |\; \abs{\vec{x}} = \nu_j \right \rbrace$$
-denote the list of all lattice vectors whose length is exactly $\nu_j.$
+Given this setup, there are three natural computational questions one
+can ask:
 
-Notice that for all $j,$
+  1. Given an index $j$, and a lattice $\L(\B)$ specified by an
+     [integral basis](#integral-lattice-remark) $\B \in \ZZ^{n\times m}$,
+     **find** an element of $\mathcal{S}_j.$ For example, when $j=0$ its
+     trivial to find an element of $\mathcal{S}_0,$ since $\mathcal{S}_0
+     = \lbrace \vec{0}\rbrace$. But what about finding an element of
+     $\mathcal{S}_1$ or $\mathcal{S}_{13}$? Does the difficulty depend
+     upon the index $j$? Does it depend on the choice of $\B$?
+
+  2. Given $j$ and $\L(\B)$ as before, **compute** the value of $\nu_j$.
+     Here, the problem is **not** to explicitly _find_ a lattice vector
+     $\vec{x}$ in $\mathcal{S}_j$, but only to compute the length of
+     $\nu_j$. Indeed, if one can find an element of $\mathcal{S}_j$,
+     then one can trivially compute $\nu_j$. However, there might be a
+     "short cut" that avoids the search entirely.
+
+  3. Given a lattice vector $\vec{x} \in \L(\B)$ **find** its position
+     $j$ in the partial order, i.e., find $j$ such that $\abs{\vec{x}} =
+     \nu_j.$
+
+When the rank of $\L$ is large, solving any of these three problems is
+computationally challenging. Cryptographically, however, the most
+relevant problem is to find an element of $\mathcal{S}_1$ --- which is
+also called the **shortest (non-zero) vector** problem. Surprisingly,
+ not only is it hard to find a shortest non-zero vector, but it's even
+hard to find an "approximate" element of $\L$, whose length is only a
+polynomial multiple of $\nu_1$. (Here the polynomial is understood to
+defined over the rank of $\L$.)
+
+The next few subsections makes these notions precise.
+
+```Remark
+For all computational problems, the asymptotics is always over the
+_rank_ of $\L$. Unless otherwise specified, all asymptotic arguments
+involving polynomials are assumed to have _rank_ as the indeterminate of
+the polynomial.
+```
+
+### Shortest Vector Problem {#svp-section}
 
 ```Definition [Shortest Vector] {#shortest-vector-definition}
-Let $\L$ be a lattice, then the **set of shortest vectors in $\L$** is
+Let $\L$ be a lattice, then the _set_ of **shortest vectors in $\L$** is
 defined as:
-$$ S_\L := \left \lbrace \vec{x}\;\;\Big| \,\; \vec{x} \in \L\setminus \{ \vec{0} \}\;\text{and } \forall\,\vec{y} \in \L:\; \abs{x} \le \abs{y} \right \rbrace.$$
 
-The set $S_\L$ is a lattice invariant and is independent of the choice
-of basis. Abusing terminology, an element of $S_\L$ will often be
-referred as **a short vector** of $\L,$ and even **the** short vector of
-$\L.$
+$$ \mathcal{S}_1 := \left \lbrace \vec{x}\;\;\Big|\,\; \vec{x} \in \L \highlight{\setminus \{ \vec{0}
+\}}\quad\text{and }\quad\forall\,\vec{y} \in \L:\; \abs{x} \le \abs{y}
+\right \rbrace.$$
+
+The length any element of $\mathcal{S}_1$ is denoted by $\lambda_1 = \nu_1.$
+
+Let $\gamma > 1 \in \RR$ be an arbitrary _approximation factor_. The set
+of **approximately short vectors** in $\L$ are those elements of $\L$
+whose length is at most $\gamma$ times larger than $\lambda_1$. The
+_set_ of approximately short vectors is denoted by
+$\widehat{\mathcal{S}}_1(\gamma)$ and defined as
+
+$$\widehat{\mathcal{S}}_1(\gamma) := \left \lbrace \vec{x} \;\Big|\,\; \vec{x} \in \L, \highlight{\lambda_1} \leq \abs{\vec{x}} < \highlight{\gamma\cdot\lambda_1} \right\rbrace $$
 ```
 
-Notice that if $\vec{x}$ is in $S_\L$, then so is $-\vec{x},$ since
-$\abs{\vec{x}} = \abs{-\vec{x}}.$ Furthermore, the cardinality of $S_\L$
-is even, because $\vec{x} \neq -\vec{x}$ for all non-zero values
-$\vec{x}$ (and $\vec{0}$ is explicitly forbidden from joining the set
-$S_\L$).
+```Remark
+Notice that the definition of shortest vector explicitly rules out
+$\vec{0}$ as _the_ shortest vector, i.e., shortest vector should always
+be interpreted as shortest _non-zero_ vector! Furthermore, even though
+the cardinality of $\mathcal{S}_1$ is always more than $1$, _any
+element_ of $\mathcal{S}_1$ is still referred to as **the** shortest
+vector as if it were unique.
+```
+
+```Aside [Cardinality of $\mathcal{S}_1$ is even]
+The cardinality of $\mathcal{S}_1$ is always even. This is because if $\vec{x}
+\in \mathcal{S}_1,$ then by definition $\vec{x} \neq \vec{0},$ which
+means $\vec{x} \neq -\vec{x}.$ However, $\abs{\vec{x}} = \abs{-\vec{x}}$
+so if $\vec{x} \in \mathcal{S}_1 \implies -\vec{x} \in \mathcal{S}_1.$
+Therefore, $\mathcal{S}_1$ always has an even number of elements.
+```
+
+#### Exact Problems
+
+```Algorithm [Shortest Vector Problem]
+
+```
+
+#### Approximate Problems
+
+
+A related and cryptographically important class of lattices have the
+extra property that it has only two elements, $\vec{x}$ and $-\vec{x}$
+in $\mathcal{S}_1.$ Such lattices and their shortest vector is defined
+as follows:
 
 ```Definition [Unique Shortest Vector] {#unique-shortest-vector-definition}
-A lattice $\L$ has a **unique shortest vector** if  $S_\L$ has only two
-elements $\vec{x}$ and $-\vec{x}.$
+A lattice $\L$ is said to have a **unique** shortest vector if $\mathcal{S}_1$ has
+only two elements $\vec{x}$ and $-\vec{x}$ as its elements, i.e.,
+$\mathcal{S}_1$ has the form $$\mathcal{S}_1 = \{\vec{x}, -\vec{x}\}$$
+for some $\vec{x} \in \L.$
 ```
+
+### Shortest Linearly Independent Lattice Vectors {#sivp-section}
 
 In addition to the notion of a short vector in $\L,$ one can also define
 the notion of a short basis for $\L,$
-
-### Shortest Vector Problem {#svp-section}
 
 Suppose a lattice has basis $\B \in \RR^{n \times m}$ where the columns
 are arranged according to its lengths, i.e., $\abs{\vec{b}_1} \leq
@@ -421,7 +496,8 @@ are arranged according to its lengths, i.e., $\abs{\vec{b}_1} \leq
 
 
 ## Existential Upper Bounds
-<hr/>
+---
+
 Since a lattice is a discrete set with vectors in $n$-dimensional space,
 it's natural to ask what's the shortest _non-zero_ vector in this set?
 (Zero is always an element of every lattice, and it's length is not very
@@ -429,7 +505,8 @@ interesting. When designing algorithms, however, its important to take
 this boundary condition into account.)
 
 ## Equivalence of definitions
-<hr/>
+---
+
 Finally, the following theorem states and proves that the
 basis-dependent and basis-independent definitions of a lattice are
 equivalent:
@@ -513,4 +590,7 @@ theorem](https://en.wikipedia.org/wiki/Dirichlet%27s_approximation_theorem){:tar
  lattice in $\RR$.
 ```
 
-
+[^CaiECCC99]: J. Y. Cai, "Some Recent Progress on the Complexity of
+    Lattice Problems," in Electronic Colloquium on Computational
+    Complexity, [Report No.
+    6](https://eccc.weizmann.ac.il/report/1999/006/) (1999).
