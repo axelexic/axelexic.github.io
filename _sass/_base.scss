@@ -6,7 +6,7 @@
  * Reset some basic elements
  */
 
-@include-when-export url(https://fonts.googleapis.com/css?family=PT+Serif:400,400italic,700,700italic&subset=latin,cyrillic-ext,cyrillic,latin-ext);
+@import url("https://fonts.googleapis.com/css?family=PT+Serif:400,400italic,700,700italic&subset=latin,cyrillic-ext,cyrillic,latin-ext");
 
 :root {
   --active-file-bg-color: #dadada;
