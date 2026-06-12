@@ -99,7 +99,7 @@
 }
 
 .footer-heading {
-    font-size: 18px;
+    font-size: $base-font-size;
     margin-bottom: math.div($spacing-unit, 2);
 }
 
@@ -110,7 +110,7 @@
 }
 
 .footer-col-wrapper {
-    font-size: 15px;
+    font-size: $small-font-size;
     color: $grey-color;
     margin-left: math.div(-$spacing-unit, 2);
     @include clearfix;
@@ -208,7 +208,7 @@
     line-height: 1;
 
     @include media-query($on-laptop) {
-        font-size: 36px;
+        font-size: $post-content-title-font-size;
     }
 }
 
@@ -219,7 +219,7 @@
         // font-size: 32px;
         color    : $section-title-color;
         @include media-query($on-laptop) {
-            font-size: 32px;
+            font-size: $post-content-title-font-size;
         }
     }
 
@@ -227,7 +227,7 @@
         // font-size: 32px;
         color    : $section-title-color;
         @include media-query($on-laptop) {
-            font-size: 28px;
+            font-size: $post-content-section-font-size;
         }
     }
 
@@ -235,7 +235,7 @@
         font-size: 26px;
         color       : $section-title-color;
         @include media-query($on-laptop) {
-            font-size: 22px;
+            font-size: $post-content-subsection-font-size;
         }
     }
 
@@ -243,7 +243,7 @@
         font-size: 20px;
         color       : $section-title-color;
         @include media-query($on-laptop) {
-            font-size: 18px;
+            font-size: $post-content-subsubsection-font-size;
         }
     }
 }
