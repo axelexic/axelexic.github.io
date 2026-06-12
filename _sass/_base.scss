@@ -295,26 +295,33 @@ pre {
 .footnotes {
   display: block;
   font-size: medium;
-  padding-top: 20px;
-  margin: 20px;
-  border-top: 1px dotted $blockquote-color;
+  padding-top: 0;
+  padding-left: $spacing-unit;
+  margin: $spacing-unit 0;
+  border-top: 1px dotted lightgray;
 }
 
-sup[role="doc-noteref"] {
+sup {
+  vertical-align: text-bottom;
+  position: relative;
+}
+
+sup > a[role="doc-noteref"] {
   vertical-align: inherit;
   font-size: inherit;
 }
 
-sup[role="doc-noteref"]::before {
+sup > a[role="doc-noteref"]::before {
   content: "[";
 }
 
-sup[role="doc-noteref"]::after {
+sup > a[role="doc-noteref"]::after {
   content: "]";
 }
 
-sup[role="doc-noteref"] > a {
+sup > a[role="doc-noteref"] {
   color: magenta;
+  font-weight: bold;
   text-decoration: none;
 
   &:visited {
@@ -326,6 +333,15 @@ sup[role="doc-noteref"] > a {
     text-decoration: underline;
   }
 }
+
+/* Target the native numbers inside your specific div */
+div[role="doc-endnotes"] ol li::marker {
+  content: "[" counter(list-item) "]:   ";
+  font-weight: bold;
+  color: magenta;
+  text-align: right;
+}
+
 
 /**
  * Wrapper
