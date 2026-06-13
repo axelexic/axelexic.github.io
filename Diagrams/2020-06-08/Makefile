@@ -39,6 +39,7 @@ check-dvisvgm:
 
 $(BUILD):
 	mkdir -p "$@"
+	cp -r *.tikz "$@"
 
 $(BUILD)/%-svg.tex: %.tex | $(BUILD)
 	@awk -v border="$(BORDER)" '\
