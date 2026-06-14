@@ -369,22 +369,22 @@ and $\vol(\P(\B_1)) = \vol(\P(\B_2)).$
 
 ## Hard Lattice Problems {#computationally-hard-problems}
 ---
-Since lattices are _discrete_ subgroups of $\RR^n$, each lattice vector
-$\vec{x} \in \L$ can be _partially_ ordered according to its length.
-(The ordering is partial because more than one lattice vector can have
-the same length. Indeed, for any non-zero $\vec{x}\in \L$, $\vec{x}$ and
-$-\vec{x}$ are distinct, but $\abs{\vec{x}} = \abs{-\vec{x}}$.) Let
-$\mathcal{S}_j \subseteq \L$ denote the $j$-th collection of lattice
-vectors with same length $\nu_j$, where the index $j$ is chosen such
-that $\nu_0 = 0$ and $\nu_{j-1} < \nu_j$. Then, the following _strict
+Since lattices form a repeated pattern in $\RR^n$, each lattice vector
+$\vec{x} \in \L$ can be collected into an $n$-dimensional spherical
+**shell**, where each shell contains lattice vectors of the same length.
+Let $\mathcal{S}_j \subseteq \L$ denote the $j$-th shell of those
+lattice vectors whose length is $\nu_j$. ($\nu_j$ also called the
+**radius** of the $j$-th shell.) Assuming the index $j$ is chosen such
+that $\nu_0 = 0$ and $\nu_{j-1} < \nu_j$ then, the following _strict
 ordering_ of $\nu_j$s is a lattice invariant
 
-$$\nu_0 \lt \cdots \lt \nu_{j-1} \lt \nu_j \lt \nu_{j+1} \lt \cdots$$
+$$\nu_0 \lt \cdots \lt \nu_{j-1} \lt \nu_j \lt \nu_{j+1} \lt \cdots \lt \infty$$
 
-that does not depend on the choice of $\B.$ Given this setup, there are
-three natural computational questions one can ask (there are other
-interesting questions too, see aside on [Kissing
-Numbers](#kissing-number)):
+that does not depend on the choice of $\B.$
+
+
+Given this setup, there are three natural computational questions one
+can ask. (See also the aside on [Kissing Numbers](#kissing-number).)
 
   1. Given an index $j$, and a lattice $\L(\B)$ specified by an
      [integral basis](#integral-lattice-remark) $\B \in \ZZ^{n\times m}$,
@@ -396,10 +396,10 @@ Numbers](#kissing-number)):
 
   2. Given $j$ and $\L(\B)$ as before, **compute** the value of $\nu_j$.
      Here, the problem is **not** to explicitly _find_ a lattice vector
-     $\vec{x}$ in $\mathcal{S}_j$, but only to compute the length of
-     $\nu_j$. Indeed, if one can find an element of $\mathcal{S}_j$,
-     then one can trivially compute $\nu_j$. However, there might be a
-     "short cut" that avoids the search entirely.
+     $\vec{x}$ in $\mathcal{S}_j$, but only to compute the radius of the
+     $j$-th shell. Indeed, if one can find an element of
+     $\mathcal{S}_j$, then one can trivially compute $\nu_j$. However,
+     there might be a "short cut" that avoids the search entirely.
 
   3. Given a lattice vector $\vec{x} \in \L(\B)$ **find** its position
      $j$ in the partial order, i.e., find $j$ such that $\abs{\vec{x}} =
@@ -423,13 +423,43 @@ involving polynomials are assumed to have _rank_ as the indeterminate of
 the polynomial.
 ```
 
-```Aside [Kissing Number and Cardinality of $\mathcal{S}_j$] {#kissing-number}
+```Aside [Kissing number and cardinality of $\mathcal{S}_j$] {#kissing-number}
+
+For a full-rank lattice $\L$, an interesting question is what are the
+upper and bounds on the cardinality of $\mathcal{S}_1$, and more
+generally for $\mathcal{S}_j$?
+
+Establishing a lower bound is easy: The cardinality of $\mathcal{S}_j$
+for $j>0$ is always even. This is because if $\vec{x} \in \mathcal{S}_j$
+for $j\ge 1$, then by definition $\vec{x} \neq \vec{0} \in
+\mathcal{S}_0$, which means $\vec{x} \neq -\vec{x}$. However, for all
+$\vec{x}$, $\abs{\vec{x}} = \abs{-\vec{x}}$, therefore $\vec{x} \in
+\mathcal{S}_j \implies -\vec{x} \in \mathcal{S}_j.$ Therefore, the
+cardinality of $\mathcal{S}_j$ is always even, so the lower bound on
+$\mathcal{S}_j$ is $2$. For [integral
+lattices](#integral-lattice-remark), this lower bound is not sharp
+(except trivially in dimension $1$). Better lower bounds (listed below)
+are known in Analytic Number Theory [^IK04] that can be derived from the
+understanding of Modular Forms of weight $n/2$.
+
+  | Dimension ($n$) | Lower Bound |
+  |:----------:|:-----------:|
+  | $n = 1$    | 2           |
+  | $n = 2$    | 4           |
+  | $n = 3$    | $\Omega(j^{\frac{1}{2} - \epsilon })$ |
+  | $n = 4$    | $\Omega(j^{1 - \epsilon })$ |
+  | $n \ge 5$  | $\Omega(j^{\frac{n}{2} - 1 })$ |
+Table: Lower bounds on minimal cardinality of $\mathcal{S}_j$.
 
 <figure id="KissingNumber2D">
 <img src="/Diagrams/2020-06-08/final/KissingNumbers.svg" />
 <figurecaption>Six kissing circles.</figurecaption>
 </figure>
 
+
+By definition every lattice point in $\mathcal{S}_j$ has the same length
+$\nu_j$ and therefore lies on an $n$-dimensional sphere of radius
+$\nu_j$.
 
 ```
 
@@ -461,14 +491,6 @@ be interpreted as shortest _non-zero_ vector! Furthermore, even though
 the cardinality of $\mathcal{S}_1$ is always more than $1$, _any
 element_ of $\mathcal{S}_1$ is still referred to as **the** shortest
 vector as if it were unique.
-```
-
-```Aside [Cardinality of $\mathcal{S}_1$ is even]
-The cardinality of $\mathcal{S}_1$ is always even. This is because if $\vec{x}
-\in \mathcal{S}_1,$ then by definition $\vec{x} \neq \vec{0},$ which
-means $\vec{x} \neq -\vec{x}.$ However, $\abs{\vec{x}} = \abs{-\vec{x}}$
-so if $\vec{x} \in \mathcal{S}_1 \implies -\vec{x} \in \mathcal{S}_1.$
-Therefore, $\mathcal{S}_1$ always has an even number of elements.
 ```
 
 #### Exact Problems
@@ -601,3 +623,6 @@ theorem](https://en.wikipedia.org/wiki/Dirichlet%27s_approximation_theorem){:tar
     Lattice Problems," in Electronic Colloquium on Computational
     Complexity, [Report No.
     6](https://eccc.weizmann.ac.il/report/1999/006/) (1999).
+
+[^IK04]:  H. Iwaniec and E. Kowalski, "Analytic Number Theory,"
+    Colloquium Publications of American Mathematical Society, 2004.
