@@ -1,69 +1,130 @@
-<?xml version='1.0' encoding='UTF-8'?>
-<svg version='1.1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' width='194.038804pt' height='175.211885pt' viewBox='-72 -72 194.038804 175.211885'>
-<style>
+<?xml version="1.0" encoding="UTF-8"?>
+<svg
+  version="1.1"
+  xmlns="http://www.w3.org/2000/svg"
+  width="320"
+  height="300"
+  viewBox="-160 -150 320 300"
+  role="img"
+  aria-labelledby="title desc">
+  <title id="title">Two-dimensional kissing number</title>
+  <desc id="desc">
+    One central circle is touched by six congruent circles. The centers of the six outer circles form a regular hexagon. The central radius is labeled as $\frac{\lambda_1}{2}$.
+  </desc>
 
+  <style>
     :root {
-      --main-color: color-mix(in oklab, darkviolet 80%, darkred);
-      --accent-color: #0808f8;
-      --fill-opacity: 50%;
+      --main-color: #FFE6CC;
+      --accent-color: #D79B00;
+      --hexagon-color: color-mix(in oklab, var(--main-color) 35%, black);
+      --label-color: red;
+      --stroke-width: 2;
     }
 
-    .inner-circle {
-        stroke: none;
-        fill: var(--main-color);
+    .kissing-circle {
+      fill: var(--main-color);
+      stroke: var(--accent-color);
+      stroke-width: var(--stroke-width);
     }
 
-    .outer-circle {
-        stroke : none;
-        fill : var(--accent-color);
-        fill-opacity: var(--fill-opacity);
+    .central-circle {
+      fill: #D5E8D4;
+      stroke: #82B366;
+      stroke-width: var(--stroke-width);
     }
 
-    <!-- #kissing-circle-0 {
-        fill : maroon;
+    .hexagon {
+      fill: none;
+      stroke: var(--hexagon-color);
+      stroke-width: 2.5;
+      stroke-linejoin: round;
     }
 
-    #kissing-circle-60 {
-        fill : red;
-    }
-    #kissing-circle-120 {
-        fill : blue;
-    }
-    #kissing-circle-180 {
-        fill : green;
-    }
-    #kissing-circle-240 {
-        fill : pink;
+    .radius-line,
+    .fraction-bar {
+      stroke: var(--label-color);
+      stroke-linecap: round;
     }
 
-    #kissing-circle-300 {
-        fill : cyan;
-    } -->
+    .radius-line,
+    .radius-boundary-tick {
+      stroke: var(--label-color);
+      stroke-width: 0.75;
+    }
 
-</style>
+    .radius-line {
+      marker-start: url(#radius-arrow);
+      marker-end: url(#radius-arrow);
+    }
 
-<g stroke-miterlimit='10' transform='translate(23.201219,15.605937)scale(0.996264,-0.996264)'>
+    .radius-boundary-tick {
+      stroke-dasharray: 1.4 1.7;
+      stroke-linecap: butt;
+    }
 
-<g id='kissing-circle-0' class='outer-circle'>
-<path d='M85.35823 0C85.35823 15.71422 72.6197 28.45274 56.90549 28.45274C41.19127 28.45274 28.45274 15.71422 28.45274 0S41.19127-28.45274 56.90549-28.45274C72.6197-28.45274 85.35823-15.71422 85.35823 0ZM56.90549 0'/>
-</g>
-<g id='kissing-circle-60' class='outer-circle'>
-<path d='M56.90549 49.28172C56.90549 64.99594 44.16696 77.73447 28.45274 77.73447C12.73853 77.73447 0 64.99594 0 49.28172S12.73853 20.82898 28.45274 20.82898C44.16696 20.82898 56.90549 33.5675 56.90549 49.28172ZM28.45274 49.28172'/>
-</g>
-<g id='kissing-circle-120' class='outer-circle'>
-<path d='M0 49.28172C0 64.99594-12.73853 77.73447-28.45274 77.73447C-44.16696 77.73447-56.90549 64.99594-56.90549 49.28172S-44.16696 20.82898-28.45274 20.82898C-12.73853 20.82898 0 33.5675 0 49.28172ZM-28.45274 49.28172'/>
-</g>
-<g id='kissing-circle-180' class='outer-circle'>
-<path d='M-28.45274 0C-28.45274 15.71422-41.19127 28.45274-56.90549 28.45274C-72.6197 28.45274-85.35823 15.71422-85.35823 0S-72.6197-28.45274-56.90549-28.45274C-41.19127-28.45274-28.45274-15.71422-28.45274 0ZM-56.90549 0'/>
-</g>
-<g id='kissing-circle-240' class='outer-circle'>
-<path d='M0-49.28172C0-33.5675-12.73853-20.82898-28.45274-20.82898C-44.16696-20.82898-56.90549-33.5675-56.90549-49.28172S-44.16696-77.73447-28.45274-77.73447C-12.73853-77.73447 0-64.99594 0-49.28172ZM-28.45274-49.28172'/>
-</g>
-<g id='kissing-circle-300' class='outer-circle'>
-<path d='M56.90549-49.28172C56.90549-33.5675 44.16696-20.82898 28.45274-20.82898C12.73853-20.82898 0-33.5675 0-49.28172S12.73853-77.73447 28.45274-77.73447C44.16696-77.73447 56.90549-64.99594 56.90549-49.28172ZM28.45274-49.28172'/>
-</g>
-<g class='inner-circle' id="central-circle">
-<path d='M28.45274 0C28.45274 15.71422 15.71422 28.45274 0 28.45274S-28.45274 15.71422-28.45274 0S-15.71422-28.45274 0-28.45274S28.45274-15.71422 28.45274 0ZM0 0'/>
-</g>
-</g>
+    .fraction-bar {
+      stroke-width: 1.8;
+    }
+
+    .radius-arrowhead {
+      fill: var(--label-color);
+    }
+
+    .radius-label {
+      fill: var(--label-color);
+      font-family: "PT Serif", Georgia, "Times New Roman", serif;
+      font-size: 17px;
+      font-style: italic;
+      text-anchor: middle;
+      dominant-baseline: middle;
+    }
+  </style>
+
+  <defs>
+    <marker
+      id="radius-arrow"
+      markerWidth="5"
+      markerHeight="5"
+      refX="5"
+      refY="2.5"
+      orient="auto-start-reverse"
+      markerUnits="strokeWidth">
+      <path class="radius-arrowhead" d="M 0 0 L 5 2.5 L 0 5 Z" />
+    </marker>
+  </defs>
+
+  <circle id="kissing-circle-0" class="kissing-circle" cx="90" cy="0" r="45" />
+  <circle id="kissing-circle-60" class="kissing-circle" cx="45" cy="-77.942286" r="45" />
+  <circle id="kissing-circle-120" class="kissing-circle" cx="-45" cy="-77.942286" r="45" />
+  <circle id="kissing-circle-180" class="kissing-circle" cx="-90" cy="0" r="45" />
+  <circle id="kissing-circle-240" class="kissing-circle" cx="-45" cy="77.942286" r="45" />
+  <circle id="kissing-circle-300" class="kissing-circle" cx="45" cy="77.942286" r="45" />
+
+  <circle id="central-circle" class="central-circle" cx="0" cy="0" r="45" />
+
+  <polygon
+    class="hexagon"
+    points="90,0 45,-77.942286 -45,-77.942286 -90,0 -45,77.942286 45,77.942286" />
+
+
+  <line class="radius-line" x1="0" y1="0" x2="45" y2="0" />
+  <line class="radius-line" x1="45" y1="0" x2="90" y2="0" />
+  <line class="radius-boundary-tick" x1="90" y1="-20" x2="90" y2="20" />
+  <line class="radius-boundary-tick" x1="45" y1="-20" x2="45" y2="20" />
+  <line class="radius-boundary-tick" x1="0" y1="-20" x2="0" y2="20" />
+  <g class="radius-label" transform="translate(24 24)">
+    <text x="0" y="-7">
+      <tspan>&#955;</tspan><tspan dx="1" dy="4" font-size="11">1</tspan>
+    </text>
+    <line class="fraction-bar" x1="-11" y1="0" x2="11" y2="0" />
+    <text x="0" y="16">2</text>
+  </g>
+
+  <g class="radius-label" transform="translate(72 24)">
+    <text x="0" y="-7">
+      <tspan>&#955;</tspan><tspan dx="1" dy="4" font-size="11">1</tspan>
+    </text>
+    <line class="fraction-bar" x1="-11" y1="0" x2="11" y2="0" />
+    <text x="0" y="16">2</text>
+  </g>
 </svg>

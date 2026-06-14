@@ -26,6 +26,8 @@ This post is a grab bag of basic definitions and elementary results
 related to unstructured lattices. Also see [^CaiECCC99] for a more condensed
 version of similar topics.
 
+<!-- more -->
+
 ## Basis Independent Characterization {#basis-independent-characterization}
 ---
 
@@ -423,43 +425,56 @@ involving polynomials are assumed to have _rank_ as the indeterminate of
 the polynomial.
 ```
 
+<!--
 ```Aside [Kissing number and cardinality of $\mathcal{S}_j$] {#kissing-number}
+-->
 
-For a full-rank lattice $\L$, an interesting question is what are the
-upper and bounds on the cardinality of $\mathcal{S}_1$, and more
-generally for $\mathcal{S}_j$?
+For a full-rank lattice $\L$, what are the upper and lower bounds on the
+_cardinality_ of $\mathcal{S}_1$ (and more generally on
+$\mathcal{S}_j$)?
 
-Establishing a lower bound is easy: The cardinality of $\mathcal{S}_j$
-for $j>0$ is always even. This is because if $\vec{x} \in \mathcal{S}_j$
-for $j\ge 1$, then by definition $\vec{x} \neq \vec{0} \in
-\mathcal{S}_0$, which means $\vec{x} \neq -\vec{x}$. However, for all
-$\vec{x}$, $\abs{\vec{x}} = \abs{-\vec{x}}$, therefore $\vec{x} \in
-\mathcal{S}_j \implies -\vec{x} \in \mathcal{S}_j.$ Therefore, the
-cardinality of $\mathcal{S}_j$ is always even, so the lower bound on
-$\mathcal{S}_j$ is $2$. For [integral
-lattices](#integral-lattice-remark), this lower bound is not sharp
-(except trivially in dimension $1$). Better lower bounds (listed below)
-are known in Analytic Number Theory [^IK04] that can be derived from the
-understanding of Modular Forms of weight $n/2$.
+Establishing a (non-tight) lower bound is easy: The cardinality of
+$\mathcal{S}_j$ for $j>0$ is always even so the minimum lower bound is
+$2$. This is because if $\vec{x} \in \mathcal{S}_j$ for $j\ge 1$, then
+by definition $\vec{x} \neq \vec{0} \in \mathcal{S}_0$, which means
+$\vec{x} \neq -\vec{x}$. However, for all $\vec{x}$, $\abs{\vec{x}} =
+\abs{-\vec{x}}$, therefore $\vec{x} \in \mathcal{S}_j \implies -\vec{x}
+\in \mathcal{S}_j.$ Therefore, the cardinality of $\mathcal{S}_j$ is
+always even, which is a more interesting fact than the lower bound
+itself. For [integral lattices](#integral-lattice-remark), this lower
+bound is not sharp (except trivially in dimension $1$). Better lower
+bounds (listed below) are known in Analytic Number Theory [^IK04] but
+that will require a deep digression into Modular Forms of weight $n/2$.
 
+  {: #shell-cardinality-lower-bound }
   | Dimension ($n$) | Lower Bound |
   |:----------:|:-----------:|
   | $n = 1$    | 2           |
   | $n = 2$    | 4           |
-  | $n = 3$    | $\Omega(j^{\frac{1}{2} - \epsilon })$ |
-  | $n = 4$    | $\Omega(j^{1 - \epsilon })$ |
-  | $n \ge 5$  | $\Omega(j^{\frac{n}{2} - 1 })$ |
-Table: Lower bounds on minimal cardinality of $\mathcal{S}_j$.
+  | $n = 3$    | $\Omega\left(j^{\frac{1}{2} - \epsilon }\right)$ |
+  | $n = 4$    | $\Omega\left(j^{1 - \epsilon }\right)$ |
+  | $n \ge 5$  | $\Omega\left(j^{\frac{n}{2} - 1 }\right)$ |
+Table: Lower bounds on the cardinality of $\mathcal{S}_j$.
+
+What about an upper bound on the cardinality of $\mathcal{S}_1$, setting
+aside the more general case of $\mathcal{S}_j$? Since every element of
+$\mathcal{S}_1$ has the same length $\lambda_1$, one can pick a random
+lattice point, say $\vec{0}$ as origin, and draw a sphere of radius
+$\lambda_1$. Elements of $\mathcal{S}_1$ are points on the surface of
+this sphere, where each point on surface is at a distance $\lambda_1$
+from each other (see [Fig. 2](KissingNumber2D) for a illustration in
+dimension $2$). Finding an upper bound on the size $\mathcal{S}_1$ is
+equivalent to finding the largest number of _solid_ balls which can be
+placed on the surface of this sphere. This number is known as the
+Kissing Number of a lattice, and the upper bound on the cardinality of
+$\mathcal{S}_1$.
 
 <figure id="KissingNumber2D">
 <img src="/Diagrams/2020-06-08/final/KissingNumbers.svg" />
 <figurecaption>Six kissing circles.</figurecaption>
 </figure>
 
-
-By definition every lattice point in $\mathcal{S}_j$ has the same length
-$\nu_j$ and therefore lies on an $n$-dimensional sphere of radius
-$\nu_j$.
+The k
 
 ```
 
