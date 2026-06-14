@@ -41,7 +41,7 @@ $(BUILD):
 	mkdir -p "$@"
 	cp -r *.tikz "$@"
 
-$(BUILD)/%-svg.tex: %.tex | $(BUILD)
+$(BUILD)/%-svg.tex: %.tex %.tikz | $(BUILD)
 	@awk -v border="$(BORDER)" '\
 	  /\\usepackage(\[[^]]*\])?\{preview\}/ { next } \
 	  /\\setlength\\PreviewBorder/ { next } \

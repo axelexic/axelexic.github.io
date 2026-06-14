@@ -247,7 +247,7 @@ asymptotic behavior of lattice problems as a function of its rank.
 ### Fundamental Parallelepiped {#fundamental-parallelepiped-subsection}
 
 <figure id="LatticeBasicFigure">
-<img src="/Diagrams/2020-06-08/LatticeBasic.svg"
+<img src="/Diagrams/2020-06-08/final/LatticeBasic.svg"
     style="width : 40vw;min-width: 300px;"/>
 <figurecaption>Same lattice with different bases and distinctly shaped
 parallelepiped.</figurecaption>
@@ -369,25 +369,22 @@ and $\vol(\P(\B_1)) = \vol(\P(\B_2)).$
 
 ## Hard Lattice Problems {#computationally-hard-problems}
 ---
-Since lattices are _discrete_ subgroups of $\RR^n,$ each lattice vector
+Since lattices are _discrete_ subgroups of $\RR^n$, each lattice vector
 $\vec{x} \in \L$ can be _partially_ ordered according to its length.
 (The ordering is partial because more than one lattice vector can have
-the same length.) Let $\mathcal{S}_j \subseteq \L$ denote the $j$-th
-collection of lattice vectors in the partial order and let $\nu_j$
-denote the length of any vector in $\mathcal{S}_j$. Then, by
-construction, the ordering of $\nu_j$s is a lattice invariant. That is,
-the following ordering
+the same length. Indeed, for any non-zero $\vec{x}\in \L$, $\vec{x}$ and
+$-\vec{x}$ are distinct, but $\abs{\vec{x}} = \abs{-\vec{x}}$.) Let
+$\mathcal{S}_j \subseteq \L$ denote the $j$-th collection of lattice
+vectors with same length $\nu_j$, where the index $j$ is chosen such
+that $\nu_0 = 0$ and $\nu_{j-1} < \nu_j$. Then, the following _strict
+ordering_ of $\nu_j$s is a lattice invariant
 
 $$\nu_0 \lt \cdots \lt \nu_{j-1} \lt \nu_j \lt \nu_{j+1} \lt \cdots$$
 
-does not depend on the choice of $\B.$
-
-```Aside [Kissing Number and Cardinality of $\mathcal{S}_j$]
-
-```
-
-Given this setup, there are three natural computational questions one
-can ask:
+that does not depend on the choice of $\B.$ Given this setup, there are
+three natural computational questions one can ask (there are other
+interesting questions too, see aside on [Kissing
+Numbers](#kissing-number)):
 
   1. Given an index $j$, and a lattice $\L(\B)$ specified by an
      [integral basis](#integral-lattice-remark) $\B \in \ZZ^{n\times m}$,
@@ -424,6 +421,16 @@ For all computational problems, the asymptotics is always over the
 _rank_ of $\L$. Unless otherwise specified, all asymptotic arguments
 involving polynomials are assumed to have _rank_ as the indeterminate of
 the polynomial.
+```
+
+```Aside [Kissing Number and Cardinality of $\mathcal{S}_j$] {#kissing-number}
+
+<figure id="KissingNumber2D">
+<img src="/Diagrams/2020-06-08/final/KissingNumbers.svg" />
+<figurecaption>Six kissing circles.</figurecaption>
+</figure>
+
+
 ```
 
 ### Shortest Vector Problem {#svp-section}

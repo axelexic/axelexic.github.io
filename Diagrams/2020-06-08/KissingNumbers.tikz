@@ -1,0 +1,18 @@
+\begin{tikzpicture}
+    % Define the radius of the spheres
+    \def\r{1}
+
+    % Draw the central sphere
+    \special{dvisvgm:raw <g id="central-circle" class="inner-circle"}
+    \filldraw (0,0) circle (\r);
+    \special{dvisvgm:raw </g>}
+
+
+    % Draw the 6 surrounding spheres (Kissing number = 6 in 2D)
+    % The distance between centers of equal tangent spheres is 2 * r
+    \foreach \angle in {0, 60, 120, 180, 240, 300} {
+        \special{dvisvgm:raw <g id="kissing-circle-\angle" class="outer-circle">}
+        \filldraw (\angle:2*\r) circle (\r);
+        \special{dvisvgm:raw </g>}
+    }
+\end{tikzpicture}
