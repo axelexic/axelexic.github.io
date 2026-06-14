@@ -380,9 +380,69 @@ div[role="doc-endnotes"] ol li::marker {
 }
 
 .post-content table {
-  display: block;
-  overflow-x: auto;
-  -webkit-overflow-scrolling: touch;
+  display: table;
+  width: auto;
+  max-width: 100%;
+  margin: math.div($spacing-unit, 2) auto $spacing-unit;
+  border-collapse: collapse;
+  border: 0;
+  counter-increment: table_counter;
+}
+
+.post-content table::after {
+  content: "Table " counter(table_counter) ".";
+  display: table-caption;
+  caption-side: bottom;
+  padding-top: math.div($spacing-unit, 4);
+  color: $section-title-color;
+  font-size: $small-font-size;
+  font-weight: bold;
+  text-align: center;
+}
+
+.post-content table caption {
+  caption-side: bottom;
+  padding-top: math.div($spacing-unit, 4);
+  color: $section-title-color;
+  font-size: $small-font-size;
+  font-weight: bold;
+  text-align: center;
+}
+
+.post-content table caption::before {
+  content: "Table " counter(table_counter) ": ";
+}
+
+.post-content table:has(caption)::after {
+  content: none;
+  display: none;
+}
+
+.post-content table th,
+.post-content table td {
+  padding: math.div($spacing-unit, 4) math.div($spacing-unit, 2);
+  border: 0;
+}
+
+.post-content table thead th {
+  border-bottom: 1px solid $section-title-color;
+}
+
+.post-content table th + th,
+.post-content table td + td {
+  border-left: 1px solid $section-title-color;
+}
+
+@include media-query($on-palm) {
+  .post-content table {
+    display: block;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .post-content table::after {
+    display: block;
+  }
 }
 
 mjx-container {

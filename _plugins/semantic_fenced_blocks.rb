@@ -22,12 +22,54 @@ module SemanticFencedBlocks
   }.freeze
 
   UNNUMBERED_TYPES = %w[claim note proof].freeze
+  TABLE_CAPTION_PARAGRAPH = /
+    (?<table><table\b[^>]*>.*?<\/table>)
+    \s*
+    <p>Table:\s*(?<caption>.*?)<\/p>
+  /imx.freeze
 
   def convert(content)
-    super(rewrite_semantic_fences(content))
+    markdown = normalize_table_caption_markers(rewrite_semantic_fences(content))
+    rewrite_table_captions(super(markdown))
   end
 
   private
+
+  def normalize_table_caption_markers(content)
+    content.lines.each_with_object([]) do |line, output|
+      if table_caption_marker?(line) && markdown_table_tail?(output)
+        output << "\n"
+      end
+
+      output << line
+    end.join
+  end
+
+  def table_caption_marker?(line)
+    line.to_s.match?(/\A[ \t]{0,3}Table:\s+.+\r?\n?\z/)
+  end
+
+  def table_row_line?(line)
+    line.to_s.match?(/\A[ \t]{0,3}.+\|.+\r?\n?\z/)
+  end
+
+  def markdown_table_tail?(lines)
+    return false unless table_row_line?(lines.last)
+
+    lines.reverse_each do |line|
+      return false if line.to_s.strip.empty?
+      return true if table_separator_line?(line)
+      return false unless table_row_line?(line)
+    end
+
+    false
+  end
+
+  def table_separator_line?(line)
+    cells = line.to_s.strip.delete_prefix("|").delete_suffix("|").split("|")
+
+    !cells.empty? && cells.all? { |cell| cell.strip.match?(/\A:?-{3,}:?\z/) }
+  end
 
   def rewrite_semantic_fences(content)
     lines = content.lines
@@ -77,6 +119,19 @@ module SemanticFencedBlocks
     end
 
     output.join
+  end
+
+  def rewrite_table_captions(html)
+    html.gsub(TABLE_CAPTION_PARAGRAPH) do |match|
+      table = Regexp.last_match[:table]
+      caption = Regexp.last_match[:caption].strip
+
+      if caption.empty? || table.match?(/<caption\b/i)
+        match
+      else
+        table.sub(/\A(<table\b[^>]*>)/i, "\\1\n<caption>#{caption}</caption>")
+      end
+    end
   end
 
   def collect_fenced_body(lines, start_index, fence)
