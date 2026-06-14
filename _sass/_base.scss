@@ -383,7 +383,7 @@ div[role="doc-endnotes"] ol li::marker {
   display: table;
   width: auto;
   max-width: 100%;
-  margin: math.div($spacing-unit, 2) auto $spacing-unit;
+  margin: 1.5*$spacing-unit auto 1.5*$spacing-unit;
   border-collapse: collapse;
   border: 0;
   counter-increment: table_counter;
@@ -394,7 +394,7 @@ div[role="doc-endnotes"] ol li::marker {
   display: table-caption;
   caption-side: bottom;
   padding-top: math.div($spacing-unit, 4);
-  color: $section-title-color;
+  color: $table-caption-color;
   font-size: $small-font-size;
   font-weight: bold;
   text-align: center;
@@ -403,14 +403,17 @@ div[role="doc-endnotes"] ol li::marker {
 .post-content table caption {
   caption-side: bottom;
   padding-top: math.div($spacing-unit, 4);
-  color: $section-title-color;
+  padding-bottom: math.div($spacing-unit, 4);
+  color: $table-caption-color;
   font-size: $small-font-size;
   font-weight: bold;
   text-align: center;
+  white-space: nowrap;
 }
 
 .post-content table caption::before {
   content: "Table " counter(table_counter) ": ";
+  color: $table-caption-color;
 }
 
 .post-content table:has(caption)::after {
@@ -422,16 +425,34 @@ div[role="doc-endnotes"] ol li::marker {
 .post-content table td {
   padding: math.div($spacing-unit, 4) math.div($spacing-unit, 2);
   border: 0;
+  text-align: left !important;
+}
+
+.post-content table th:first-child,
+.post-content table td:first-child {
+  text-align: center !important;
+}
+
+.post-content table tbody tr:nth-child(even) {
+  background-color: color-mix(in oklab, #{$background-color} 96%, black);
 }
 
 .post-content table thead th {
-  border-bottom: 1px solid $section-title-color;
+  border-top: 4px double $table-line-color;
+  border-bottom: 4px double $table-line-color;
+  color: $table-header-color;
 }
 
 .post-content table th + th,
 .post-content table td + td {
-  border-left: 1px solid $section-title-color;
+  border-left: 1px solid $table-line-color;
 }
+
+
+.post-content table tbody {
+  border-bottom: 4px double $table-line-color;
+}
+
 
 @include media-query($on-palm) {
   .post-content table {

@@ -38,6 +38,10 @@ $section-title-color: #0808f8;
 $site-title-font:  "PT Serif", "Helvetica", serif, ariel, sans-serif;
 $section-title-font: "PT Serif", "Helvetica", serif, ariel, sans-serif;
 
+$table-line-color : $section-title-color;
+$table-header-color : $section-title-color;
+$table-caption-color : $section-title-color;
+
 @mixin media-query($device) {
     @media screen and (max-width: $device) {
         @content;
