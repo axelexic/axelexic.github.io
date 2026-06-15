@@ -390,20 +390,18 @@ can ask. (See also the aside on [Kissing Numbers](#kissing-number).)
 
   1. Given an index $j$, and a lattice $\L(\B)$ specified by an
      [integral basis](#integral-lattice-remark) $\B \in \ZZ^{n\times m}$,
-     **find** an element of $\mathcal{S}_j.$ For example, when $j=0$ its
+     _find_ an element of $\mathcal{S}_j.$ For example, when $j=0$ its
      trivial to find an element of $\mathcal{S}_0,$ since $\mathcal{S}_0
      = \lbrace \vec{0}\rbrace$. But what about finding an element of
      $\mathcal{S}_1$ or $\mathcal{S}_{13}$? Does the difficulty depend
      upon the index $j$? Does it depend on the choice of $\B$?
-
-  2. Given $j$ and $\L(\B)$ as before, **compute** the value of $\nu_j$.
-     Here, the problem is **not** to explicitly _find_ a lattice vector
+  2. Given $j$ and $\L(\B)$ as before, _compute_ the value of $\nu_j$.
+     Here, the problem is **not** to explicitly find a lattice vector
      $\vec{x}$ in $\mathcal{S}_j$, but only to compute the radius of the
      $j$-th shell. Indeed, if one can find an element of
      $\mathcal{S}_j$, then one can trivially compute $\nu_j$. However,
      there might be a "short cut" that avoids the search entirely.
-
-  3. Given a lattice vector $\vec{x} \in \L(\B)$ **find** its position
+  3. Given a lattice vector $\vec{x} \in \L(\B)$ _find_ its position
      $j$ in the partial order, i.e., find $j$ such that $\abs{\vec{x}} =
      \nu_j.$
 
@@ -425,26 +423,27 @@ involving polynomials are assumed to have _rank_ as the indeterminate of
 the polynomial.
 ```
 
-<!--
+
 ```Aside [Kissing number and cardinality of $\mathcal{S}_j$] {#kissing-number}
--->
 
 For a full-rank lattice $\L$, what are the upper and lower bounds on the
 _cardinality_ of $\mathcal{S}_1$ (and more generally on
-$\mathcal{S}_j$)?
+$\mathcal{S}_j$)? Following convention, in the rest of this section,
+$\tau_n$ will denote the cardinality of $\mathcal{S}_1$ and
+$\tau_n^{(j)} = |\mathcal{S}_j|$.
 
 Establishing a (non-tight) lower bound is easy: The cardinality of
 $\mathcal{S}_j$ for $j>0$ is always even so the minimum lower bound is
-$2$. This is because if $\vec{x} \in \mathcal{S}_j$ for $j\ge 1$, then
-by definition $\vec{x} \neq \vec{0} \in \mathcal{S}_0$, which means
-$\vec{x} \neq -\vec{x}$. However, for all $\vec{x}$, $\abs{\vec{x}} =
-\abs{-\vec{x}}$, therefore $\vec{x} \in \mathcal{S}_j \implies -\vec{x}
-\in \mathcal{S}_j.$ Therefore, the cardinality of $\mathcal{S}_j$ is
-always even, which is a more interesting fact than the lower bound
-itself. For [integral lattices](#integral-lattice-remark), this lower
-bound is not sharp (except trivially in dimension $1$). Better lower
-bounds (listed below) are known in Analytic Number Theory [^IK04] but
-that will require a deep digression into Modular Forms of weight $n/2$.
+$2$. The cardinality is even because if $\vec{x} \in \mathcal{S}_j$ for
+$j\ge 1$, then by definition $\vec{x} \neq \vec{0} \in \mathcal{S}_0$,
+which means $\vec{x} \neq -\vec{x}$. However, for all $\vec{x}$,
+$\abs{\vec{x}} = \abs{-\vec{x}}$, therefore if $\vec{x}$ is an element
+of $\mathcal{S}_j$, then so is $-\vec{x}$, and the cardinality of
+$\mathcal{S}_j$ is even! For [integral
+lattices](#integral-lattice-remark), this lower bound is not sharp
+(except in dimension $1$). Better lower bounds (listed below) are known
+in Analytic Number Theory literature [^IK04], but establishing them will
+require a deep digression into Modular Forms of weight $n/2$.
 
   {: #shell-cardinality-lower-bound }
   | Dimension ($n$) | Lower Bound |
@@ -456,25 +455,39 @@ that will require a deep digression into Modular Forms of weight $n/2$.
   | $n \ge 5$  | $\Omega\left(j^{\frac{n}{2} - 1 }\right)$ |
 Table: Lower bounds on the cardinality of $\mathcal{S}_j$.
 
-What about an upper bound on the cardinality of $\mathcal{S}_1$, setting
-aside the more general case of $\mathcal{S}_j$? Since every element of
-$\mathcal{S}_1$ has the same length $\lambda_1$, one can pick a random
-lattice point, say $\vec{0}$ as origin, and draw a sphere of radius
-$\lambda_1$. Elements of $\mathcal{S}_1$ are points on the surface of
-this sphere, where each point on surface is at a distance $\lambda_1$
-from each other (see [Fig. 2](KissingNumber2D) for a illustration in
-dimension $2$). Finding an upper bound on the size $\mathcal{S}_1$ is
-equivalent to finding the largest number of _solid_ balls which can be
-placed on the surface of this sphere. This number is known as the
-Kissing Number of a lattice, and the upper bound on the cardinality of
-$\mathcal{S}_1$.
+What about the upper bound on the cardinality of $\mathcal{S}_1$? Since
+every element of $\mathcal{S}_1$ has the same length $\lambda_1$, one
+can pick a random lattice point, say $\vec{0}$ as origin, and draw a
+sphere of radius $\lambda_1$. Elements of $\mathcal{S}_1$ are points on
+the surface of this sphere, where each pair of points is at least
+$\lambda_1$ distance apart. Counting the maximum number of such lattice
+points is equivalent to counting the maximum number of _solid_ spheres
+of radius $\frac{\lambda_1}{2}$ that can be placed around a sphere of
+radius $\frac{\lambda_1}{2}$ (See [Fig. 2](KissingNumber2D)). The
+_number_ of such spheres that touch the central sphere, is known as the
+[$n$-dimensional Kissing
+Number](https://cohn.mit.edu/kissing-numbers/){:target="_blank"} of the
+lattice, and is computationally hard to compute. Asymptotically, the
+best known upper and lower bounds for $\tau_n$ are given below (see
+[^JJP18] and references there):
+
+$$
+  (1+o(1))\sqrt{\frac{3\pi n}{8}}\highlight{\left (\frac{2}{\sqrt{3}}\right)^{n}} \le \highlight{\tau_n} \le (1+o(1))\sqrt{\frac{\pi}{8}}n^{3/2}\cdot \highlight{2^{n/2}}.
+$$
 
 <figure id="KissingNumber2D">
 <img src="/Diagrams/2020-06-08/final/KissingNumbers.svg" />
-<figurecaption>Six kissing circles.</figurecaption>
+<figurecaption>Kissing spheres in dimension $2$. Corners of the hexagon
+represent lattice points.</figurecaption>
 </figure>
 
-The k
+In summary: The cardinality of $\mathcal{S}_1$ grows exponentially with
+dimension, and there's no hope of even listing _all_ the shortest
+lattice vectors in polynomial time, let alone find them! Furthermore,
+the cardinality of $\mathcal{S}_j$ asymptotically behaves much worse
+than $\tau_n.$
+
+
 
 ```
 
@@ -637,7 +650,17 @@ theorem](https://en.wikipedia.org/wiki/Dirichlet%27s_approximation_theorem){:tar
 [^CaiECCC99]: J. Y. Cai, "Some Recent Progress on the Complexity of
     Lattice Problems," in Electronic Colloquium on Computational
     Complexity, [Report No.
-    6](https://eccc.weizmann.ac.il/report/1999/006/) (1999).
+    6](https://eccc.weizmann.ac.il/report/1999/006/){:target="_blank"} (1999).
 
 [^IK04]:  H. Iwaniec and E. Kowalski, "Analytic Number Theory,"
     Colloquium Publications of American Mathematical Society, 2004.
+
+[^CZ13]:  H. Cohn and Y. Zhao, "Sphere Packing Bounds via Spherical
+    Codes," [Arxiv 1212.5966](https://arxiv.org/pdf/1212.5966){:target="_blank"}, 2013. See also, Institute for Advanced
+    Study [video
+    lecture](https://www.ias.edu/video/1213/analysis/0122-HenryCohn){:target="_blank"}.
+
+[^JJP18]:   M. Jenssen, F. Joos, and W. Perkins, "On kissing numbers and
+    spherical codes in high dimensions," in Advances in Mathematics,
+335, (2018),
+[307-321](https://www.sciencedirect.com/science/article/pii/S0001870818302494){:target="_blank"}.
