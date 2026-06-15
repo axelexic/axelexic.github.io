@@ -238,12 +238,22 @@ and is denoted by $\mathrm{GL}_m(\ZZ).$
 ```Remark {#integral-lattice-remark}
 
 While lattices in general are defined over reals, for computational
-problems, only _integral_ lattices (i.e., lattices where $\mathbf{B} \in
-\ZZ^{n\times m} \subseteq \RR^{n\times m}$) are of cryptographic
-interest. Furthermore, the _number of bits_ needed to represent the
-basis matrix $\B$ is assumed to be a fixed polynomial in $n.$ These
-seemingly artificial restrictions are necessary for understanding the
-asymptotic behavior of lattice problems as a function of its rank.
+problems, only _integral_ lattices, i.e., lattices where $\mathbf{B} \in
+\ZZ^{n\times m} \subseteq \RR^{n\times m}$, are of cryptographic
+interest. Furthermore, the _number of bits_ needed to represent $\B$ is
+assumed to be a fixed polynomial in the dimension $n$.
+
+<span class="highlight">Warning</span>: The definition of integral
+lattices in this post is different from the
+[definition](https://people.math.harvard.edu/~elkies/M272.19/sep09.pdf){:target="_blank"}
+in standard literature [^E272y19]. In standard literature, integral
+lattices are defined more broadly to be those lattices where the inner
+product between _any two_ lattice vectors is always an integer, i.e.,
+$\forall\;\vec{x},\vec{y} \in \L:\; \highlight{\braket{\vec{x},\vec{y}} \in
+\ZZ}$. While the definition used in this post satisfies this condition,
+its not sufficient to describe all possible integral lattices. This
+discrepancy is of no consequence for computational purposes.
+
 ```
 
 ### Fundamental Parallelepiped {#fundamental-parallelepiped-subsection}
@@ -373,12 +383,11 @@ and $\vol(\P(\B_1)) = \vol(\P(\B_2)).$
 ---
 Since lattices form a repeated pattern in $\RR^n$, each lattice vector
 $\vec{x} \in \L$ can be collected into an $n$-dimensional spherical
-**shell**, where each shell contains lattice vectors of the same length.
-Let $\mathcal{S}_j \subseteq \L$ denote the $j$-th shell of those
-lattice vectors whose length is $\nu_j$. ($\nu_j$ also called the
-**radius** of the $j$-th shell.) Assuming the index $j$ is chosen such
-that $\nu_0 = 0$ and $\nu_{j-1} < \nu_j$ then, the following _strict
-ordering_ of $\nu_j$s is a lattice invariant
+**shell**, where each shell contains vectors of the same length. Let
+$\mathcal{S}_j \subseteq \L$ denote the $j$-th shell and $\nu_j$ its
+radius, i.e., the length of vectors in that shell. Assuming the
+index $j$ is chosen such that $\nu_0 = 0$ and $\nu_{j-1} < \nu_j$ then,
+the following _strict ordering_ of $\nu_j$s is a lattice invariant
 
 $$\nu_0 \lt \cdots \lt \nu_{j-1} \lt \nu_j \lt \nu_{j+1} \lt \cdots \lt \infty$$
 
@@ -400,7 +409,7 @@ can ask. (See also the aside on [Kissing Numbers](#kissing-number).)
      $\vec{x}$ in $\mathcal{S}_j$, but only to compute the radius of the
      $j$-th shell. Indeed, if one can find an element of
      $\mathcal{S}_j$, then one can trivially compute $\nu_j$. However,
-     there might be a "short cut" that avoids the search entirely.
+     there might be a "short cut" that avoids vector search entirely.
   3. Given a lattice vector $\vec{x} \in \L(\B)$ _find_ its position
      $j$ in the partial order, i.e., find $j$ such that $\abs{\vec{x}} =
      \nu_j.$
@@ -408,52 +417,31 @@ can ask. (See also the aside on [Kissing Numbers](#kissing-number).)
 When the rank of $\L$ is large, solving any of these three problems is
 computationally challenging. Cryptographically, however, the most
 relevant problem is to find an element of $\mathcal{S}_1$ --- which is
-also called the **shortest (non-zero) vector** problem. Surprisingly,
- not only is it hard to find a shortest non-zero vector, but it's even
-hard to find an "approximate" element of $\L$, whose length is only a
-polynomial multiple of $\nu_1$. (Here the polynomial is understood to
-defined over the rank of $\L$.)
+also called the **shortest (non-zero) vector** problem. Surprisingly, it
+ is not only hard to find a shortest non-zero vector, but also hard to
+find even an "approximately short" vector in $\L$.
 
-The next few subsections makes these notions precise.
+The next few subsections make these notions precise.
 
-```Remark
-For all computational problems, the asymptotics is always over the
-_rank_ of $\L$. Unless otherwise specified, all asymptotic arguments
-involving polynomials are assumed to have _rank_ as the indeterminate of
-the polynomial.
-```
-
-
+<!--
 ```Aside [Kissing number and cardinality of $\mathcal{S}_j$] {#kissing-number}
-
+-->
 For a full-rank lattice $\L$, what are the upper and lower bounds on the
-_cardinality_ of $\mathcal{S}_1$ (and more generally on
+_cardinality_ of $\mathcal{S}_1$ (and more generally
 $\mathcal{S}_j$)? Following convention, in the rest of this section,
 $\tau_n$ will denote the cardinality of $\mathcal{S}_1$ and
-$\tau_n^{(j)} = |\mathcal{S}_j|$.
+$\tau_n^{(j)}$ denote the cardinality of $\mathcal{S}_j$.
 
-Establishing a (non-tight) lower bound is easy: The cardinality of
-$\mathcal{S}_j$ for $j>0$ is always even so the minimum lower bound is
-$2$. The cardinality is even because if $\vec{x} \in \mathcal{S}_j$ for
-$j\ge 1$, then by definition $\vec{x} \neq \vec{0} \in \mathcal{S}_0$,
-which means $\vec{x} \neq -\vec{x}$. However, for all $\vec{x}$,
-$\abs{\vec{x}} = \abs{-\vec{x}}$, therefore if $\vec{x}$ is an element
-of $\mathcal{S}_j$, then so is $-\vec{x}$, and the cardinality of
-$\mathcal{S}_j$ is even! For [integral
-lattices](#integral-lattice-remark), this lower bound is not sharp
-(except in dimension $1$). Better lower bounds (listed below) are known
-in Analytic Number Theory literature [^IK04], but establishing them will
-require a deep digression into Modular Forms of weight $n/2$.
-
-  {: #shell-cardinality-lower-bound }
-  | Dimension ($n$) | Lower Bound |
-  |:----------:|:-----------:|
-  | $n = 1$    | 2           |
-  | $n = 2$    | 4           |
-  | $n = 3$    | $\Omega\left(j^{\frac{1}{2} - \epsilon }\right)$ |
-  | $n = 4$    | $\Omega\left(j^{1 - \epsilon }\right)$ |
-  | $n \ge 5$  | $\Omega\left(j^{\frac{n}{2} - 1 }\right)$ |
-Table: Lower bounds on the cardinality of $\mathcal{S}_j$.
+The cardinality of $\mathcal{S}_j$ for $j>0$ is always even, so a
+seemingly trivial lower bound is $2$. The cardinality is even because if
+$\vec{x} \in \mathcal{S}_j$, ($j\ge 1$), then by definition $\vec{x}
+\neq \vec{0} \in \mathcal{S}_0$, and $\vec{x} \neq -\vec{x}$. However,
+for all $\vec{x}$, $\abs{\vec{x}} = \abs{-\vec{x}}$, therefore if
+$\vec{x}$ is an element of $\mathcal{S}_j$, then so is $-\vec{x}$, and
+the cardinality of $\mathcal{S}_j$ is even! For an arbitrary
+[positive-definite](https://en.wikipedia.org/wiki/Unimodular_lattice#Definitions){:target="_blank"}
+[integral lattice](#integral-lattice-remark), this lower bound is still
+sharp! (For cryptographic purposes, all lattices are positive-definite.)
 
 What about the upper bound on the cardinality of $\mathcal{S}_1$? Since
 every element of $\mathcal{S}_1$ has the same length $\lambda_1$, one
@@ -466,10 +454,10 @@ of radius $\frac{\lambda_1}{2}$ that can be placed around a sphere of
 radius $\frac{\lambda_1}{2}$ (See [Fig. 2](KissingNumber2D)). The
 _number_ of such spheres that touch the central sphere, is known as the
 [$n$-dimensional Kissing
-Number](https://cohn.mit.edu/kissing-numbers/){:target="_blank"} of the
+Number](https://cohn.mit.edu/kissing-numbers/){:target="_blank"} of a
 lattice, and is computationally hard to compute. Asymptotically, the
-best known upper and lower bounds for $\tau_n$ are given below (see
-[^JJP18] and references there):
+best known upper and lower bounds for the value of $\tau_n$ are given
+below (see [^JJP18] and references there):
 
 $$
   (1+o(1))\sqrt{\frac{3\pi n}{8}}\highlight{\left (\frac{2}{\sqrt{3}}\right)^{n}} \le \highlight{\tau_n} \le (1+o(1))\sqrt{\frac{\pi}{8}}n^{3/2}\cdot \highlight{2^{n/2}}.
@@ -647,20 +635,27 @@ theorem](https://en.wikipedia.org/wiki/Dirichlet%27s_approximation_theorem){:tar
  lattice in $\RR$.
 ```
 
-[^CaiECCC99]: J. Y. Cai, "Some Recent Progress on the Complexity of
+[^CaiECCC99]: **J. Y. Cai**, "Some Recent Progress on the Complexity of
     Lattice Problems," in Electronic Colloquium on Computational
     Complexity, [Report No.
-    6](https://eccc.weizmann.ac.il/report/1999/006/){:target="_blank"} (1999).
+    6](https://eccc.weizmann.ac.il/report/1999/006/){:target="_blank"}
+    (1999).
 
-[^IK04]:  H. Iwaniec and E. Kowalski, "Analytic Number Theory,"
+[^IK04]:  **H. Iwaniec** and **E. Kowalski**, "Analytic Number Theory,"
     Colloquium Publications of American Mathematical Society, 2004.
 
-[^CZ13]:  H. Cohn and Y. Zhao, "Sphere Packing Bounds via Spherical
-    Codes," [Arxiv 1212.5966](https://arxiv.org/pdf/1212.5966){:target="_blank"}, 2013. See also, Institute for Advanced
-    Study [video
+[^CZ13]:  **H. Cohn** and **Y. Zhao**, "Sphere Packing Bounds via
+    Spherical Codes," [Arxiv
+    1212.5966](https://arxiv.org/pdf/1212.5966){:target="_blank"}, 2013.
+    See also, Institute for Advanced Study [video
     lecture](https://www.ias.edu/video/1213/analysis/0122-HenryCohn){:target="_blank"}.
 
-[^JJP18]:   M. Jenssen, F. Joos, and W. Perkins, "On kissing numbers and
-    spherical codes in high dimensions," in Advances in Mathematics,
-335, (2018),
+[^JJP18]:   **M. Jenssen**, **F. Joos**, and **W. Perkins**, "On kissing
+    numbers and spherical codes in high dimensions," in Advances in
+Mathematics, 335, (2018),
 [307-321](https://www.sciencedirect.com/science/article/pii/S0001870818302494){:target="_blank"}.
+
+[^E272y19]: **N. D. Elkies**, "Rational Lattices and their Theta
+    Functions," Harvard Math 272y: Rational Lattices and their Theta
+    Functions, [Fall 2019 lecture
+    notes](https://people.math.harvard.edu/~elkies/M272.19/){:target="_blank"}.
