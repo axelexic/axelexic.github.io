@@ -320,16 +320,15 @@ sup > a[role="doc-noteref"]::after {
 }
 
 sup > a[role="doc-noteref"] {
-  color: magenta;
-  font-weight: bold;
+  color: $citation-color;
   text-decoration: none;
 
   &:visited {
-    color: magenta;
+    color: color-mix(in oklab, $citation-color 50, black);
   }
 
   &:hover {
-    color: $text-color;
+    color: $navy-blue-color;
     text-decoration: underline;
   }
 }
@@ -338,7 +337,6 @@ sup > a[role="doc-noteref"] {
 div[role="doc-endnotes"] ol li::marker {
   content: "[" counter(list-item) "]:   ";
   font-weight: bold;
-  color: magenta;
   text-align: right;
 }
 
