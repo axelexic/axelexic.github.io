@@ -27,8 +27,8 @@ BLOCK_TYPES = %w[
   exercise
   lemma
   note
+  problem
   proof
-  proposition
   reduction
   remark
   theorem
