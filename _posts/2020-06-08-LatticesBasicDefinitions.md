@@ -62,7 +62,7 @@ class of cosets defined by $$[\vec{v}] := \vec{v} + \L = \left \lbrace
 
 It's worth emphasizing that a coset is a set, and two vectors $\vec{x},
 \vec{y} \in \RR^n$ are elements of the same coset, if and only if
-$\vec{x} - \vec{y} \in \L.$ Any set $\hatP \subset \RR^n$ that contains
+$\vec{x} - \vec{y} \in \L$. Any set $\hatP \subset \RR^n$ that contains
 exactly one representative element $\vec{v}$ _from each coset_
 $[\vec{v}] \in \RR^n/\L $ is called a **strict fundamental domain** of
 $\L$, and is defined as $$ \begin{equation} \hatP := \bigcup_{[\vec{v}]
@@ -149,7 +149,7 @@ following theorem characterizes this precisely:
 
 ```Theorem [Basis Equivalence] {#basis-equivalence}
 Let $\B_1, \B_2 \in \RR^{n\times m}$ be two matrices with column rank
-$m \leq n,$ then, $\B_1$ and $\B_2$ generate the same lattice $\L$
+$m \leq n$, then, $\B_1$ and $\B_2$ generate the same lattice $\L$
 _if and only if_ there exists an integer matrix $\U \in \ZZ^{m\times m}$
 such that $$\B_2 = \B_1\cdot\U\;\text{and}\; \det(\U) = \pm 1.$$
 ```
@@ -236,23 +236,27 @@ and is denoted by $\mathrm{GL}_m(\ZZ).$
 ```
 
 ```Remark {#integral-lattice-remark}
-
 While lattices in general are defined over reals, for computational
-problems, only _integral_ lattices, i.e., lattices where $\mathbf{B} \in
-\ZZ^{n\times m} \subseteq \RR^{n\times m}$, are of cryptographic
+problems, only _integral_ lattices --- lattices where $\mathbf{B} \in
+\ZZ^{n\times m} \subseteq \RR^{n\times m}$ --- are of cryptographic
 interest. Furthermore, the _number of bits_ needed to represent $\B$ is
-assumed to be a fixed polynomial in the dimension $n$.
+assumed to be a fixed polynomial in the dimension $n$. This restriction
+is important for understanding the role of dimension in solving lattice
+problems.
 
 <span class="highlight">Warning</span>: The definition of integral
-lattices in this post is different from the
-[definition](https://people.math.harvard.edu/~elkies/M272.19/sep09.pdf){:target="_blank"}
-in standard literature [^E272y19]. In standard literature, integral
-lattices are defined more broadly to be those lattices where the inner
-product between _any two_ lattice vectors is always an integer, i.e.,
-$\forall\;\vec{x},\vec{y} \in \L:\; \highlight{\braket{\vec{x},\vec{y}} \in
-\ZZ}$. While the definition used in this post satisfies this condition,
-its not sufficient to describe all possible integral lattices. This
-discrepancy is of no consequence for computational purposes.
+lattices in this post is different from the [standard
+definition](https://people.math.harvard.edu/~elkies/M272.19/sep09.pdf){:target="_blank"}
+(see also other lecture notes in [^E272y19]). In the standard
+literature, integral lattices are defined more broadly and are not
+restricted to integer valued basis vectors. In fact, the only
+requirement for a lattice to be integral is that the inner product
+between _any two_ lattice vectors should be an integer, that is,
+$\forall\,\vec{x},\vec{y} \in \L:\; \highlight{\braket{\vec{x},\vec{y}}
+\in \ZZ}$. While the definition used in this post trivially satisfies
+this requirement, its not sufficient to describe _all possible_ integral
+lattices. This discrepancy is of no consequence for computational
+purposes.
 
 ```
 
@@ -288,16 +292,16 @@ $$\begin{equation}\vol(\L) = \vol(\P(\B)) = \sqrt{\B^\top \B} > 0. \label{eq:vol
 (The basis independent notation $\vol(L)$ is justified because of the [Volume Invariant Lemma](#lattice-volume-invariant) proved later in this document.)
 
 <span class="highlight">Note</span>: If $\vec{x}$ and $\vec{y}$ are
-elements of $\P(\B),$ then
+elements of $\P(\B)$, then
 $$\forall\,\highlight{t}\in [0,1] \subseteq \RR:\; \highlight{t}\cdot \vec{x} + (\highlight{1-t})\cdot \vec{y} \in \P(\B).$$
 Therefore, $\P(\B)$ is a connected convex set.
 ```
 
 In [Fig. 1](#LatticeBasicFigure), the region shaded in green is the
 fundamental parallelepiped associated with the basis vectors $\B_1 :=
-\lbrace \vec{a}_1, \vec{a}_2\rbrace.$ Similarly, the region shaded in
+\lbrace \vec{a}_1, \vec{a}_2\rbrace$. Similarly, the region shaded in
 purple is also the fundamental parallelepiped, albeit associated with
-$\B_2 := \lbrace \vec{b}_1, \vec{b}_2\rbrace.$ Even though a lattice is
+$\B_2 := \lbrace \vec{b}_1, \vec{b}_2\rbrace$. Even though a lattice is
 independent of the basis, the shape of its fundamental parallelepiped is
 dependent on the choice of its basis.
 
@@ -312,15 +316,15 @@ The next two lemmas make these observations precise:
 ```Lemma {#parallelepiped-basis-lemma}
 Let $\L$ be a lattice of rank $m$ and let
 $\C := \lbrace \vec{c}_1,\cdots, \vec{c}_m \in \L \rbrace$ be
-$m$ linearly independent elements of $\L.$ ($\C$ will be interpreted
+$m$ linearly independent elements of $\L$. ($\C$ will be interpreted
 both as a set and a matrix whose $i$-th column is $c_i$.) Then, $\C$ forms a basis of $\L,$
 _if and only if_ $$\P(\C) \cap \L = \lbrace \vec{0} \rbrace.$$
 
 **<u>Note</u>**: For this lemma to hold, it's crucial that $\vec{c}_i$s
-are _a priori_ known to be elements of $\L.$ If $\C$ is any arbitrary
+are _a priori_ known to be elements of $\L$. If $\C$ is any arbitrary
 linearly independent set in $\RR^n$ that satisfies
 $\P(\C) \cap \L = \lbrace \vec{0} \rbrace$, then such a $\C$ will not
-necessarily form a basis of $\L.$ This substantially reduces the usability
+necessarily form a basis of $\L$. This substantially reduces the usability
 of this theorem for computational problems.
 ```
 
@@ -343,19 +347,19 @@ of this theorem for computational problems.
     that is:
     $$\forall\,\vec{x}\in\L,\; \exists\,r_1,\cdots,r_m \in \RR:\quad \vec{x} = r_1\vec{c}_1 + \cdots + r_m\vec{c}_m.$$
     Given that $r_i$s are real, they can be written as sum of integral and fractional parts as:
-    $$r_i = \floor{r_i} + \fractional{r_i}$$ where $\floor{r_i} \in \ZZ$ and $\fractional{\vec{r}_i} := \vec{r}_i - \floor{\vec{r}_i} \in \highlight{[0, 1)}^n \subseteq \RR^n.$ Therefore,
+    $$r_i = \floor{r_i} + \fractional{r_i}$$ where $\floor{r_i} \in \ZZ$ and $\fractional{\vec{r}_i} := \vec{r}_i - \floor{\vec{r}_i} \in \highlight{[0, 1)}^n \subseteq \RR^n$. Therefore,
     $$\vec{x} = \sum_{i=1}^m (\floor{r_i} + \fractional{r_i})\cdot\vec{c}_i = \sum_{i=1}^m \floor{r_i}\cdot\vec{c}_i + \sum_{i=1}^m \fractional{r_i}\cdot\vec{c}_i$$
     and
     $$\vec{x} - \left ( \sum_{i=1}^m \floor{r_i}\cdot\vec{c}_i \right) = \left ( \sum_{i=1}^m \fractional{r_i}\cdot\vec{c}_i \right ) \in \P(\C).$$
 
-    By assumption, each $\vec{c}_i$ is an element of $\L,$ which means
-    $\left ( \vec{x} - \sum_{i=1}^m \floor{r_i}\cdot\vec{c}_i \right) \in \L.$ On the other hand, the
+    By assumption, each $\vec{c}_i$ is an element of $\L$, which means
+    $\left ( \vec{x} - \sum_{i=1}^m \floor{r_i}\cdot\vec{c}_i \right) \in \L$. On the other hand, the
     right hand side of equation above is an element of $\P(\C)$. But $\P(\C) \cap \L = \{ \vec{0} \}$, so the equality can only
     hold if
     $$\vec{x} - \sum_{i=1}^m \floor{r_i}\cdot\vec{c}_i = \vec{0}.$$
 
     Therefore, each $r_i$ must be an integer and every $\vec{x}$ can be
-    written as an integer linear combination of columns of $\C.$ In
+    written as an integer linear combination of columns of $\C$. In
     short, $\C$ is a basis of $\L.$
   </p>
 
@@ -366,7 +370,7 @@ of this theorem for computational problems.
 ```Lemma [Volume Invariance] {#lattice-volume-invariant}
 The covolume of a lattice $\L$ is independent of the choice
 of its basis. That is, if $\B_1, \B_2 \in \RR^{n\times m}$ are two
-different bases of $\L,$ then $$\vol(\P(\B_1)) = \vol(\P(\B_2)).$$
+different bases of $\L$, then $$\vol(\P(\B_1)) = \vol(\P(\B_2)).$$
 ```
 
 ```Proof
@@ -384,32 +388,35 @@ and $\vol(\P(\B_1)) = \vol(\P(\B_2)).$
 Since lattices form a repeated pattern in $\RR^n$, each lattice vector
 $\vec{x} \in \L$ can be collected into an $n$-dimensional spherical
 **shell**, where each shell contains vectors of the same length. Let
-$\mathcal{S}_j \subseteq \L$ denote the $j$-th shell and $\nu_j$ its
-radius, i.e., the length of vectors in that shell. Assuming the
-index $j$ is chosen such that $\nu_0 = 0$ and $\nu_{j-1} < \nu_j$ then,
-the following _strict ordering_ of $\nu_j$s is a lattice invariant
+$\mathcal{S}_j \subseteq \L$ denote the $j$-th shell and $\nu_j$ be its
+radius. Assuming the index $j$ is chosen such that $\nu_0 = 0$ and
+$\nu_{j-1} < \nu_j$ then, the following _strict ordering_ of $\nu_j$s is
+a lattice invariant
 
 $$\nu_0 \lt \cdots \lt \nu_{j-1} \lt \nu_j \lt \nu_{j+1} \lt \cdots \lt \infty$$
 
-that does not depend on the choice of $\B.$
-
+For all lattices, $\mathcal{S}_0 = \lbrace \vec{0} \rbrace$ and is
+called the _zero shell_ and $\mathcal{S}_j$ for $j>0$ is called
+_non-zero shell_.
 
 Given this setup, there are three natural computational questions one
-can ask. (See also the aside on [Kissing Numbers](#kissing-number).)
+can ask. (See also the [aside](#kissing-number) on bounds of
+$\mathcal{S}_j$.)
 
   1. Given an index $j$, and a lattice $\L(\B)$ specified by an
      [integral basis](#integral-lattice-remark) $\B \in \ZZ^{n\times m}$,
-     _find_ an element of $\mathcal{S}_j.$ For example, when $j=0$ its
-     trivial to find an element of $\mathcal{S}_0,$ since $\mathcal{S}_0
+     _find_ an element of $\mathcal{S}_j$. For example, when $j=0$ it's
+     trivial to find an element of $\mathcal{S}_0$, since $\mathcal{S}_0
      = \lbrace \vec{0}\rbrace$. But what about finding an element of
      $\mathcal{S}_1$ or $\mathcal{S}_{13}$? Does the difficulty depend
      upon the index $j$? Does it depend on the choice of $\B$?
   2. Given $j$ and $\L(\B)$ as before, _compute_ the value of $\nu_j$.
      Here, the problem is **not** to explicitly find a lattice vector
      $\vec{x}$ in $\mathcal{S}_j$, but only to compute the radius of the
-     $j$-th shell. Indeed, if one can find an element of
-     $\mathcal{S}_j$, then one can trivially compute $\nu_j$. However,
-     there might be a "short cut" that avoids vector search entirely.
+     $j$-th shell. Indeed, if one can find an element $\vec{x} \in
+     \mathcal{S}_j$, then one can trivially compute $\nu_j =
+     \abs{\vec{x}}$. However, there might be a "short cut" that could
+     avoid vector search entirely.
   3. Given a lattice vector $\vec{x} \in \L(\B)$ _find_ its position
      $j$ in the partial order, i.e., find $j$ such that $\abs{\vec{x}} =
      \nu_j.$
@@ -423,45 +430,100 @@ find even an "approximately short" vector in $\L$.
 
 The next few subsections make these notions precise.
 
-<!--
-```Aside [Kissing number and cardinality of $\mathcal{S}_j$] {#kissing-number}
--->
+
+```Aside [Bounds on the cardinality of $\mathcal{S}_j$] {#kissing-number}
+
 For a full-rank lattice $\L$, what are the upper and lower bounds on the
-_cardinality_ of $\mathcal{S}_1$ (and more generally
-$\mathcal{S}_j$)? Following convention, in the rest of this section,
-$\tau_n$ will denote the cardinality of $\mathcal{S}_1$ and
+_cardinality_ of $\mathcal{S}_1$ (and more generally $\mathcal{S}_j$)?
+Let $\tau_n$ denote the cardinality of $\mathcal{S}_1$ and
 $\tau_n^{(j)}$ denote the cardinality of $\mathcal{S}_j$.
 
-The cardinality of $\mathcal{S}_j$ for $j>0$ is always even, so a
-seemingly trivial lower bound is $2$. The cardinality is even because if
-$\vec{x} \in \mathcal{S}_j$, ($j\ge 1$), then by definition $\vec{x}
-\neq \vec{0} \in \mathcal{S}_0$, and $\vec{x} \neq -\vec{x}$. However,
-for all $\vec{x}$, $\abs{\vec{x}} = \abs{-\vec{x}}$, therefore if
-$\vec{x}$ is an element of $\mathcal{S}_j$, then so is $-\vec{x}$, and
-the cardinality of $\mathcal{S}_j$ is even! For an arbitrary
-[positive-definite](https://en.wikipedia.org/wiki/Unimodular_lattice#Definitions){:target="_blank"}
-[integral lattice](#integral-lattice-remark), this lower bound is still
-sharp! (For cryptographic purposes, all lattices are positive-definite.)
+First notice that the cardinality of any non-zero $\mathcal{S}_j$ is
+always even, so a trivial lower bound is $2$. This is because if
+$\vec{x} \in \mathcal{S}_j$ then by definition $\vec{x} \neq \vec{0} \in
+\mathcal{S}_0$, which means $\vec{x} \neq -\vec{x}$. However, for all
+$\vec{x}$, $\abs{\vec{x}} = \abs{-\vec{x}}$, therefore if $\vec{x}$ is
+an element of $\mathcal{S}_j$, then so is $-\vec{x}$, and hence the
+cardinality of $\mathcal{S}_j$ is even!
 
-What about the upper bound on the cardinality of $\mathcal{S}_1$? Since
+Surprisingly, for [integral lattices](#integral-lattice-remark), this
+lower bound is also sharp. That is, for every $J^2 \in \ZZ$, there
+exists an $n$-dimensional lattice where each shell $\mathcal{S}_j$ for
+$j \in \lbrace 1, \cdots, J \rbrace$ contains only $2$ lattice points!
+To see why, let $M \in \ZZ$ be such that $M > J$, and consider the
+integral lattice generated by the basis:
+
+$$
+\B_M := \left\lbrace \vec{e}_1, \highlight{M}\vec{e}_2, \cdots , \highlight{M}\vec{e}_n \right\rbrace \in \ZZ^{n\times n}
+$$
+
+where $\vec{e}_i$s are the [standard $n$-dimensional basis
+vectors](https://en.wikipedia.org/wiki/Standard_basis){:target="_blank"}.
+
+**<u>Claim</u>**: For $\L(\B_M)$, the first $J$ non-zero shell radii
+$\nu_j = j$ and
+$\mathcal{S}_j = \left \lbrace \pm j\cdot \vec{e}_1 \right \rbrace$.
+
+**<u>Proof</u>**: By definition, every lattice vector
+$\vec{x} \in \L(\B_M)$ can be written as
+$\vec{x} = z_1\cdot\vec{e}_1 + M\cdot(\sum_{i=2}^n z_i\cdot \vec{e}_i)$,
+where $z_i \in \ZZ$. Consider $J$ lattice vectors $\vec{y}_j$s generated
+by setting $z_1 = j$ for $ j = 1, \cdots, J$ and $z_2 =\cdots = z_n = 0$,
+that is, $\vec{y}_j := j\cdot \vec{e}_1$. Then
+$\abs{\vec{y}_j} = \abs{j\cdot \vec{e}_1} = j$.
+
+For an arbitrary vector $\vec{x} \in \L(\B_M)$, it's length can be
+written as
+$$
+\abs{\vec{x}}^2 = z_1^2 + M^2\left(\sum_{i=2}^n z_i^2\right) = z_1^2 + M^2\cdot Z\;\;\text {where } Z := \sum_{i=2}^n z_i^2 \ge 0.
+$$
+
+Suppose for each $\vec{y}_j$, there exist other lattice vectors that
+have the same length as $\abs{\vec{y}_j}$. Then, there must exist
+$z_1, \cdots, z_n \in \ZZ$ such that
+$\abs{\vec{y}_j}^2 = j^2 = z_1^2 + M^2\cdot Z$. But $0 < j \leq J < M$,
+so the only possible **integer** value of $z_1$ and $Z$ for which this
+equation can be satisfied is $Z = 0$ and $z_1 = \pm j$. But $Z$ is the
+sum of positive quantities, therefore, the only satisfiable value for
+$z_2,\cdots, z_n$ is $0$. Therefore,
+$\nu_j = j$ and $\mathcal{S}_j = \lbrace \pm j\cdot\vec{e}_1 \rbrace$.
+<span style="float:right;">&#x25A0;</span>
+
+This lower bound, however, does not capture the asymptotic behavior of
+$\tau_n^{(j)}$ as $j \rightarrow \infty$. Better lower bounds (listed
+below) are known in Analytic Number Theory literature [^IK04], but
+establishing them will require a deep digression into Modular Forms of
+weight $n/2$, which is a topic for another post.
+
+  {: #shell-cardinality-lower-bound }
+  | Dimension ($n$) | $\lim_{j\rightarrow \infty} \tau_n^{(j)}$|
+  |:----------:|:-----------:|
+  | $n = 1$    | 2           |
+  | $n = 2$    | 4           |
+  | $n = 3$    | $\Omega\left(j^{\frac{1}{2} - \epsilon }\right)$ |
+  | $n = 4$    | $\Omega\left(j^{1 - \epsilon }\right)$ |
+  | $n \ge 5$  | $\Omega\left(j^{\frac{n}{2} - 1 }\right)$ |
+Table: Lower bounds on the cardinality of $\mathcal{S}_j$.
+
+What about the _upper bound_ on the cardinality of $\mathcal{S}_1$? Since
 every element of $\mathcal{S}_1$ has the same length $\lambda_1$, one
-can pick a random lattice point, say $\vec{0}$ as origin, and draw a
-sphere of radius $\lambda_1$. Elements of $\mathcal{S}_1$ are points on
-the surface of this sphere, where each pair of points is at least
-$\lambda_1$ distance apart. Counting the maximum number of such lattice
-points is equivalent to counting the maximum number of _solid_ spheres
-of radius $\frac{\lambda_1}{2}$ that can be placed around a sphere of
-radius $\frac{\lambda_1}{2}$ (See [Fig. 2](KissingNumber2D)). The
-_number_ of such spheres that touch the central sphere, is known as the
+can pick a random lattice point, say $\vec{0}$ as origin, and draw an
+$n$-dimensional $\tau_n$-gon, where corners of the $\tau_n$-gons are at
+least $\lambda_1$ apart from each other and the center (See the hexagon
+in [Fig. 2](KissingNumber2D)). Computing the maximum possible value of
+$\tau_n$ is equivalent to maximizing the number of _solid_ spheres of
+radius $\frac{\lambda_1}{2}$ that can be placed on the surface of a
+central sphere of radius $\frac{\lambda_1}{2}$. The _number_ of places
+where the peripheral spheres touch the central sphere, is known as the
 [$n$-dimensional Kissing
-Number](https://cohn.mit.edu/kissing-numbers/){:target="_blank"} of a
-lattice, and is computationally hard to compute. Asymptotically, the
-best known upper and lower bounds for the value of $\tau_n$ are given
-below (see [^JJP18] and references there):
+Number](https://cohn.mit.edu/kissing-numbers/){:target="_blank"}.
+Asymptotically (in $n$), the best known upper and lower bounds for the
+value of $\tau_n$ are given below (see [^JJP18] and references there):
 
 $$
-  (1+o(1))\sqrt{\frac{3\pi n}{8}}\highlight{\left (\frac{2}{\sqrt{3}}\right)^{n}} \le \highlight{\tau_n} \le (1+o(1))\sqrt{\frac{\pi}{8}}n^{3/2}\cdot \highlight{2^{n/2}}.
+  (1+o(1))\sqrt{\frac{3\pi n}{8}}\left (\frac{2}{\sqrt{3}}\right)^{n} \le \highlight{\tau_n} \le (1+o(1))\sqrt{\frac{\pi}{8}}n^{3/2}\cdot 2^{n/2}.
 $$
+
 
 <figure id="KissingNumber2D">
 <img src="/Diagrams/2020-06-08/final/KissingNumbers.svg" />
@@ -469,14 +531,13 @@ $$
 represent lattice points.</figurecaption>
 </figure>
 
-In summary: The cardinality of $\mathcal{S}_1$ grows exponentially with
-dimension, and there's no hope of even listing _all_ the shortest
-lattice vectors in polynomial time, let alone find them! Furthermore,
-the cardinality of $\mathcal{S}_j$ asymptotically behaves much worse
-than $\tau_n.$
-
-
-
+**<u>Summary</u>**: For an _arbitrary_ integral lattice, the cardinality
+of $\mathcal{S}_j$ can range from $2$ to an $\widetilde{O}(2^n)$, where
+$\widetilde{O}(\cdot)$ hides polynomial factors. An unfortunate
+consequence of the exponentially large size of $\mathcal{S}_j$ is that
+even if there were to exist an oracle that could find _some_ elements of
+$\mathcal{S}_j$, one cannot use that oracle to find _all_ elements of
+$\mathcal{S}_j$ in polynomial time.
 ```
 
 ### Shortest Vector Problem {#svp-section}
@@ -520,7 +581,7 @@ vector as if it were unique.
 
 A related and cryptographically important class of lattices have the
 extra property that it has only two elements, $\vec{x}$ and $-\vec{x}$
-in $\mathcal{S}_1.$ Such lattices and their shortest vector is defined
+in $\mathcal{S}_1$. Such lattices and their shortest vector is defined
 as follows:
 
 ```Definition [Unique Shortest Vector] {#unique-shortest-vector-definition}
@@ -532,7 +593,7 @@ for some $\vec{x} \in \L.$
 
 ### Shortest Linearly Independent Lattice Vectors {#sivp-section}
 
-In addition to the notion of a short vector in $\L,$ one can also define
+In addition to the notion of a short vector in $\L$, one can also define
 the notion of a short basis for $\L,$
 
 Suppose a lattice has basis $\B \in \RR^{n \times m}$ where the columns
@@ -580,11 +641,11 @@ We first prove that given any arbitrary matrix $\B \in \RR^{n\times m}$ of colum
    $$\B\cdot \vec{z}_1 - \B\cdot \vec{z}_2 = \B\cdot (\vec{z}_1  - \vec{z}_2) \in \B\cdot \ZZ^m.$$
 2. To show discreteness, given $\B$, we will compute a radius $\epsilon$ such that for any $\vec{x} \in \B\cdot\ZZ^m$, the ball $S_\epsilon(\vec{x})$ contains no other element of $\B\cdot\ZZ^m$ apart from $\vec{x}$.
 
-   Let $\vec{x} = \B\cdot\vec{u}$ and $\vec{y} = \B\cdot\vec{v}$ be two _distinct_ lattice points in $\RR^n$ for some $\vec{u}, \vec{v} \in \ZZ^m.$ Let $\vec{z} = \vec{u} - \vec{v} \in \ZZ^m$. Since $\vec{x}$ and $\vec{y}$ are distinct $\vec{z} \neq \vec{0} \in \RR^m$. The distance between $\vec{x}$ and $\vec{y}$ is
+   Let $\vec{x} = \B\cdot\vec{u}$ and $\vec{y} = \B\cdot\vec{v}$ be two _distinct_ lattice points in $\RR^n$ for some $\vec{u}, \vec{v} \in \ZZ^m$. Let $\vec{z} = \vec{u} - \vec{v} \in \ZZ^m$. Since $\vec{x}$ and $\vec{y}$ are distinct $\vec{z} \neq \vec{0} \in \RR^m$. The distance between $\vec{x}$ and $\vec{y}$ is
    $$\norm{\vec{x} - \vec{y}} = \norm{\B\cdot(\vec{u} - \vec{v})} = \norm{\B\cdot\vec{z}}.$$
    We will prove that this distance has a lower bound.
 
-   Consider the action of the linear transformation $\tau : \vec{a} \mapsto \B\cdot \vec{a}$ restricted to the unit sphere $S^{m-1} := \lbrace \vec{a} \in \RR^m : \norm{\vec{a}} = 1\rbrace.$ Let $T := \B\cdot S^{m-1} \subseteq \RR^n$ and let $\epsilon'$ be the length of the smallest vector in $T$, that is
+   Consider the action of the linear transformation $\tau : \vec{a} \mapsto \B\cdot \vec{a}$ restricted to the unit sphere $S^{m-1} := \lbrace \vec{a} \in \RR^m : \norm{\vec{a}} = 1\rbrace$. Let $T := \B\cdot S^{m-1} \subseteq \RR^n$ and let $\epsilon'$ be the length of the smallest vector in $T$, that is
    $$
       \epsilon' = \min_{\norm{\vec{a} } = 1} \norm{ \B\cdot\vec{a} }.
     $$
