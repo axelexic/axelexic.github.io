@@ -10,10 +10,11 @@ $proof-border-color: brown;
 
 // Color for highlighted terms like Definition, Theorem, etc. keywords
 $semantic-block-desc-color : $site-title-color;
+$algorithm-io-color: $semantic-block-desc-color;
+
 
 // Color for descriptive text after Definition, etc.
 $semantic-block-title-color : $section-title-color;
-
 
 @function semantic-block-background($border-color, $background-weight: 93%) {
     @return color-mix(in oklab, #{$background-color} #{$background-weight}, #{$border-color});
@@ -137,8 +138,8 @@ $semantic-block-title-color : $section-title-color;
     content: "Note:";
 }
 
-.post-content .proposition > .semantic-block-title::before {
-    content: "Proposition:";
+.post-content .problem > .semantic-block-title::before {
+    content: "Problem:";
 }
 
 .post-content .remark > .semantic-block-title::before {
@@ -169,10 +170,48 @@ $semantic-block-title-color : $section-title-color;
 .post-content .theorem,
 .post-content .lemma,
 .post-content .corollary,
-.post-content .proposition,
+.post-content .problem,
 .post-content .claim {
     border-left-color: $theorem-border-color;
     background-color: semantic-block-background($theorem-border-color);
+}
+
+.post-content .algorithm dl,
+.post-content .problem dl {
+    display: grid;
+    grid-template-columns: max-content 1fr;
+    column-gap: math.div($spacing-unit, 2);
+    row-gap: math.div($spacing-unit, 4);
+    margin: math.div($spacing-unit, 3) 0;
+}
+
+.post-content .algorithm dt,
+.post-content .problem dt {
+    float: none;
+    clear: none;
+    margin: 0;
+    color: $algorithm-io-color;
+    font-family: $site-title-font;
+    font-variant: small-caps;
+    font-weight: 700;
+    text-decoration-line: underline;
+    text-decoration-thickness: 0.75px;
+    text-underline-offset: 3px;
+}
+
+.post-content .algorithm dt::after,
+.post-content .problem dt::after {
+    content: ": ";
+}
+
+.post-content .algorithm dd,
+.post-content .problem dd {
+    margin: 0;
+}
+
+.post-content .algorithm dd + dd,
+.post-content .problem dd + dd {
+    text-indent: 0;
 }
 
 .post-content .example,
