@@ -17,8 +17,11 @@ tags: [Lattice, Lattice Based Cryptography, Post-quantum Cryptography]
   \newcommand{\U}{\mathbf{U}}
   \newcommand{\V}{\mathbf{V}}
   \newcommand{\I}{\mathbf{I}}
+  \newcommand{\almost}[1]{\stackrel{\sim}{#1}}
   \newcommand{\vol}{\operatorname{covol}}
   \renewcommand{\abs}[1]{\lVert #1 \rVert}
+  \newcommand{\svp}{\textsf{SVP}}
+  \newcommand{\musvp}{\mu\textsf{SVP}}
 \]
 ```
 
@@ -383,15 +386,15 @@ and $\vol(\P(\B_1)) = \vol(\P(\B_2)).$
 ```
 
 
-## Hard Lattice Problems {#computationally-hard-problems}
+## Length of Lattice Vectors {#lattice-vector-length}
 ---
-Since lattices form a repeated pattern in $\RR^n$, each lattice vector
-$\vec{x} \in \L$ can be collected into an $n$-dimensional spherical
-**shell**, where each shell contains vectors of the same length. Let
-$\mathcal{S}_j \subseteq \L$ denote the $j$-th shell and $\nu_j$ be its
-radius. Assuming the index $j$ is chosen such that $\nu_0 = 0$ and
-$\nu_{j-1} < \nu_j$ then, the following _strict ordering_ of $\nu_j$s is
-a lattice invariant
+Since lattice vectors form a repeated pattern in $\RR^n$, each lattice
+vector $\vec{x} \in \L$ can be collected into an $n$-dimensional
+spherical **shell**, where each shell contains vectors of the same
+length. Let $\mathcal{S}_j \subseteq \L$ denote the $j$-th shell and
+$\nu_j$ be its radius. Assuming the index $j$ is chosen such that $\nu_0
+= 0$ and $\nu_{j-1} < \nu_j$ then, the following _strict ordering_ of
+$\nu_j$s is a lattice invariant
 
 $$\nu_0 \lt \cdots \lt \nu_{j-1} \lt \nu_j \lt \nu_{j+1} \lt \cdots \lt \infty$$
 
@@ -542,63 +545,61 @@ $\mathcal{S}_j$ in polynomial time.
 
 ### Shortest Vector Problem {#svp-section}
 
-```Definition [Shortest Vector] {#shortest-vector-definition}
-Let $\L$ be a lattice, then the _set_ of **shortest vectors in $\L$** is
-defined as:
+The Shortest Vector Problem ($\svp$) is one of the most important
+computational problem in lattice based cryptography. It corresponds to
+finding an element of $\mathcal{S}_1$ given some arbitrary basis $\B$.
+We define this problem formally below:
 
-$$ \mathcal{S}_1 := \left \lbrace \vec{x}\;\;\Big|\,\; \vec{x} \in \L \highlight{\setminus \{ \vec{0}
-\}}\quad\text{and }\quad\forall\,\vec{y} \in \L:\; \abs{x} \le \abs{y}
-\right \rbrace.$$
+```Problem [Exact Shortest Vector Problem (SVP)] {#shortest-vector-problem}
+Input
+  : A full-rank integral lattice $\L$ specified by a _non-singular_ basis
+    matrix $\B \in \ZZ^{n\times n}$.
 
-The length any element of $\mathcal{S}_1$ is denoted by $\lambda_1 = \nu_1.$
+Output
+  : A _non-zero_ vector $\vec{x} \in \L$ such that $\forall\,\vec{y} \in \L:\; \abs{x} \le \abs{y}$.
+
+```
+
+
+
+### Shortest Linearly Independent Vectors {#sivp-section}
+
+Suppose a lattice has basis $\B \in \RR^{n \times m}$ where the columns
+are arranged according to its lengths, i.e., $\abs{\vec{b}_1} \leq
+\cdots \leq \abs{\vec{b}_j} \leq \cdots \leq \abs{\vec{b}_m}$.
+
+## Approximate Problems
+
+For many cryptographic applications, its important that modulo sign,
+there's a unique shortest non-zero vector in $\mathcal{S}_1$, i.e.,
+$\mathcal{S}_1$ has only two elements! The Unique Shortest Vector
+Problem ($\musvp$) is  asks to find this element in $\L$.
+
+```Problem [Unique Shortest Vector Problem ($\musvp$)] {#unique-shortest-vector-definition}
+
+```
+
+<!-- ```Definition [Shortest Vector Problem] {#shortest-vector-problem} -->
 
 Let $\gamma > 1 \in \RR$ be an arbitrary _approximation factor_. The set
 of **approximately short vectors** in $\L$ are those elements of $\L$
 whose length is at most $\gamma$ times larger than $\lambda_1$. The
 _set_ of approximately short vectors is denoted by
-$\widehat{\mathcal{S}}_1(\gamma)$ and defined as
+$\almost{\mathcal{S}}_1(\gamma)$ and defined as
 
-$$\widehat{\mathcal{S}}_1(\gamma) := \left \lbrace \vec{x} \;\Big|\,\; \vec{x} \in \L, \highlight{\lambda_1} \leq \abs{\vec{x}} < \highlight{\gamma\cdot\lambda_1} \right\rbrace $$
+$$\almost{\mathcal{S}}_1(\gamma) := \left \lbrace \vec{x} \;\Big|\,\; \vec{x} \in \L, \highlight{\lambda_1} \leq \abs{\vec{x}} < \highlight{\gamma\cdot\lambda_1} \right\rbrace.$$
 ```
 
-```Remark
 Notice that the definition of shortest vector explicitly rules out
-$\vec{0}$ as _the_ shortest vector, i.e., shortest vector should always
-be interpreted as shortest _non-zero_ vector! Furthermore, even though
-the cardinality of $\mathcal{S}_1$ is always more than $1$, _any
-element_ of $\mathcal{S}_1$ is still referred to as **the** shortest
-vector as if it were unique.
-```
+$\vec{0}$ as _the_ shortest vector! Furthermore, even though the
+cardinality of $\mathcal{S}_1$ is always more than $1$, _any element_ of
+$\mathcal{S}_1$ is still referred to as **the** shortest vector as if it
+were unique.
 
-#### Exact Problems
+For approximate shortest vector, the approximation is about the size of
+the vector --- the vectors are still required to be elements of the
+lattice.
 
-```Algorithm [Shortest Vector Problem]
-
-```
-
-#### Approximate Problems
-
-
-A related and cryptographically important class of lattices have the
-extra property that it has only two elements, $\vec{x}$ and $-\vec{x}$
-in $\mathcal{S}_1$. Such lattices and their shortest vector is defined
-as follows:
-
-```Definition [Unique Shortest Vector] {#unique-shortest-vector-definition}
-A lattice $\L$ is said to have a **unique** shortest vector if $\mathcal{S}_1$ has
-only two elements $\vec{x}$ and $-\vec{x}$ as its elements, i.e.,
-$\mathcal{S}_1$ has the form $$\mathcal{S}_1 = \{\vec{x}, -\vec{x}\}$$
-for some $\vec{x} \in \L.$
-```
-
-### Shortest Linearly Independent Lattice Vectors {#sivp-section}
-
-In addition to the notion of a short vector in $\L$, one can also define
-the notion of a short basis for $\L,$
-
-Suppose a lattice has basis $\B \in \RR^{n \times m}$ where the columns
-are arranged according to its lengths, i.e., $\abs{\vec{b}_1} \leq
-\cdots \leq \abs{\vec{b}_j} \leq \cdots \leq \abs{\vec{b}_m}$.
 
 
 ## Existential Upper Bounds
