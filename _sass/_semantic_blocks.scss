@@ -4,6 +4,7 @@
 $semantic-block-border-color: $blockquote-color;
 $definition-border-color:  #006030;
 $theorem-border-color: $blockquote-color;
+$problem-border-color: darkorange;
 $example-border-color: $grey-color;
 $aside-border-color: $grey-color;
 $proof-border-color: brown;
@@ -170,11 +171,17 @@ $semantic-block-title-color : $section-title-color;
 .post-content .theorem,
 .post-content .lemma,
 .post-content .corollary,
-.post-content .problem,
 .post-content .claim {
     border-left-color: $theorem-border-color;
     background-color: semantic-block-background($theorem-border-color);
 }
+
+.post-content .problem,
+.post-content .algorithm {
+    border-left-color: $problem-border-color;
+    background-color: semantic-block-background($problem-border-color);
+}
+
 
 .post-content .algorithm dl,
 .post-content .problem dl {

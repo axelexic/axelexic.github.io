@@ -29,7 +29,7 @@ pre {
 }
 
 html {
-  font-size: 16px;
+  font-size: 18px;
   -webkit-font-smoothing: antialiased;
   box-sizing: border-box;
   max-width: 100%;
@@ -181,13 +181,13 @@ figure > img {
 figurecaption {
   font-size: $small-font-size;
   counter-increment: figure_counter;
-  color: $blockquote-color;
+  color: $section-title-color;
   font-weight: bold;
 }
 
 figurecaption::before {
   content: "Fig. " counter(figure_counter) ": ";
-  color: $blockquote-color;
+  color: $section-title-color;
   font-weight: bolder;
 }
 
@@ -210,8 +210,8 @@ h5,
 h6 {
   text-decoration: underline;
   font-variant: small-caps;
-  font-size: 1.3rem;
-  color: $blockquote-color;
+  font-size: 1.1rem;
+  color: $section-title-color;
 }
 
 article > hr {
@@ -219,14 +219,14 @@ article > hr {
   margin-bottom: math.div($spacing-unit, 2);
   height: 0.5px;
   border: none;
-  background-color: $blockquote-color;
+  background-color: $section-title-color;
 }
 
 /**
  * Links
  */
 a {
-  color: $brand-color;
+  color: color-mix(in oklab, $brand-color 80%, black);
   text-decoration: none;
 
   &:visited {
@@ -546,7 +546,8 @@ a[target="_blank"]::after {
 /** MathJax **/
 .MJX-TEX,
 .MJX-TEX * {
-  font-family: "PT Serif", serif !important;
+  font-family: inherit !important;
+  font-size: inherit !important;
 }
 
 mjx-container .math-accent {
