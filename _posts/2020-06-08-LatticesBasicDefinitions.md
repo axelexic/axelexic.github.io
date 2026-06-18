@@ -37,8 +37,9 @@ version of similar topics.
 A lattice $\L$ is a _discrete_ additive subgroup of $\RR^n$, that is,
 
   1. $\L$ inherits the additive group structure of $\RR^n$,
-  2. $\L$ is equipped with a notion of size (e.g., Lebesgue measure) and
-     a notion of distance (typically $\ell_2$ norm), and
+  2. $\L$ is equipped with a notion of distance, (or equivalently, a
+     inner product $\braket{\cdot, \cdot} : \L\times \L \mapsto \RR$),
+     and
   3. there exits a _fixed non-zero radius_ $\epsilon$ (see [Fig.
      1](#LatticeBasicFigure)), such that around every lattice point
      $\vec{x} \in \L$, the (open) ball
@@ -433,7 +434,6 @@ find even an "approximately short" vector in $\L$.
 
 The next few subsections make these notions precise.
 
-
 ```Aside [Bounds on the cardinality of $\mathcal{S}_j$] {#kissing-number}
 
 For a full-rank lattice $\L$, what are the upper and lower bounds on the
@@ -559,6 +559,40 @@ Output
   : A _non-zero_ vector $\vec{x} \in \L$ such that $\forall\,\vec{y} \in \L:\; \abs{x} \le \abs{y}$.
 
 ```
+
+Intuitively, it seems that solving $\svp$ should be easy because one of
+the basis vectors (i.e., columns of $\B$) must be the shortest vector.
+After all, non-zero integer multiples of each basis vector can only
+increase it length, so the integer _linear combination_ of basis vectors
+should also just increase the length. This intuition, however, is
+incorrect! In fact, something quite the opposite it true: For any given
+lattice $\L$, there exists a basis that's arbitrarily long. The
+following theorem makes this precise.
+
+```Theorem [Unbounded Basis Length] {#unbounded-basis-length}
+Let $\L(\B) \subseteq \RR^{n\times m}$ be a rank-$m$ lattice, where
+$\highlight{m \ge 2}$. Let $\kappa \in \RR$ be an arbitrary positive
+constant. Then, there exists a basis $\C := \lbrace \vec{c}_1, \cdots,
+\vec{c}_m \rbrace$ such that
+
+$$\L(\B) = \L(\C)\quad\text{and}\quad \forall\,i\in\lbrace 1,\cdots,
+m\rbrace:\;\abs{\vec{c}_i} > \kappa.$$
+
+```
+
+Notice that this result fails if the rank of $\L$ is $1$. The literature
+on lattices is filled with examples where computational problems are
+easy for low rank lattices but exceptionally hard when the rank gets
+high.
+
+```Proof
+
+```
+
+The [Basis Equivalence
+Theorem](#basis-equivalence), two bases $\B_1$ and $\B_2$ generate the
+same lattice
+
 
 
 
