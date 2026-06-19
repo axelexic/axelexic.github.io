@@ -14,6 +14,7 @@ tags: [Lattice, Lattice Based Cryptography, Post-quantum Cryptography]
   \newcommand{\A}{\mathbf{A}}
   \newcommand{\B}{\mathbf{B}}
   \newcommand{\C}{\mathbf{C}}
+  \newcommand{\G}{\mathbf{G}}
   \newcommand{\U}{\mathbf{U}}
   \newcommand{\V}{\mathbf{V}}
   \newcommand{\I}{\mathbf{I}}
@@ -22,6 +23,7 @@ tags: [Lattice, Lattice Based Cryptography, Post-quantum Cryptography]
   \renewcommand{\abs}[1]{\lVert #1 \rVert}
   \newcommand{\svp}{\textsf{SVP}}
   \newcommand{\musvp}{\mu\textsf{SVP}}
+  \newcommand{\allin}[2]{\forall\,{#1} \in \lbrace 1, \cdots, {#2} \rbrace}
 \]
 ```
 
@@ -224,29 +226,35 @@ Integer matrices whose _inverse_ also happen to be an integer matrix
 have a special name:
 
 ```Definition [Unimodular Matrix] {#unimodular-defn}
+
 An integer matrix $\U \in \ZZ^{m\times m}$ is called
  **Unimodular** if $$\det(\U) = \pm 1.$$
 
 Since the determinant of $\U$ is $\pm 1$, and the $(i,j)$-th [cofactor
 entry](https://en.wikipedia.org/wiki/Minor_(linear_algebra)#Inverse_of_a_matrix){:target="_blank"}
-of an integer matrix is always an integer, inverse of $\U$ exists
-and has integer entries, that is, $\U^{-1} \in \ZZ^{m\times m}$.
-Furthermore, if $\U$ and $\V$ are unimodular and have the same dimension,
-then so is $\U\cdot \V$ because $\det(\U\cdot \V) = \det(\U)\det(\V) = \pm 1.$
+of an integer matrix is always an integer, inverse of $\U$ exists and
+has integer entries, that is, $\U^{-1} \in \ZZ^{m\times m}$.
+Furthermore, if $\U$ and $\V$ are unimodular and have the same
+dimension, then so is $\U\cdot \V$ because $\det(\U\cdot \V) =
+\det(\U)\det(\V) = \pm 1.$
 
 To summarize, unimodular matrices _form a group_ under usual matrix
-multiplication. This group is called **General Linear Group over Integers**
-and is denoted by $\mathrm{GL}_m(\ZZ).$
+multiplication. This group is called **General Linear Group** over
+integers and is denoted by $\mathrm{GL}_m(\ZZ)$. Unimodular matrices
+whose determinant is $+1$ forms a subgroup of $\mathrm{GL}_m(\ZZ)$
+called the **Special Linear Group** over integers and is denoted by
+$\mathrm{SL}_m(\ZZ)$.
 ```
 
 ```Remark {#integral-lattice-remark}
 While lattices in general are defined over reals, for computational
-problems, only _integral_ lattices --- lattices where $\mathbf{B} \in
-\ZZ^{n\times m} \subseteq \RR^{n\times m}$ --- are of cryptographic
-interest. Furthermore, the _number of bits_ needed to represent $\B$ is
-assumed to be a fixed polynomial in the dimension $n$. This restriction
-is important for understanding the role of dimension in solving lattice
-problems.
+problems, only _integral_ lattices --- lattices whose basis vectors
+contain only integer entries, i.e.,
+$\B \in \ZZ^{n\times m} \subseteq \RR^{n\times m}$ --- are of
+cryptographic interest. Furthermore, the _number of bits_ needed to
+represent $\B$ is assumed to be a fixed polynomial in the dimension $n$.
+This restriction is important for understanding the role of dimension in
+solving lattice problems.
 
 <span class="highlight">Warning</span>: The definition of integral
 lattices in this post is different from the [standard
@@ -460,8 +468,9 @@ $$
 \B_M := \left\lbrace \vec{e}_1, \highlight{M}\vec{e}_2, \cdots , \highlight{M}\vec{e}_n \right\rbrace \in \ZZ^{n\times n}
 $$
 
-where $\vec{e}_i$s are the [standard $n$-dimensional basis
-vectors](https://en.wikipedia.org/wiki/Standard_basis){:target="_blank"}.
+where $\vec{e}_i$s are the [standard $n$-dimensional
+basis](https://en.wikipedia.org/wiki/Standard_basis){:target="_blank"}
+vectors.
 
 **<u>Claim</u>**: For $\L(\B_M)$, the first $J$ non-zero shell radii
 $\nu_j = j$ and
@@ -561,17 +570,17 @@ Output
 ```
 
 Intuitively, it seems that solving $\svp$ should be easy because one of
-the basis vectors (i.e., columns of $\B$) must be the shortest vector.
-After all, non-zero integer multiples of each basis vector can only
-increase it length, so the integer _linear combination_ of basis vectors
-should also just increase the length. This intuition, however, is
-incorrect! In fact, something quite the opposite it true: For any given
-lattice $\L$, there exists a basis that's arbitrarily long. The
-following theorem makes this precise.
+the basis vectors must be the shortest vector. After all, non-zero
+positive or negative integer multiples of each basis vector can only
+increase it length, so its _linear combination_ should also just
+increase the length. This intuition, however, is incorrect! In fact,
+something quite the opposite it true: For any given lattice $\L$, there
+exists a basis that's arbitrarily long. The following theorem makes this
+precise.
 
 ```Theorem [Unbounded Basis Length] {#unbounded-basis-length}
 Let $\L(\B) \subseteq \RR^{n\times m}$ be a rank-$m$ lattice, where
-$\highlight{m \ge 2}$. Let $\kappa \in \RR$ be an arbitrary positive
+$m \ge 2$. Let $\kappa \in \RR$ be an arbitrary positive
 constant. Then, there exists a basis $\C := \lbrace \vec{c}_1, \cdots,
 \vec{c}_m \rbrace$ such that
 
@@ -580,20 +589,71 @@ m\rbrace:\;\abs{\vec{c}_i} > \kappa.$$
 
 ```
 
-Notice that this result fails if the rank of $\L$ is $1$. The literature
-on lattices is filled with examples where computational problems are
-easy for low rank lattices but exceptionally hard when the rank gets
-high.
+Notice that this result fails for rank-$1$ lattices. To avoid repetition,
+we assume the rank of $\L$ is greater than $2$ in the proof.
 
-```Proof
+<!-- ```Proof -->
+
+**<u>Notation</u>**: For the rest of this section, $\vec{e}_j$ denotes
+the $j$-th [standard
+basis](https://en.wikipedia.org/wiki/Standard_basis){:target="_blank"}
+vector in some appropriate dimension.
+
+Recall from the [Basis Equivalence Theorem](#basis-equivalence) that
+two bases $\B, \C \in \RR^{n\times m}$ generate the same lattice $\L$ if
+and only if there exists a unimodular matrix
+$\U \in \mathrm{GL}_m(\ZZ) \subseteq \ZZ^{m\times m}$ such that
+$\C = \B\cdot \U$. To prove that every $\L$ has a basis
+$\C := \lbrace \vec{c}_1, \cdots, \vec{c}_m \rbrace \in \RR^{n\times m}$
+such that $\allin{j}{m}:\; \abs{\vec{c}_j} > \kappa$, we will
+explicitly construct $\U$ such that $\C = \B\U$ and $\abs{\vec{c}_j} > \kappa$.
+
+Let $\G = \B^\top\B$ be the Gram matrix of $\B$, then
+
+$$\forall\,\vec{x} \neq \vec{0} \in \RR^m:\;\norm{\B\cdot \vec{x}}^2 =
+\vec{x}^{\top}\B^{\top}\cdot\B\vec{x} = \vec{x}^\top\G\vec{x} > 0.$$
+
+Therefore $\G$ is positive definite and all its eigenvalues are positive
+[^S11]. Let $\lambda_{\min} > 0$ be the smallest eigenvalue of $\G$ and
+let $\sigma = \left |\sqrt{\lambda_{\min}}\right | \neq 0 \in \RR$. By
+Rayleigh quotients inequality [^KW09] [^CHR97]
+
+$$ \begin{equation}
+\vec{x}^\top\G\vec{x} \highlight{\ge} \lambda_{\min}\norm{\vec{x}}^2 \implies \norm{\B\cdot \vec{x}} \highlight{\ge} \sigma\norm{\vec{x}},
+\label{rayleigh-quotients-inequality}
+\end{equation}
+$$
+
+therefore, to find $\C$ whose columns have norm larger than $\kappa$, it
+suffices to find a unimodular matrix $\U \in \mathrm{SL}_m(\ZZ)$ such
+that
+
+$$\allin{j}{m}:\;\norm{\U\cdot \vec{e}_j} \ge \frac{\kappa}{\sigma}$$
+
+because then
+
+$$\norm{\vec{c}_j} = \norm{\C\cdot \vec{e}_j} = \norm{\B\U\cdot\vec{e}_j}
+ = \norm{\B\cdot (\U\vec{e}_j)} \highlight{\ge} \sigma\norm{\U\vec{e}_j} \ge \sigma\frac{\kappa}{\sigma} = \kappa$$
+
+where the highlighted inequality follows from \eqref{rayleigh-quotients-inequality}.
+
+Let $\A \subseteq \ZZ^{m\times m}$ be defined as
+$$
+\A := \begin{pmatrix}
+1 & 1 & 1 & \cdots & 1 \\
+1 & 2 & 1 & \cdots & 1 \\
+1 & 1 & 2 & \cdots & 1 \\
+\vdots & \vdots & \vdots & \ddots & \vdots \\
+1 & 1 & 1 & \cdots & 2
+\end{pmatrix}
+$$
+
+then $\det(\A) = 1$ (subtracting first row from all other rows has
+diagonal entries $1$ and zero every where else in the lower triangle).
+Therefore, $\A \in \mathrm{SL}_m(\ZZ)$ and for all $t \in \ZZ$,
+$\A^t \in \mathrm{SL}_m(\ZZ)$.
 
 ```
-
-The [Basis Equivalence
-Theorem](#basis-equivalence), two bases $\B_1$ and $\B_2$ generate the
-same lattice
-
-
 
 
 ### Shortest Linearly Independent Vectors {#sivp-section}
@@ -613,7 +673,7 @@ Problem ($\musvp$) is  asks to find this element in $\L$.
 
 ```
 
-<!-- ```Definition [Shortest Vector Problem] {#shortest-vector-problem} -->
+```Definition [Shortest Vector Problem] {#shortest-vector-problem}
 
 Let $\gamma > 1 \in \RR$ be an arbitrary _approximation factor_. The set
 of **approximately short vectors** in $\L$ are those elements of $\L$
@@ -755,3 +815,17 @@ Mathematics, 335, (2018),
     Functions," Harvard Math 272y: Rational Lattices and their Theta
     Functions, [Fall 2019 lecture
     notes](https://people.math.harvard.edu/~elkies/M272.19/){:target="_blank"}.
+
+[^S11]: **G. Strang**, "Positive Definite Matrices and Minima," in MIT
+    OCW Lecture Notes on Linear Algebra, [Lecture 21](https://ocw.mit.edu/courses/18-06sc-linear-algebra-fall-2011/pages/positive-definite-matrices-and-applications/positive-definite-matrices-and-minima/){:target="_blank"}, Fall 2011.
+
+[^CHR97]: **D. Coppersmith**, **J. Hoffman**, and **U. G. Rothblum**,
+    "Inequalities of Rayleigh Quotients and Bounds on the Spectral
+    Radius of Nonnegative Symmetric Matrices," in Linear Algebra and its
+    Applications,
+    [263:201-220](https://pdf.sciencedirectassets.com/271586/1-s2.0-S0024379500X00262/1-s2.0-S0024379596005344/main.pdf){:target="_blank"}
+    (1997), Elsevier Science Inc.
+
+[^KW09]: **J. Kelner** and **A. Wibisono**, "Courant-Fischer and
+    Rayleigh Quotients," in MIT OCW Lecture Notes on 18.409 Algorithmist's
+    Toolkit, [Lecture 03](https://ocw.mit.edu/courses/18-409-topics-in-theoretical-computer-science-an-algorithmists-toolkit-fall-2009/535add3f6457cc13e51d9774f16bf48f_MIT18_409F09_scribe3.pdf){:target="_blank"}, [Fall 2009](https://ocw.mit.edu/courses/18-409-topics-in-theoretical-computer-science-an-algorithmists-toolkit-fall-2009/){:target="_blank"}.
