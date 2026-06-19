@@ -15,6 +15,7 @@ module SemanticFencedBlocks
     "exercise" => "Exercise",
     "lemma" => "Lemma",
     "note" => "Note",
+    "notation" => "Notation",
     "problem" => "Problem",
     "proof" => "Proof",
     "remark" => "Remark",
