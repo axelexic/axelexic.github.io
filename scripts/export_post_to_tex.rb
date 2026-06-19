@@ -27,6 +27,7 @@ BLOCK_TYPES = %w[
   exercise
   lemma
   note
+  notation
   problem
   proof
   reduction

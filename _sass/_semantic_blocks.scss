@@ -139,6 +139,10 @@ $semantic-block-title-color : $section-title-color;
     content: "Note:";
 }
 
+.post-content .notation > .semantic-block-title::before {
+    content: "Notation:";
+}
+
 .post-content .problem > .semantic-block-title::before {
     content: "Problem:";
 }
@@ -225,6 +229,7 @@ $semantic-block-title-color : $section-title-color;
 .post-content .examples,
 .post-content .exercise,
 .post-content .note,
+.post-content .notation,
 .post-content .remark {
     border-left-color: $example-border-color;
     background-color: semantic-block-background($example-border-color);

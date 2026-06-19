@@ -10,6 +10,7 @@ local theorem_environments = {
   exercise = true,
   lemma = true,
   note = true,
+  notation = true,
   problem = true,
   proof = true,
   reduction = true,
