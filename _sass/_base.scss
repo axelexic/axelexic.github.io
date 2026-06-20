@@ -136,7 +136,6 @@ body {
  * Set `margin-bottom` to maintain vertical rhythm
  */
 h1,
-h2,
 h3,
 h4,
 h5,
@@ -149,6 +148,10 @@ ol,
 dl,
 %vertical-rhythm {
   margin-bottom: math.div($spacing-unit, 2);
+}
+
+h2 {
+  margin-bottom: 0px;
 }
 
 /**
@@ -215,7 +218,7 @@ h6 {
 }
 
 article > hr {
-  margin-top: math.div(-5 * $spacing-unit, 8);
+  margin-top: 0px;
   margin-bottom: math.div($spacing-unit, 2);
   height: 0.5px;
   border: none;
