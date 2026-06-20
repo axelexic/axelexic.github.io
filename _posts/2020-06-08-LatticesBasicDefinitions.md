@@ -3,6 +3,7 @@ layout: post
 title: Lattices of Cryptography &mdash; Basic Results
 date: 2020-06-08
 author : Yogesh Swami
+published : false
 tags: [Lattice, Lattice Based Cryptography, Post-quantum Cryptography]
 ---
 
@@ -561,8 +562,10 @@ of the lattice. We define this problem formally below:
 
 ```Problem [Exact Shortest Vector Problem (SVP)] {#shortest-vector-problem}
 Input
-  : A full-rank integral lattice $\L$ specified by a _non-singular_ basis
-    matrix $\B \in \ZZ^{n\times n}$.
+  : A _non-singular_ basis matrix $\B \in \ZZ^{n\times n}$, representing
+    a full-rank [integral lattice](#integral-lattice-remark) $\L$. The
+    number of bits needed to represent $\B$ is guaranteed to be in
+    $\poly(n)$.
 
 Output
   : A _non-zero_ $\vec{x} \in \L$ such that $\forall\,\vec{y} \in \L \highlight{\setminus \lbrace \vec{0} \rbrace}:\; \abs{x} \le \abs{y}$.
@@ -693,6 +696,10 @@ $\L(\B)$ and $\forall\,i \in \lbrace 1,\cdots, m\rbrace:\;
 
 ```
 
+This theorem justifies the earlier [remark](#integral-lattice-remark)
+that for computational problems the input $\B$ to the $\svp$-solver
+should have its size (in bits) bounded by $\poly(n)$.
+
 ### Shortest Linearly Independent Vectors {#sivp-section}
 
 Suppose a lattice has basis $\B \in \RR^{n \times m}$ where the columns
@@ -700,6 +707,7 @@ are arranged according to its lengths, i.e., $\abs{\vec{b}_1} \leq
 \cdots \leq \abs{\vec{b}_j} \leq \cdots \leq \abs{\vec{b}_m}$.
 
 ## Approximate Problems
+---
 
 For many cryptographic applications, its important that modulo sign,
 there's a unique shortest non-zero vector in $\mathcal{S}_1$, i.e.,
