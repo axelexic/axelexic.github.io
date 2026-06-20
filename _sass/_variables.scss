@@ -4,6 +4,7 @@ $base-font-family: "PT Serif", Georgia, "Times New Roman", Times, serif, sans-se
 $base-line-height: 1.5;
 $base-font-size: 18px;
 $small-font-size: $base-font-size * 0.875;
+
 $post-content-title-font-size: $base-font-size * 1.5;
 $post-content-section-font-size: $base-font-size * 1.25;
 $post-content-subsection-font-size: $base-font-size * 1.125;
@@ -29,23 +30,12 @@ $navy-blue-color-super-light: color.adjust($navy-blue-color-light, $lightness: 5
 $green-color: #006030;
 $green-color-light: color.adjust($green-color, $lightness: 10%);
 $green-color-super-light: color.adjust($green-color-light, $lightness: 10%);
-$blockquote-color: #0808f8;
-$blockquote-background-color: color-mix(in oklab, snow 96%, black);
 
-// $site-title-color: #0808f8;
-$site-title-color: color-mix(in oklab, darkviolet 80%, darkred);
+$site-title-color: tomato;
 $section-title-color: #0808f8;
 $site-title-font:  "PT Serif", "Helvetica", serif, ariel, sans-serif;
 $section-title-font: "PT Serif", "Helvetica", serif, ariel, sans-serif;
-$citation-color: $brand-color;
 
-$table-line-color : $section-title-color;
-$table-header-color : $section-title-color;
-$table-caption-color : $section-title-color;
-
-$table-line-color : $section-title-color;
-$table-header-color : $section-title-color;
-$table-caption-color : $section-title-color;
 
 @mixin media-query($device) {
     @media screen and (max-width: $device) {

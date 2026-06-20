@@ -13,7 +13,7 @@
 }
 
 .site-title {
-    color: $site-title-color;
+    color: var(--site-title-color);
     font-family : $site-title-font;
     font-size: 42px;
     line-height: 56px;
@@ -21,7 +21,7 @@
     margin-bottom: 0;
     float: left;
     &, &:visited {
-        color: $site-title-color /* $grey-color-dark */;
+        color: var(--site-title-color) /* $grey-color-dark */;
     }
 }
 
@@ -178,6 +178,9 @@
 
     > li {
         margin-bottom: $spacing-unit;
+        > h2 {
+            margin-top: math.div($spacing-unit, 16);
+        }
     }
 }
 
@@ -202,7 +205,7 @@
 
 .post-title {
     font-family : helvetica, "PT Serif", serif, ariel, sans-serif;
-    color       : $section-title-color;
+    color       : var(--post-title-color);
     font-size   : 36px;
     letter-spacing: -1px;
     line-height: 1;
@@ -217,7 +220,7 @@
 
     h1 {
         // font-size: 32px;
-        color    : $section-title-color;
+        color    : var(--post-title-color);
         @include media-query($on-laptop) {
             font-size: $post-content-title-font-size;
         }
@@ -225,15 +228,16 @@
 
     h2 {
         // font-size: 32px;
-        color    : $section-title-color;
+        color    : var(--section-title-color);
         @include media-query($on-laptop) {
             font-size: $post-content-section-font-size;
         }
+        margin-bottom: 0px;
     }
 
     h3 {
         font-size: 26px;
-        color       : $section-title-color;
+        color       : var(--subsection-title-color);
         @include media-query($on-laptop) {
             font-size: $post-content-subsection-font-size;
         }
@@ -241,10 +245,27 @@
 
     h4 {
         font-size: 20px;
-        color       : $section-title-color;
+        color       : var(--subsubsection-title-color);
         @include media-query($on-laptop) {
             font-size: $post-content-subsubsection-font-size;
         }
+    }
+
+    h2 + hr, h3 + hr, h4 + hr {
+        margin-top: 0px;
+        margin-bottom: math.div($spacing-unit, 2);
+    }
+
+    h2 + hr {
+        background-color: var(--section-title-color);
+    }
+
+    h3 + hr {
+        background-color: var(--subsection-title-color);
+    }
+
+    h4 + hr {
+        background-color: var(--subsubsection-title-color);
     }
 }
 
@@ -255,7 +276,7 @@
 }
 
 .post-comments-title {
-    color: $section-title-color;
+    color: var(--section-title-color);
     font-family: $section-title-font;
     font-size: 28px;
     line-height: 1.2;

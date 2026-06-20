@@ -1,21 +1,20 @@
 @use "sass:math";
 @use "variables" as *;
 
-$semantic-block-border-color: $blockquote-color;
-$definition-border-color:  #006030;
-$theorem-border-color: $blockquote-color;
-$problem-border-color: darkorange;
-$example-border-color: $grey-color;
-$aside-border-color: $grey-color;
-$proof-border-color: brown;
+$semantic-block-border-color: var(--semantic-default-border-color);
+$definition-border-color:  var(--semantic-definition-border-color);
+$theorem-border-color: var(--semantic-theorem-border-color);
+$problem-border-color: var(--semantic-problem-border-color);
+$example-border-color: var(--semantic-example-border-color);
+$aside-border-color: var(--semantic-aside-border-color);
+$proof-border-color: var(--semantic-proof-border-color);
 
 // Color for highlighted terms like Definition, Theorem, etc. keywords
-$semantic-block-desc-color : $site-title-color;
+$semantic-block-desc-color : var(--site-title-color);
 $algorithm-io-color: $semantic-block-desc-color;
 
-
 // Color for descriptive text after Definition, etc.
-$semantic-block-title-color : $section-title-color;
+$semantic-block-title-color : var(--section-title-color);
 
 @function semantic-block-background($border-color, $background-weight: 93%) {
     @return color-mix(in oklab, #{$background-color} #{$background-weight}, #{$border-color});
@@ -242,16 +241,12 @@ $semantic-block-title-color : $section-title-color;
 
 .post-content .proof {
     border-left-color: $proof-border-color;
-    background-color: semantic-block-background($proof-border-color, 98%);
-    // background-color: color-mix(in oklab, snow 96%, black) ;
-}
+    background-color: semantic-block-background($proof-border-color, 95%);}
 
 .post-content .proof .proof-part {
     margin-left: $spacing-unit;
     margin-bottom: 1.3rem;
     padding: 0 math.div($spacing-unit, 2);
     border-radius: math.div($spacing-unit, 2);
-    background-color: semantic-block-background($proof-border-color, 97%);
-    // background-color: color-mix(in oklab, snow 94%, black);
-
+    background-color: semantic-block-background($proof-border-color, 93%);
 }
