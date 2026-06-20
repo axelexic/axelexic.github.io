@@ -556,8 +556,8 @@ $\mathcal{S}_j$ in polynomial time.
 
 The Shortest Vector Problem ($\svp$) is one of the most important
 computational problem in lattice based cryptography. It corresponds to
-finding an element of $\mathcal{S}_1$ given some arbitrary basis $\B$.
-We define this problem formally below:
+finding an element of $\mathcal{S}_1$, given some arbitrary basis $\B$
+of the lattice. We define this problem formally below:
 
 ```Problem [Exact Shortest Vector Problem (SVP)] {#shortest-vector-problem}
 Input
@@ -565,13 +565,13 @@ Input
     matrix $\B \in \ZZ^{n\times n}$.
 
 Output
-  : A _non-zero_ vector $\vec{x} \in \L$ such that $\forall\,\vec{y} \in \L:\; \abs{x} \le \abs{y}$.
+  : A _non-zero_ $\vec{x} \in \L$ such that $\forall\,\vec{y} \in \L \highlight{\setminus \lbrace \vec{0} \rbrace}:\; \abs{x} \le \abs{y}$.
 
 ```
 
 Intuitively, it seems that solving $\svp$ should be easy because one of
 the basis vectors must be the shortest vector. After all, non-zero
-positive or negative integer multiples of each basis vector can only
+positive or negative _integer_ multiples of each basis vector can only
 increase it length, so its _linear combination_ should also just
 increase the length. This intuition, however, is incorrect! In fact,
 something quite the opposite it true: For any given lattice $\L$, there
@@ -584,39 +584,46 @@ $m \ge 2$. Let $\kappa \in \RR$ be an arbitrary positive
 constant. Then, there exists a basis $\C := \lbrace \vec{c}_1, \cdots,
 \vec{c}_m \rbrace$ such that
 
-$$\L(\B) = \L(\C)\quad\text{and}\quad \forall\,i\in\lbrace 1,\cdots,
+$$\L(\B) = \L(\C)\quad\text{and}\quad \forall i\in\lbrace 1,\cdots,
 m\rbrace:\;\abs{\vec{c}_i} > \kappa.$$
 
 ```
 
-Notice that this result fails for rank-$1$ lattices. To avoid repetition,
-we assume the rank of $\L$ is greater than $2$ in the proof.
-
-<!-- ```Proof -->
-
-**<u>Notation</u>**: For the rest of this section, $\vec{e}_j$ denotes
-the $j$-th [standard
+**<u>Note</u>**: This result _fails_ for rank-$1$ lattices. To avoid
+repetition, the rank of $\L$ is assumed to be at least two in the proof.
+Also, $\vec{e}_j$ denotes the $j$-th [standard
 basis](https://en.wikipedia.org/wiki/Standard_basis){:target="_blank"}
-vector in some appropriate dimension.
+in the proof. The significance of $\vec{e}_j$ stems from the fact that
+it acts as _column selector_ of a matrix. For example, if $\A \in
+\RR^{p\times q}$ and $\B \in \RR^{q \times r}$ are two compatible
+matrices and $\C = \A\B$ then the $j$-th column of
+$\C := \lbrace \vec{c}_j \rbrace $ can be expressed as
+
+$$\vec{c}_j := \A\B\cdot \vec{e}_j = \A \cdot (\B\cdot \vec{e}_j).$$
+
+
+```Proof
 
 Recall from the [Basis Equivalence Theorem](#basis-equivalence) that
 two bases $\B, \C \in \RR^{n\times m}$ generate the same lattice $\L$ if
 and only if there exists a unimodular matrix
 $\U \in \mathrm{GL}_m(\ZZ) \subseteq \ZZ^{m\times m}$ such that
-$\C = \B\cdot \U$. To prove that every $\L$ has a basis
-$\C := \lbrace \vec{c}_1, \cdots, \vec{c}_m \rbrace \in \RR^{n\times m}$
-such that $\allin{j}{m}:\; \abs{\vec{c}_j} > \kappa$, we will
-explicitly construct $\U$ such that $\C = \B\U$ and $\abs{\vec{c}_j} > \kappa$.
+$\C = \B\cdot \U$. To prove that every $\L$ has an arbitrarily large basis
+$\C := \lbrace \vec{c}_j \rbrace$ where $\abs{\vec{c}_j} > \kappa$ for
+all $j$, we will explicitly construct $\U$ such that $\C = \B\U$ and
+$\abs{\vec{c}_j} > \kappa$.
 
-Let $\G = \B^\top\B$ be the Gram matrix of $\B$, then
+We first analyze how $\B$ affects the length of vectors in $\L$. Let
+$\G = \B^\top\B$ be the Gram matrix of $\B$, then
 
 $$\forall\,\vec{x} \neq \vec{0} \in \RR^m:\;\norm{\B\cdot \vec{x}}^2 =
 \vec{x}^{\top}\B^{\top}\cdot\B\vec{x} = \vec{x}^\top\G\vec{x} > 0.$$
 
-Therefore $\G$ is positive definite and all its eigenvalues are positive
-[^S11]. Let $\lambda_{\min} > 0$ be the smallest eigenvalue of $\G$ and
-let $\sigma = \left |\sqrt{\lambda_{\min}}\right | \neq 0 \in \RR$. By
-Rayleigh quotients inequality [^KW09] [^CHR97]
+Therefore $\G$ is _symmetric positive definite_ and all its eigenvalues
+are real and positive [^S11]. Let $\lambda_{\min} > 0$ be the smallest
+eigenvalue of $\G$ and let
+$\sigma := \left |\sqrt{\lambda_{\min}}\right | \neq 0 \in \RR$.
+By Rayleigh quotients inequality [^KW09] [^CHR97]
 
 $$ \begin{equation}
 \vec{x}^\top\G\vec{x} \highlight{\ge} \lambda_{\min}\norm{\vec{x}}^2 \implies \norm{\B\cdot \vec{x}} \highlight{\ge} \sigma\norm{\vec{x}},
@@ -628,7 +635,7 @@ therefore, to find $\C$ whose columns have norm larger than $\kappa$, it
 suffices to find a unimodular matrix $\U \in \mathrm{SL}_m(\ZZ)$ such
 that
 
-$$\allin{j}{m}:\;\norm{\U\cdot \vec{e}_j} \ge \frac{\kappa}{\sigma}$$
+$$\allin{j}{m}:\quad\norm{\U\cdot \vec{e}_j} \ge \frac{\kappa}{\sigma}$$
 
 because then
 
@@ -637,7 +644,8 @@ $$\norm{\vec{c}_j} = \norm{\C\cdot \vec{e}_j} = \norm{\B\U\cdot\vec{e}_j}
 
 where the highlighted inequality follows from \eqref{rayleigh-quotients-inequality}.
 
-Let $\A \subseteq \ZZ^{m\times m}$ be defined as
+To find such a $\U$, consider the following matrix:
+
 $$
 \A := \begin{pmatrix}
 1 & 1 & 1 & \cdots & 1 \\
@@ -645,16 +653,45 @@ $$
 1 & 1 & 2 & \cdots & 1 \\
 \vdots & \vdots & \vdots & \ddots & \vdots \\
 1 & 1 & 1 & \cdots & 2
-\end{pmatrix}
+\end{pmatrix} \in \ZZ^{m\times m}.
 $$
 
-then $\det(\A) = 1$ (subtracting first row from all other rows has
-diagonal entries $1$ and zero every where else in the lower triangle).
-Therefore, $\A \in \mathrm{SL}_m(\ZZ)$ and for all $t \in \ZZ$,
-$\A^t \in \mathrm{SL}_m(\ZZ)$.
+Notice that $\det(\A) = 1$, because subtracting the first row of $\A$
+from all the other rows of $\A$ has $1$ in the diagonal and $0$ every
+where else in the _lower triangle_. Therefore, $\A \in \mathrm{SL}_m(\ZZ)$
+and for all $t \in \ZZ_{> 0}$, $\A^t \in \mathrm{SL}_m(\ZZ)$. Furthermore,
+since each entry of $\A$ is positive and non-zero, each entry of $\A^t$ is
+also positive and non-zero.
+
+If $\vec{x}\in \ZZ^m$ is a vector with only _non-zero positive_ entries
+and $\alpha = \min_{j}\lbrace x_j \rbrace > 0$, then a lower bound
+on the $i$-th entry of vector $\vec{y} := \A\cdot \vec{x}$ can be
+established as follows:
+
+$$
+\begin{equation}
+y_i = \sum_{j=1}^m a_{i,j} x_j \ge \sum_{j=1}^m x_j \ge \sum_{j=1}^m \alpha = m \alpha.
+\label{lowerbound-vec-mul}
+\end{equation}
+$$
+
+Since columns of $\A$ are non-zero and positive, by induction,
+each $(i,j)$-th entry of $\A^t = \A^{t-1}\cdot \A$ is therefore greater
+than $m^{t-1}$. (When $\A^{t-1}$ is multiplied by columns of
+$\A$, $\alpha = 1$ in \eqref{lowerbound-vec-mul}, where $\vec{x}$
+is replaced by columns of $\A$.)
+
+Therefore, selecting a value of $t{-}1$ as $\tau$, where
+
+$$
+m^\tau > \left \lceil \frac{\kappa}{\sigma} \right \rceil \implies \tau > \left \lceil \frac{\log(\frac{\kappa}{\sigma} + \frac{1}{2})}{\log(m)} \right \rceil
+$$
+
+and defining $\U = \A^{\tau+1}$ ensures that $\C := \B\U$ is a basis of
+$\L(\B)$ and $\forall\,i \in \lbrace 1,\cdots, m\rbrace:\;
+\abs{\vec{c}_i} > \kappa$.
 
 ```
-
 
 ### Shortest Linearly Independent Vectors {#sivp-section}
 
@@ -817,15 +854,15 @@ Mathematics, 335, (2018),
     notes](https://people.math.harvard.edu/~elkies/M272.19/){:target="_blank"}.
 
 [^S11]: **G. Strang**, "Positive Definite Matrices and Minima," in MIT
-    OCW Lecture Notes on Linear Algebra, [Lecture 21](https://ocw.mit.edu/courses/18-06sc-linear-algebra-fall-2011/pages/positive-definite-matrices-and-applications/positive-definite-matrices-and-minima/){:target="_blank"}, Fall 2011.
+    OCW Lecture Notes on Linear Algebra, [Lecture 21](https://ocw.mit.edu/courses/18-06sc-linear-algebra-fall-2011/pages/positive-definite-matrices-and-applications/positive-definite-matrices-and-minima/){:target="_blank"}, [Fall 2011](https://ocw.mit.edu/courses/18-06sc-linear-algebra-fall-2011/){:target="_blank"}.
 
 [^CHR97]: **D. Coppersmith**, **J. Hoffman**, and **U. G. Rothblum**,
     "Inequalities of Rayleigh Quotients and Bounds on the Spectral
     Radius of Nonnegative Symmetric Matrices," in Linear Algebra and its
     Applications,
-    [263:201-220](https://pdf.sciencedirectassets.com/271586/1-s2.0-S0024379500X00262/1-s2.0-S0024379596005344/main.pdf){:target="_blank"}
+    [263:201-220](https://www.sciencedirect.com/science/article/pii/S0024379596005344){:target="_blank"}
     (1997), Elsevier Science Inc.
 
 [^KW09]: **J. Kelner** and **A. Wibisono**, "Courant-Fischer and
-    Rayleigh Quotients," in MIT OCW Lecture Notes on 18.409 Algorithmist's
+    Rayleigh Quotients," in MIT OCW Lecture Notes on Algorithmist's
     Toolkit, [Lecture 03](https://ocw.mit.edu/courses/18-409-topics-in-theoretical-computer-science-an-algorithmists-toolkit-fall-2009/535add3f6457cc13e51d9774f16bf48f_MIT18_409F09_scribe3.pdf){:target="_blank"}, [Fall 2009](https://ocw.mit.edu/courses/18-409-topics-in-theoretical-computer-science-an-algorithmists-toolkit-fall-2009/){:target="_blank"}.
