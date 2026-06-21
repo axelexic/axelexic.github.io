@@ -4,7 +4,7 @@ title: Lattices of Cryptography &mdash; Basic Results
 date: 2020-06-08
 author : Yogesh Swami
 published : false
-tags: [Lattice, Lattice Based Cryptography, Post-quantum Cryptography]
+tags: [lattices, post quantum cryptography]
 ---
 
 This post is a grab bag of basic definitions and elementary results
