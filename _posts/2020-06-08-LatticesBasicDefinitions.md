@@ -3,9 +3,12 @@ layout: post
 title: Lattices of Cryptography &mdash; Basic Results
 date: 2020-06-08
 author : Yogesh Swami
-published : false
 tags: [Lattice, Lattice Based Cryptography, Post-quantum Cryptography]
 ---
+
+This post is a grab bag of basic definitions and elementary results
+related to unstructured lattices. <!-- more --> Also see [^CaiECCC99]
+for a more condensed version of similar topics.
 
 ```mathjax
 \[
@@ -28,11 +31,6 @@ tags: [Lattice, Lattice Based Cryptography, Post-quantum Cryptography]
 \]
 ```
 
-This post is a grab bag of basic definitions and elementary results
-related to unstructured lattices. Also see [^CaiECCC99] for a more condensed
-version of similar topics.
-
-<!-- more -->
 
 ## Basis Independent Characterization {#basis-independent-characterization}
 ---
