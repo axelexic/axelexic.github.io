@@ -6,7 +6,7 @@ layout: frontlayout
   <aside class="home-profile" aria-labelledby="home-profile-title">
     <img
       class="home-profile-image"
-      src="{{ '/assets/images/profile-256-256.png' | relative_url }}"
+      src="{{ '/assets/images/profile-256-256.jpeg' | relative_url }}"
       width="256"
       height="256"
       alt="Yogesh Swami profile picture"
@@ -14,7 +14,6 @@ layout: frontlayout
 
     <div class="home-profile-details">
       <h1 id="home-profile-title">Yogesh Swami</h1>
-      <p class="home-profile-summary">Cryptography, randomness, and mathematics.</p>
 
       <ul class="home-contact-list">
         <li>
@@ -79,38 +78,25 @@ layout: frontlayout
           <span>axelexic</span>
           </a>
         </li>
-
-
-        <li>
-          <a href="mailto:{{ site.email }}" aria-label="Email {{ site.email }}">
-            <svg class="home-contact-icon" aria-hidden="true" viewBox="0 0 24 24">
-              <path d="M4 6h16v12H4z" />
-              <path d="m4 7 8 6 8-6" />
-            </svg>
-            <span>{{ site.email }}</span>
-          </a>
-        </li>
-
-        <!-- <li>
-          <span aria-label="Location United States">
-            <svg class="home-contact-icon" aria-hidden="true" viewBox="0 0 24 24">
-              <path d="M12 21s7-6.12 7-12a7 7 0 1 0-14 0c0 5.88 7 12 7 12z" />
-              <circle cx="12" cy="9" r="2.5" />
-            </svg>
-            <span>San Francisco, United States</span>
-          </span>
-        </li> -->
       </ul>
     </div>
   </aside>
 
   <section class="home-posts" aria-labelledby="home-posts-title">
-    <h2 id="home-posts-title" class="page-heading">Posts</h2>
+    <!-- <h2 id="home-posts-title" class="page-heading">Posts</h2> -->
 
     <ul class="post-list">
       {% for post in site.posts %}
       <li>
-        <span class="post-meta">{{ post.date | date: "%b %-d, %Y" }}</span>
+        <span class="post-meta">{{ post.date | date: "%b %-d, %Y" }}
+          {% if post.last_modified %}
+            <span style="margin-left: 20px;">
+              (Last modified: {{ post.last_modified | date: "%b %-d, %Y" }})
+            </span>
+          {% endif %}
+        </span>
+
+
         <h3>
           <a class="post-link" href="{{ post.url | relative_url }}">
             {{ post.title }}

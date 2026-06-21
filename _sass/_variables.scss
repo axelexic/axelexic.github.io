@@ -13,7 +13,7 @@ $post-content-subsubsection-font-size: $base-font-size;
 $spacing-unit: 30px;
 
 $text-color: #111;
-$background-color: snow;
+$background-color: linen;
 $brand-color: #2a7ae2;
 
 $grey-color: #828282;
@@ -26,10 +26,6 @@ $on-laptop: 1200px;
 $navy-blue-color: #000080;
 $navy-blue-color-light: #3333ff;
 $navy-blue-color-super-light: color.adjust($navy-blue-color-light, $lightness: 5%);
-
-$green-color: #006030;
-$green-color-light: color.adjust($green-color, $lightness: 10%);
-$green-color-super-light: color.adjust($green-color-light, $lightness: 10%);
 
 $site-title-color: tomato;
 $section-title-color: #0808f8;

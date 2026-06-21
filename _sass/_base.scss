@@ -29,7 +29,7 @@
   --semantic-default-border-color: var(--section-title-color);
   --semantic-default-bg-color: color-mix(in oklab, var(--background-color) 96%, black);
 
-  --semantic-definition-border-color : burlywood;
+  --semantic-definition-border-color : lightseagreen;
   --semantic-theorem-border-color : var(--semantic-default-border-color);
   --semantic-problem-border-color : blueviolet;
   --semantic-example-border-color : #{$grey-color};
@@ -47,7 +47,7 @@
   --blockquote-background-color : var(--semantic-default-bg-color);
 
   // Tag colors
-  --tag-background-color : FloralWhite;
+  --tag-background-color : oldlace;
   --tag-color : var(--section-title-color);
 }
 
