@@ -8,6 +8,7 @@ last_modified : 2018-10-2
 ---
 
 This page describes a few basic protocols for oblivious transfer ($\textsf{OT}$) schemes and some theoretical results related to them. The next post will consider $\textsf{OT}$ extensions &mdash; which are needed when performing a large number of oblivious transfers.
+<!-- more -->
 
 ## Semi-Honest Base OT: Syntax and Semantics
 ---

@@ -26,6 +26,7 @@ giscus:
 
 # Build settings
 markdown: kramdown
+excerpt_separator: "<!-- more -->"
 kramdown:
   input: Kramdown
   math_engine: mathjax

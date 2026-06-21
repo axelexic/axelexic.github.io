@@ -172,6 +172,60 @@
     font-weight: 400;
 }
 
+.home-landing {
+    display: grid;
+    grid-template-columns: 256px minmax(0, 1fr);
+    gap: $spacing-unit * 2;
+    align-items: start;
+}
+
+.home-profile {
+    max-width: 256px;
+}
+
+.home-profile-image {
+    display: block;
+    width: 100%;
+    max-width: 256px;
+    height: auto;
+    aspect-ratio: 1;
+    object-fit: cover;
+}
+
+.home-profile-details {
+    margin-top: math.div($spacing-unit, 2);
+}
+
+.home-profile-details h1 {
+    color: $section-title-color;
+    font-family: $section-title-font;
+    font-size: 30px;
+    line-height: 1.2;
+    margin-bottom: math.div($spacing-unit, 4);
+}
+
+.home-profile-summary {
+    margin-bottom: math.div($spacing-unit, 2);
+}
+
+.home-contact-list {
+    color: $grey-color-dark;
+    font-size: $small-font-size;
+    margin: 0;
+
+    dt {
+        color: $section-title-color;
+    }
+
+    dd {
+        margin-bottom: math.div($spacing-unit, 4);
+    }
+}
+
+.home-posts {
+    min-width: 0;
+}
+
 .post-list {
     margin-left: 0;
     list-style: none;
@@ -189,6 +243,34 @@
 .post-link {
     display: block;
     font-size: 24px;
+}
+
+.post-excerpt {
+    color: $grey-color-dark;
+    font-size: $small-font-size;
+    margin-top: math.div($spacing-unit, 4);
+}
+
+@include media-query($on-laptop) {
+    .home-landing {
+        grid-template-columns: 256px minmax(0, 1fr);
+        gap: $spacing-unit;
+    }
+}
+
+@include media-query($on-palm) {
+    .home-landing {
+        display: block;
+    }
+
+    .home-profile {
+        max-width: none;
+        margin-bottom: $spacing-unit;
+    }
+
+    .home-profile-image {
+        max-width: 256px;
+    }
 }
 
 
