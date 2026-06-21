@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg
+  version="1.1"
+  xmlns="http://www.w3.org/2000/svg"
+  width="320"
+  height="300"
+  viewBox="-160 -150 320 300"
+  role="img"
+  aria-labelledby="title desc">
+  <title id="title">Two-dimensional kissing number</title>
+  <desc id="desc">
+    One central circle is touched by six congruent circles. The centers of the six outer circles form a regular hexagon. The central radius is labeled as $\frac{\lambda_1}{2}$.
+  </desc>
+
+  <style>
+    :root {
+      --main-color: #FFE6CC;
+      --accent-color: #D79B00;
+      --hexagon-color: color-mix(in oklab, var(--main-color) 35%, black);
+      --label-color: red;
+      --stroke-width: 2;
+    }
+
+    .kissing-circle {
+      fill: var(--main-color);
+      stroke: var(--accent-color);
+      stroke-width: var(--stroke-width);
+    }
+
+    .central-circle {
+      fill: #D5E8D4;
+      stroke: #82B366;
+      stroke-width: var(--stroke-width);
+    }
+
+    .hexagon {
+      fill: none;
+      stroke: var(--hexagon-color);
+      stroke-width: 2.5;
+      stroke-linejoin: round;
+    }
+
+    .radius-line,
+    .fraction-bar {
+      stroke: var(--label-color);
+      stroke-linecap: round;
+    }
+
+    .radius-line,
+    .radius-boundary-tick {
+      stroke: var(--label-color);
+      stroke-width: 0.75;
+    }
+
+    .radius-line {
+      marker-start: url(#radius-arrow);
+      marker-end: url(#radius-arrow);
+    }
+
+    .radius-boundary-tick {
+      stroke-dasharray: 1.4 1.7;
+      stroke-linecap: butt;
+    }
+
+    .fraction-bar {
+      stroke-width: 1.8;
+    }
+
+    .radius-arrowhead {
+      fill: var(--label-color);
+    }
+
+    .radius-label {
+      fill: var(--label-color);
+      font-family: "PT Serif", Georgia, "Times New Roman", serif;
+      font-size: 17px;
+      font-style: italic;
+      text-anchor: middle;
+      dominant-baseline: middle;
+    }
+  </style>
+
+  <defs>
+    <marker
+      id="radius-arrow"
+      markerWidth="5"
+      markerHeight="5"
+      refX="5"
+      refY="2.5"
+      orient="auto-start-reverse"
+      markerUnits="strokeWidth">
+      <path class="radius-arrowhead" d="M 0 0 L 5 2.5 L 0 5 Z" />
+    </marker>
+  </defs>
+
+  <circle id="kissing-circle-0" class="kissing-circle" cx="90" cy="0" r="45" />
+  <circle id="kissing-circle-60" class="kissing-circle" cx="45" cy="-77.942286" r="45" />
+  <circle id="kissing-circle-120" class="kissing-circle" cx="-45" cy="-77.942286" r="45" />
+  <circle id="kissing-circle-180" class="kissing-circle" cx="-90" cy="0" r="45" />
+  <circle id="kissing-circle-240" class="kissing-circle" cx="-45" cy="77.942286" r="45" />
+  <circle id="kissing-circle-300" class="kissing-circle" cx="45" cy="77.942286" r="45" />
+
+  <circle id="central-circle" class="central-circle" cx="0" cy="0" r="45" />
+
+  <polygon
+    class="hexagon"
+    points="90,0 45,-77.942286 -45,-77.942286 -90,0 -45,77.942286 45,77.942286" />
+
+
+  <line class="radius-line" x1="0" y1="0" x2="45" y2="0" />
+  <line class="radius-line" x1="45" y1="0" x2="90" y2="0" />
+  <line class="radius-boundary-tick" x1="90" y1="-20" x2="90" y2="20" />
+  <line class="radius-boundary-tick" x1="45" y1="-20" x2="45" y2="20" />
+  <line class="radius-boundary-tick" x1="0" y1="-20" x2="0" y2="20" />
+  <g class="radius-label" transform="translate(24 24)">
+    <text x="0" y="-7">
+      <tspan>&#955;</tspan><tspan dx="1" dy="4" font-size="11">1</tspan>
+    </text>
+    <line class="fraction-bar" x1="-11" y1="0" x2="11" y2="0" />
+    <text x="0" y="16">2</text>
+  </g>
+
+  <g class="radius-label" transform="translate(72 24)">
+    <text x="0" y="-7">
+      <tspan>&#955;</tspan><tspan dx="1" dy="4" font-size="11">1</tspan>
+    </text>
+    <line class="fraction-bar" x1="-11" y1="0" x2="11" y2="0" />
+    <text x="0" y="16">2</text>
+  </g>
+</svg>

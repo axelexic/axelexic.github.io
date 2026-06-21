@@ -9,23 +9,42 @@
 @import url("https://fonts.googleapis.com/css?family=PT+Serif:400,400italic,700,700italic&subset=latin,cyrillic-ext,cyrillic,latin-ext");
 
 :root {
-  --active-file-bg-color: #dadada;
-  --active-file-bg-color: rgba(32, 43, 51, 0.63);
-  --active-file-text-color: white;
-  --bg-color: #f3f2ee;
-  --text-color: #1f0909;
-  --control-text-color: #444;
-  --rawblock-edit-panel-bd: #e5e5e5;
-
-  --select-text-bg-color: rgba(32, 43, 51, 0.63);
-  --select-text-font-color: white;
-  // For mathjax
+  --brand-color : #{$brand-color};
+  --background-color: #{$background-color};
+  --text-color: #{$text-color};
+  --site-title-color : #{$site-title-color};
+  --post-title-color : #{$section-title-color};
   --math-accent: fuchsia;
-}
 
-pre {
-  --select-text-bg-color: #36284e;
-  --select-text-font-color: #fff;
+  // Section and subsection coloring
+  --section-title-color : #{$section-title-color};
+  --subsection-title-color : var(--section-title-color);
+  --subsubsection-title-color : var(--section-title-color);
+
+
+  // Dependent colors
+  --citation-color : var(--brand-color);
+
+  // Semantic blocks
+  --semantic-default-border-color: var(--section-title-color);
+  --semantic-default-bg-color: color-mix(in oklab, var(--background-color) 96%, black);
+
+  --semantic-definition-border-color : darkseagreen;
+  --semantic-theorem-border-color : var(--semantic-default-border-color);
+  --semantic-problem-border-color : darkorchid;
+  --semantic-example-border-color : #{$grey-color};
+  --semantic-aside-border-color : #{$grey-color};
+  --semantic-proof-border-color : deepskyblue;
+
+  // Table related colors
+  --table-line-color : var(--section-title-color);
+  --table-header-color : var(--section-title-color);
+  --table-caption-color : var(--section-title-color);
+
+
+  // Blockquote related colors
+  --blockquote-color : var(--semantic-default-border-color);
+  --blockquote-background-color : var(--semantic-default-bg-color);
 }
 
 html {
@@ -46,7 +65,7 @@ html,
 body {
   background-color: #f3f2ee;
   font-family: "PT Serif", "Times New Roman", "SF Pro", Times, serif;
-  color: #1f0909;
+  color: var(--text-color);
   line-height: 1.5em;
   max-width: 100%;
   overflow-x: hidden;
@@ -95,7 +114,7 @@ dl {
         text-underline-offset: 5px;
         font-family: sans-serif;
         font-weight: bolder;
-        color: $section-title-color;
+        color: var(--section-title-color);
     }
 
     dt::after {
@@ -126,7 +145,7 @@ body {
   font-size: $base-font-size;
   line-height: $base-line-height;
   font-weight: 400;
-  color: $text-color;
+  color: var(--text-color);
   background-color: $background-color;
   -webkit-text-size-adjust: 100%;
   overflow-x: hidden;
@@ -184,13 +203,13 @@ figure > img {
 figurecaption {
   font-size: $small-font-size;
   counter-increment: figure_counter;
-  color: $section-title-color;
+  color: var(--section-title-color);
   font-weight: bold;
 }
 
 figurecaption::before {
   content: "Fig. " counter(figure_counter) ": ";
-  color: $section-title-color;
+  color: var(--section-title-color);
   font-weight: bolder;
 }
 
@@ -214,15 +233,15 @@ h6 {
   text-decoration: underline;
   font-variant: small-caps;
   font-size: 1.1rem;
-  color: $section-title-color;
+  color: var(--section-title-color);
 }
 
 article > hr {
-  margin-top: 0px;
+  margin-top: math.div($spacing-unit, 2);
   margin-bottom: math.div($spacing-unit, 2);
   height: 0.5px;
   border: none;
-  background-color: $section-title-color;
+  background-color: var(--site-title-color);
 }
 
 /**
@@ -238,7 +257,9 @@ a {
 
   &:hover {
     color: $text-color;
-    text-decoration: underline;
+    text-decoration-line: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 3px;
   }
 }
 
@@ -246,13 +267,13 @@ a {
  * Blockquotes
  */
 blockquote {
-  border-left: 4px solid $blockquote-color;
+  border-left: 4px solid var(--blockquote-color);
   padding-left: math.div($spacing-unit, 2);
   padding-right: math.div($spacing-unit, 2);
   padding-top: math.div($spacing-unit, 4);
   padding-bottom: math.div($spacing-unit, 4);
   color: black;
-  background-color: $blockquote-background-color;
+  background-color: var(--blockquote-background-color);
   > :last-child {
     margin-bottom: 0;
   }
@@ -323,11 +344,11 @@ sup > a[role="doc-noteref"]::after {
 }
 
 sup > a[role="doc-noteref"] {
-  color: $citation-color;
+  color: var(--citation-color);
   text-decoration: none;
 
   &:visited {
-    color: color-mix(in oklab, $citation-color 50, black);
+    color: color-mix(in oklab, var(--citation-color) 80, black);
   }
 
   &:hover {
@@ -395,7 +416,7 @@ div[role="doc-endnotes"] ol li::marker {
   display: table-caption;
   caption-side: bottom;
   padding-top: math.div($spacing-unit, 4);
-  color: $table-caption-color;
+  color: var(--table-caption-color);
   font-size: $small-font-size;
   font-weight: bold;
   text-align: center;
@@ -405,7 +426,7 @@ div[role="doc-endnotes"] ol li::marker {
   caption-side: bottom;
   padding-top: math.div($spacing-unit, 4);
   padding-bottom: math.div($spacing-unit, 4);
-  color: $table-caption-color;
+  color: var(--table-caption-color);
   font-size: $small-font-size;
   font-weight: bold;
   text-align: center;
@@ -414,7 +435,7 @@ div[role="doc-endnotes"] ol li::marker {
 
 .post-content table caption::before {
   content: "Table " counter(table_counter) ": ";
-  color: $table-caption-color;
+  color: var(--table-caption-color);
 }
 
 .post-content table:has(caption)::after {
@@ -439,19 +460,19 @@ div[role="doc-endnotes"] ol li::marker {
 }
 
 .post-content table thead th {
-  border-top: 4px double $table-line-color;
-  border-bottom: 4px double $table-line-color;
-  color: $table-header-color;
+  border-top: 4px double var(--table-line-color);
+  border-bottom: 4px double var(--table-line-color);
+  color: var(--table-header-color);
 }
 
 .post-content table th + th,
 .post-content table td + td {
-  border-left: 1px solid $table-line-color;
+  border-left: 1px solid var(--table-line-color);
 }
 
 
 .post-content table tbody {
-  border-bottom: 4px double $table-line-color;
+  border-bottom: 4px double var(--table-line-color);
 }
 
 
