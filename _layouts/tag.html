@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+  {% include head.html %}
+
+  <body>
+    {% include header.html %}
+
+    <div class="page-content">
+      <div class="wrapper">
+        <main class="tag-page" aria-labelledby="tag-page-title">
+          <p class="tag-page-kicker">Posts tagged</p>
+          <h1 id="tag-page-title" class="page-heading">{{ page.tag }}</h1>
+
+          <ul class="post-list">
+            {% for post in page.posts %}
+            <li>
+              <span class="post-meta">{{ post.date | date: "%b %-d, %Y" }}</span>
+              <h2>
+                <a class="post-link" href="{{ post.url | relative_url }}">
+                  {{ post.title }}
+                </a>
+              </h2>
+              <p class="post-excerpt">
+                {{ post.excerpt | strip_html | normalize_whitespace | truncatewords: 55 }}
+              </p>
+              {% include post_tags.html post=post %}
+            </li>
+            {% endfor %}
+          </ul>
+        </main>
+      </div>
+    </div>
+
+    {% include footer.html %}
+  </body>
+</html>

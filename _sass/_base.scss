@@ -45,6 +45,10 @@
   // Blockquote related colors
   --blockquote-color : var(--semantic-default-border-color);
   --blockquote-background-color : var(--semantic-default-bg-color);
+
+  // Tag colors
+  --tag-background-color : FloralWhite;
+  --tag-color : var(--section-title-color);
 }
 
 html {
