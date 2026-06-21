@@ -8,8 +8,25 @@ twitter_username: axelexic
 github_username:  axelexic
 encoding: utf-8
 
+# Giscus comments
+giscus:
+  enabled: true
+  repo: "axelexic/axelexic.github.io"
+  repo_id: "MDEwOlJlcG9zaXRvcnkyODA3MDAyNzI="
+  category: "Announcements"
+  category_id: "DIC_kwDOELslcM4C9uY1"
+  mapping: "pathname"
+  strict: "0"
+  reactions_enabled: "1"
+  emit_metadata: "0"
+  input_position: "bottom"
+  theme: "noborder_light"
+  lang: "en"
+  loading: "lazy"
+
 # Build settings
 markdown: kramdown
+excerpt_separator: "<!-- more -->"
 kramdown:
   input: Kramdown
   math_engine: mathjax
@@ -20,3 +37,6 @@ plugins:
 
 last-modified-at:
     date-format: '%d-%b-%Y'
+
+sass:
+  style: compressed

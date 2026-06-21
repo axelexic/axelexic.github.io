@@ -1,14 +1,19 @@
 @use "sass:color";
 
 $base-font-family: "PT Serif", Georgia, "Times New Roman", Times, serif, sans-serif;
+$base-line-height: 1.5;
 $base-font-size: 18px;
 $small-font-size: $base-font-size * 0.875;
-$base-line-height: 1.5;
+
+$post-content-title-font-size: $base-font-size * 1.5;
+$post-content-section-font-size: $base-font-size * 1.25;
+$post-content-subsection-font-size: $base-font-size * 1.125;
+$post-content-subsubsection-font-size: $base-font-size;
 
 $spacing-unit: 30px;
 
 $text-color: #111;
-$background-color: snow;
+$background-color: linen;
 $brand-color: #2a7ae2;
 
 $grey-color: #828282;
@@ -22,15 +27,11 @@ $navy-blue-color: #000080;
 $navy-blue-color-light: #3333ff;
 $navy-blue-color-super-light: color.adjust($navy-blue-color-light, $lightness: 5%);
 
-$green-color: #006030;
-$green-color-light: color.adjust($green-color, $lightness: 10%);
-$green-color-super-light: color.adjust($green-color-light, $lightness: 10%);
-$blockquote-color: #0808f8;
-
-$site-title-color: #0808f8;
+$site-title-color: tomato;
 $section-title-color: #0808f8;
-$site-title-font: "PT Serif";
-$section-title-font: "PT Serif";
+$site-title-font:  "PT Serif", "Helvetica", serif, ariel, sans-serif;
+$section-title-font: "PT Serif", "Helvetica", serif, ariel, sans-serif;
+
 
 @mixin media-query($device) {
     @media screen and (max-width: $device) {

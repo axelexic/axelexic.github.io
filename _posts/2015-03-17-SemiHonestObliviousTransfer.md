@@ -12,6 +12,7 @@ This page describes a few basic protocols for oblivious transfer
 The [next post]({% post_url 2015-04-11-ObliviousTransferExtensions %})
 will consider $\textsf{OT}$ extensions &mdash; which are needed when
 performing a large number of oblivious transfers.
+<!-- more -->
 
 ## Semi-Honest Base OT: Syntax and Semantics
 ---
@@ -302,14 +303,16 @@ Suppose there exists such an information theoretically secure $2\textsf{pc}_\wed
 >
 > The reason this strategy succeeds is because as sets $\mathbb{T}(0,0)$ and $\mathbb{T}(1,0)$ are identical. Concretely that means, if $\tau(0,0;\;r_{\textsf{Alice}}, r_{\textsf{Bob}})$ corresponds to random coin tosses $(r_{\textsf{Alice}}, r_{\textsf{Bob}})$ during protocol execution, then there must exist some other random choices $(r'_{\textsf{Alice}}, r'_{\textsf{Bob}})$ for which $\tau(1,0;\;r'_{\textsf{Alice}}, r'_{\textsf{Bob}})$ = $\tau(0,0;\;r_{\textsf{Alice}}, r_{\textsf{Bob}})$. Furthermore, since $\mathbb{T}(1,0) \cap \mathbb{T}(1,1) = \phi$, presence of $\tau(0,b)$ in $\mathbb{T}(1,0)$, implies absence from $\mathbb{T}(1,1)$. Therefore, testing for set membership of $\tau(0,b)$ in $\mathbb{T}(1,0)$ is sufficient to conclude if $b = 0$ or $b = 1$.
 >
-> The only thing left to prove is that $\mathbb{T}(0,0) = \mathbb{T}(1,0)$ and $\mathbb{T}(1,0) \cap \mathbb{T}(1,1) = \phi$. We prove these as two claims separately:
+> The only thing left to prove is that $\mathbb{T}(0,0) =
+> \mathbb{T}(1,0)$ and $\mathbb{T}(1,0) \cap \mathbb{T}(1,1) = \phi$. We
+> prove these as two claims separately:
 >
 > **<u>Claim</u>**: $\mathbb{T}(0,0) = \mathbb{T}(1,0)$
 >
-> **<u>Proof</u>**: First note that the output of $2\textsf{pc}_\wedge(a;\;b)$ is
-> the same when either $a=0$ or $b = 0$. We will show that if
-> $\mathbb{T}(0,0) \neq \mathbb{T}(1,0)$ then it will lead to the breach
-> of perfect privacy assumption.
+> **<u>Proof</u>**: First note that the output of
+> $2\textsf{pc}_\wedge(a;\;b)$ is the same when either $a=0$ or $b = 0$.
+> We will show that if $\mathbb{T}(0,0) \neq \mathbb{T}(1,0)$ then it
+> will lead to the breach of perfect privacy assumption.
 >
 > Let's suppose that $\mathbb{T}(0,0) \neq \mathbb{T}(1,0)$. That means, there must exist at least one transcript $\gamma$ that is present in $\mathbb{T}(0,0)$ but not in $\mathbb{T}(1,0)$ (or vice versa). Let $r_\gamma := (r_\textsf{Alice}^\gamma,r_\textsf{Bob}^\gamma)$ be the private randomness that was used to generate transcript $\gamma$. Since the protocol must terminate in finite number of steps, the length of $r_\gamma$ is finite. That means, a computationally unbounded adversary can enumerate all possible bit strings of length $ \mid r_\gamma \mid $ and run the protocol on $(a,b) := (0,0)$ and $(a,b) := (1,0)$ and find out whether $\gamma$ corresponds to $(a=0) \wedge (b=0)$ or $(a=1) \wedge (b=0).$ In other words, based on $\gamma$ alone, the adversary can find out if $a=0$ of $a=1$ with non-zero probability. This, however, is a breach of _perfect privacy assumption_, therefore $\mathbb{T}(0,0) = \mathbb{T}(1,0)$.
 >
@@ -326,7 +329,15 @@ perfect correctness.
 
 ### ${2 \choose 1}$ $\textsf{OT}$ from RSA Hardcore predicate
 
-Let $n = p\cdot q$ be the product of two primes $p$ and $q$. The group of units in the Ring $\mathbb{Z}/n\mathbb{Z}$ has order $\phi(n) = (p-1)\cdot(q-1)$. Let $e$ be coprime to $\phi(n)$ and let $d := e^{-1}\mod \phi(n)$. Let $x \in \left (\mathbb{Z}/n\mathbb{Z}\right)^\times$ be a unit, then the **RSA trapdoor permutation** is defined as $f_{n,e}(x) = x^e$ where $d$ is the trapdoor information, i.e., given $y \in \left (\mathbb{Z}/n\mathbb{Z}\right)^\times$ such that $y = f_{n,e}(x)$ for some $x$, then $x = y^d \mod n$.
+Let $n = p\cdot q$ be the product of two primes $p$ and $q$. The group
+of units in the Ring $\mathbb{Z}/n\mathbb{Z}$ has order
+$\phi(n) = (p-1)\cdot(q-1)$. Let $e$ be coprime to $\phi(n)$ and let
+$d := e^{-1}\mod \phi(n)$. Let
+$x \in \left (\mathbb{Z}/n\mathbb{Z}\right)^\times$ be a unit, then the
+**RSA trapdoor permutation** is defined as $f_{n,e}(x) = x^e$ where $d$
+is the trapdoor information, i.e., given
+$y \in \left (\mathbb{Z}/n\mathbb{Z}\right)^\times$ such that
+$y = f_{n,e}(x)$ for some $x$, then $x = y^d \mod n$.
 
 A result by Alexi, Chor, Goldreich, and Schnorr [^ACGS88] states that
 give $n, e$ and $y \in \left (\mathbb{Z}/n\mathbb{Z}\right)^\times$,
@@ -335,12 +346,20 @@ $x$ from $y$ is at least as hard as computing the least significant bit
 of $x$ (i.e., $\textsf{lsb}(x)$). In other words, the least significant
 bit of $x$ is the hard core predicate of the RSA trapdoor permutation.
 
-Assuming semi-honest adversary, the following scheme uses RSA hardcore predicate to build a 1-out-of-2  $\textsf{OT}$ protocol.
+Assuming semi-honest adversary, the following scheme uses RSA hardcore
+predicate to build a 1-out-of-2  $\textsf{OT}$ protocol.
 
 **Setup**:
 
 >
-> Based on security parameter $\lambda$ (say $\lambda = 2048$), the $\textsf{OT}$ sender Alice ($\mathbb{A}$), generates two random primes $p$ and $p$ of size $\lambda/2$ and computes $n = p\cdot q$, $\phi(n)$, $e$ and $d$ as described before. This one time setup can be reused for different runs of the $\textsf{OT}$ Protocol with potentially different receivers. After computing these values, $\mathbb{A}$ sends $(n,e)$ to the $\textsf{OT}$ receiver Bob ($\mathbb{B}$) and keeps $(n,e,d)$ private.
+> Based on security parameter $\lambda$ (say $\lambda = 2048$), the
+> $\textsf{OT}$ sender Alice ($\mathbb{A}$), generates two random primes
+> $p$ and $p$ of size $\lambda/2$ and computes $n = p\cdot q$,
+> $\phi(n)$, $e$ and $d$ as described before. This one time setup can be
+> reused for different runs of the $\textsf{OT}$ Protocol with
+> potentially different receivers. After computing these values,
+> $\mathbb{A}$ sends $(n,e)$ to the $\textsf{OT}$ receiver Bob
+> ($\mathbb{B}$) and keeps $(n,e,d)$ private.
 >
 
 **Protocol Execution**:

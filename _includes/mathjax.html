@@ -1,0 +1,55 @@
+<script>
+  window.MathJax = {
+    loader: {
+      load: ["[tex]/html", "[tex]/color"],
+    },
+    tex: {
+      inlineMath: { "[+]": [["$", "$"]] },
+      displayMath: [
+        ["$$", "$$"],
+        ["\\[", "\\]"],
+      ],
+      processEscapes: true,
+      processEnvironments: true,
+      processRefs: true,
+      tags: "ams",
+      packages: { "[+]": ["html", "color"] },
+      macros: {
+        ZZ: "{\\mathbb{Z}}",
+        NN: "{\\mathbb{N}}",
+        QQ: "{\\mathbb{Q}}",
+        RR: "{\\mathbb{R}}",
+        CC: "{\\mathbb{C}}",
+        Fp: ["\\mathbb{F}_{p^{#1}}", 1, ""],
+        Fq: ["\\mathbb{F}_{q^{#1}}", 1, ""],
+        ZQ: ["\\ZZ_{#1}", 1],
+        Zmod: ["\\ZZ/{#1}\\ZZ", 1],
+        P: "{\\mathsf{P}}",
+        NP: "{\\mathsf{NP}}",
+        PRIMES: "{\\mathsf{PRIMES}}",
+        poly: ["\\mathsf{poly}"],
+        norm: ["{\\left \\lVert #1 \\right \\rVert }", 1],
+        round: ["{\\left \\lfloor #1 \\right \\rceil }", 1],
+        floor: ["{\\left \\lfloor #1 \\right \\rfloor }", 1],
+        ceil: ["{\\left \\lceil #1 \\right \\rceil }", 1],
+        fractional : ["{\u27E6 #1 \u27E7 }", 1],
+        braket: ["{\\left \\langle #1 \\right \\rangle }", 1],
+        bra: ["{\\left \\langle #1 \\right |}", 1],
+        ket: ["{\\left | #1 \\right \\rangle }", 1],
+        highlight: ["\\class{math-accent}{#1}", 1],
+      }
+    },
+    options: { enableMenu: false },
+    output: {
+      mtextInheritFont: true,
+      merrorInheritFont: true,
+      linebreaks: {
+        inline: false
+      },
+    },
+    svg: {
+      fontCache: "global",
+    },
+  };
+</script>
+<script defer src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-svg.js"></script>

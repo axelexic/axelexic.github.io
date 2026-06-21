@@ -1,0 +1,12 @@
+{% if include.post.tags and include.post.tags.size > 0 %}
+<ul class="post-tags" aria-label="Post tags">
+  {% for tag in include.post.tags %}
+  {% assign tag_slug = tag | slugify %}
+  <li>
+    <a class="post-tag" href="{{ '/tags/' | append: tag_slug | append: '/' | relative_url }}">
+      {{ tag }}
+    </a>
+  </li>
+  {% endfor %}
+</ul>
+{% endif %}
