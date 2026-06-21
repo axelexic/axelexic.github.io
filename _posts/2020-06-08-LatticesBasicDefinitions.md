@@ -3,6 +3,7 @@ layout: post
 title: Lattices of Cryptography &mdash; Basic Results
 date: 2020-06-08
 author : Yogesh Swami
+published : true
 tags: [Lattice, Lattice Based Cryptography, Post-quantum Cryptography]
 ---
 
@@ -31,10 +32,8 @@ for a more condensed version of similar topics.
 \]
 ```
 
-
 ## Basis Independent Characterization {#basis-independent-characterization}
 ---
-
 A lattice $\L$ is a _discrete_ additive subgroup of $\RR^n$, that is,
 
   1. $\L$ inherits the additive group structure of $\RR^n$,

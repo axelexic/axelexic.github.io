@@ -232,11 +232,11 @@
 
     > li {
         margin-bottom: $spacing-unit;
-        > h2, > h3 {
+        > h2 , > h3 {
             margin-top: math.div($spacing-unit, 16);
             > a {
-                color: var(--section-title-color);
                 font-family: Arial, Helvetica, sans-serif;
+                color: var(--section-title-color);
             }
         }
     }
