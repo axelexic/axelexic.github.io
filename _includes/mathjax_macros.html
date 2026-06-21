@@ -1,0 +1,10 @@
+{% assign mathjax_macros = page.mathjax_macros %}
+{% if mathjax_macros == nil and page.mathjax and page.mathjax != true and page.mathjax != false %}
+  {% assign mathjax_macros = page.mathjax %}
+{% endif %}
+
+{% if mathjax_macros %}
+<div id="mathjax-macros" style="display: none;">
+{{ mathjax_macros | escape }}
+</div>
+{% endif %}

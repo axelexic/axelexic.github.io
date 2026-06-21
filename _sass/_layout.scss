@@ -300,9 +300,18 @@
     list-style: none;
 
     > li {
-        margin-bottom: $spacing-unit;
-        > h2 , > h3 {
+        margin-bottom: 1.5*$spacing-unit;
+        > h2 {
             margin-top: math.div($spacing-unit, 16);
+            > a {
+                font-family: Arial, Helvetica, sans-serif;
+                color: var(--section-title-color);
+            }
+        }
+
+        > h3 {
+            margin-top: math.div($spacing-unit, 16);
+            margin-bottom: math.div($spacing-unit, 16);
             > a {
                 font-family: Arial, Helvetica, sans-serif;
                 color: var(--section-title-color);
@@ -423,6 +432,7 @@
     text-decoration: none;
     box-shadow: none;
     background-color: color-mix(in oklab, var(--tag-background-color) 90%, black);
+    color: black;
 }
 
 .tag-page {
@@ -463,6 +473,19 @@
 
     .post-meta-row {
         column-gap: math.div($spacing-unit, 2);
+    }
+
+    .post-meta-row.has-last-modified {
+        grid-template-columns: minmax(0, 1fr) minmax(0, auto);
+    }
+
+    .post-meta-modified {
+        justify-self: end;
+        text-align: right;
+    }
+
+    .post-meta-row .post-meta-tags {
+        display: none;
     }
 }
 

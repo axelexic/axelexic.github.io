@@ -5,22 +5,23 @@ date: 2025-05-24
 author : Yogesh Swami
 published : false
 tags: [NTT, Additive NTT, EC-FFT]
+mathjax_macros: |
+  \[
+    \newcommand{\A}{\mathbf{A}}
+    \newcommand{\B}{\mathbf{B}}
+    \newcommand{\C}{\mathbf{C}}
+  \]
 ---
 
 If you need to evaluate a univariate polynomial
 $f(x) \in \mathbb{F}_q[x]$ on a large set of values
 $\Omega \subseteq \mathbb{F}_q$, then Number Theoretic Transform (NTT)
-is _the tool_ of choice --- provided the set $\Omega$ has an
-appropriate algebraic structure. <!-- more --> The set $\Omega$ is
+is _the tool_ of choice [^N82] --- provided $\Omega$ has an
+appropriate algebraic structure. The set $\Omega$ is
 usually chosen to be a _smooth_ multiplicative subgroup of
 $\mathbb{F}_q^\times$, where the order of $\Omega$ is a usually a power
 of $2$. When such a multiplicative subgroup exists,
-"textbook NTT" [^N82] can work wonders [^LN16].
-
-```mathjax
-\[
-\]
-```
+"textbook NTT" can work wonders [^LN16].
 
 However, when the underlying field $\mathbb{F}_q$ does not possess a
 smooth multiplicative subgroup structure, textbook NTT doesn’t work!

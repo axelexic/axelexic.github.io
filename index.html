@@ -83,14 +83,12 @@ layout: frontlayout
   </aside>
 
   <section class="home-posts" aria-labelledby="home-posts-title">
-    <!-- <h2 id="home-posts-title" class="page-heading">Posts</h2> -->
-
     <ul class="post-list">
       {% for post in site.posts %}
       <li>
         <span class="post-meta">{{ post.date | date: "%b %-d, %Y" }}
           {% if post.last_modified %}
-            <span style="margin-left: 20px;">
+            <span style="float: right;">
               (Last modified: {{ post.last_modified | date: "%b %-d, %Y" }})
             </span>
           {% endif %}
@@ -103,7 +101,7 @@ layout: frontlayout
           </a>
         </h3>
         <p class="post-excerpt">
-          {{ post.excerpt | strip_html | normalize_whitespace | truncatewords: 55 }}
+          {{ post.excerpt | strip_footnotes | strip_html | normalize_whitespace | truncatewords: 55 }}
         </p>
         {% include post_tags.html post=post %}
       </li>

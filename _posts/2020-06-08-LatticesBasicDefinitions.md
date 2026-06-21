@@ -5,32 +5,30 @@ date: 2020-06-08
 author : Yogesh Swami
 published : false
 tags: [lattices, post quantum cryptography]
+mathjax_macros: |
+  \[
+    \newcommand{\L}{\mathcal{L}}
+    \newcommand{\P}{\mathcal{P}}
+    \newcommand{\hatP}{\widehat{\mathcal{P}}}
+    \newcommand{\A}{\mathbf{A}}
+    \newcommand{\B}{\mathbf{B}}
+    \newcommand{\C}{\mathbf{C}}
+    \newcommand{\G}{\mathbf{G}}
+    \newcommand{\U}{\mathbf{U}}
+    \newcommand{\V}{\mathbf{V}}
+    \newcommand{\I}{\mathbf{I}}
+    \newcommand{\almost}[1]{\stackrel{\sim}{#1}}
+    \newcommand{\vol}{\operatorname{covol}}
+    \renewcommand{\abs}[1]{\lVert #1 \rVert}
+    \newcommand{\svp}{\textsf{SVP}}
+    \newcommand{\musvp}{\mu\textsf{SVP}}
+    \newcommand{\allin}[2]{\forall\,{#1} \in \lbrace 1, \cdots, {#2} \rbrace}
+  \]
 ---
 
 This post is a grab bag of basic definitions and elementary results
 related to unstructured lattices. <!-- more --> Also see [^CaiECCC99]
 for a more condensed version of similar topics.
-
-```mathjax
-\[
-  \newcommand{\L}{\mathcal{L}}
-  \newcommand{\P}{\mathcal{P}}
-  \newcommand{\hatP}{\widehat{\mathcal{P}}}
-  \newcommand{\A}{\mathbf{A}}
-  \newcommand{\B}{\mathbf{B}}
-  \newcommand{\C}{\mathbf{C}}
-  \newcommand{\G}{\mathbf{G}}
-  \newcommand{\U}{\mathbf{U}}
-  \newcommand{\V}{\mathbf{V}}
-  \newcommand{\I}{\mathbf{I}}
-  \newcommand{\almost}[1]{\stackrel{\sim}{#1}}
-  \newcommand{\vol}{\operatorname{covol}}
-  \renewcommand{\abs}[1]{\lVert #1 \rVert}
-  \newcommand{\svp}{\textsf{SVP}}
-  \newcommand{\musvp}{\mu\textsf{SVP}}
-  \newcommand{\allin}[2]{\forall\,{#1} \in \lbrace 1, \cdots, {#2} \rbrace}
-\]
-```
 
 ## Basis Independent Characterization {#basis-independent-characterization}
 ---

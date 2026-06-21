@@ -1,23 +1,24 @@
 ---
+
 layout: post
 title: Name of Some Topic
 date: YYYY-MM-DD
 author : Yogesh Swami
-tags: [Lattice, Lattice Based Cryptography, Post-quantum Cryptography]
----
+published : false
+tags: [Cryptography, Provable Security, Number Theory]
+mathjax_macros: |
+  \[
+    \newcommand{\A}{\mathbf{A}}
+    \newcommand{\B}{\mathbf{B}}
+    \newcommand{\C}{\mathbf{C}}
+  \]
 
-```mathjax
-\[
-  \newcommand{\A}{\mathbf{A}}
-  \newcommand{\B}{\mathbf{B}}
-  \newcommand{\C}{\mathbf{C}}
-\]
-```
+---
 
 This is a sample template.
 
 ## Get to the point
-<hr/>
+--
 
 
 ```Note
