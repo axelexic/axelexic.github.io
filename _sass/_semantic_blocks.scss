@@ -274,7 +274,8 @@ $semantic-block-title-color : var(--section-title-color);
 .post-content .proof .proof-part {
     margin-top: math.floor(math.div($spacing-unit, 4));
     margin-left: $spacing-unit;
-    margin-bottom: 1.3rem;
+    margin-right: math.floor(math.div($spacing-unit, 2));
+    margin-bottom: 1.0 rem;
     padding: math.floor(math.div($spacing-unit, 2));
     border-radius: math.floor(math.div($spacing-unit, 2));
     background-color: semantic-block-background($proof-border-color, 91%);

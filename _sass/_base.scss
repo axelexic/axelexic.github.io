@@ -94,6 +94,22 @@ figure {
   padding: 0;
 }
 
+/**
+ * Lists
+ */
+ul,
+ol {
+  margin-left: $spacing-unit;
+}
+
+li {
+  > ul,
+  > ol {
+    margin-bottom: 0;
+  }
+}
+
+
 .post-content > p {
   margin-left: $spacing-unit;
   margin-right: $spacing-unit;
@@ -110,6 +126,7 @@ figure {
 .post-content > ul {
   margin-left: 1.5 * $spacing-unit;
   margin-right: math.div($spacing-unit, 2);
+  padding-left: $spacing-unit;
 }
 
 dl {
@@ -221,20 +238,6 @@ figurecaption::before {
   font-weight: bolder;
 }
 
-/**
- * Lists
- */
-ul,
-ol {
-  margin-left: $spacing-unit;
-}
-
-li {
-  > ul,
-  > ol {
-    margin-bottom: 0;
-  }
-}
 
 h5,
 h6 {
