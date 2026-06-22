@@ -23,8 +23,8 @@ $semantic-block-title-color : var(--section-title-color);
 .post-content .semantic-block {
     position: relative;
     scroll-margin-top: $spacing-unit;
-    margin: math.div($spacing-unit, 2) math.div($spacing-unit, 2) math.div($spacing-unit, 2) $spacing-unit;
-    padding: math.div($spacing-unit, 2) math.div($spacing-unit, 1.75);
+    margin: math.ceil(math.div($spacing-unit, 2)) math.ceil(math.div($spacing-unit, 2)) math.ceil(math.div($spacing-unit, 2)) $spacing-unit;
+    padding: math.ceil(math.div($spacing-unit, 2)) math.ceil(math.div($spacing-unit, 1.75));
     border-left: 4px solid $semantic-block-border-color;
     background-color: semantic-block-background($semantic-block-border-color, 96%);
     > :last-child {
@@ -65,7 +65,7 @@ $semantic-block-title-color : var(--section-title-color);
 
 .post-content .semantic-block-title {
     margin-top: 0;
-    margin-bottom: math.div($spacing-unit, 4);
+    margin-bottom: math.ceil(math.div($spacing-unit, 4));
     color: $semantic-block-desc-color;
     font-variant: normal;
     font-weight: 700;
@@ -190,15 +190,17 @@ $semantic-block-title-color : var(--section-title-color);
 .post-content .problem dl {
     display: grid;
     grid-template-columns: max-content 1fr;
-    column-gap: math.div($spacing-unit, 2);
-    row-gap: math.div($spacing-unit, 4);
-    margin: math.div($spacing-unit, 3) 0;
+    column-gap: math.ceil(math.div($spacing-unit, 2));
+    row-gap: math.ceil(math.div($spacing-unit, 4));
+    margin: math.ceil(math.div($spacing-unit, 3)) 0;
 }
 
 .post-content .algorithm dt,
 .post-content .problem dt {
     float: none;
     clear: none;
+    counter-reset: semantic-block-dd;
+    grid-column: 1;
     margin: 0;
     color: $algorithm-io-color;
     font-family: $site-title-font;
@@ -216,12 +218,34 @@ $semantic-block-title-color : var(--section-title-color);
 
 .post-content .algorithm dd,
 .post-content .problem dd {
+    grid-column: 2;
     margin: 0;
+    min-width: 0;
 }
 
 .post-content .algorithm dd + dd,
 .post-content .problem dd + dd {
     text-indent: 0;
+}
+
+.post-content .algorithm dt:has(+ dd + dd) + dd,
+.post-content .problem dt:has(+ dd + dd) + dd,
+.post-content .algorithm dd + dd,
+.post-content .problem dd + dd {
+    padding-left: 1.5em;
+    position: relative;
+}
+
+.post-content .algorithm dt:has(+ dd + dd) + dd::before,
+.post-content .problem dt:has(+ dd + dd) + dd::before,
+.post-content .algorithm dd + dd::before,
+.post-content .problem dd + dd::before {
+    color: $algorithm-io-color;
+    content: counter(semantic-block-dd) ".";
+    counter-increment: semantic-block-dd;
+    font-weight: 700;
+    left: 0;
+    position: absolute;
 }
 
 .post-content .example,

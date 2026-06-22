@@ -154,7 +154,7 @@ module SemanticFencedBlocks
     title = metadata.fetch(:title)
     section_id = section_id_for(metadata.fetch(:id), block_type, title, seen_ids, fallback_counts)
     anchor_label = title.empty? ? BLOCK_TYPES.fetch(block_type) : title
-    title_markup = title.empty? ? "" : "<span class=\"semantic-block-title-text\">(#{CGI.escapeHTML(title)})</span>"
+    title_markup = title.empty? ? "" : "<span class=\"semantic-block-title-text\">(#{title})</span>"
     numbering_class = UNNUMBERED_TYPES.include?(block_type) ? "unnumbered" : "numbered"
 
     [
@@ -172,7 +172,7 @@ module SemanticFencedBlocks
     title = metadata.fetch(:title)
     aside_id = section_id_for(metadata.fetch(:id), "aside", title, seen_ids, fallback_counts)
     anchor_label = title.empty? ? "Aside" : title
-    title_markup = title.empty? ? "" : "<span class=\"semantic-block-title-text\">(#{CGI.escapeHTML(title)})</span>"
+    title_markup = title.empty? ? "" : "<span class=\"semantic-block-title-text\">(#{title})</span>"
 
     [
       "#{indent}<aside id=\"#{CGI.escapeHTML(aside_id)}\" class=\"semantic-block aside unnumbered\" markdown=\"block\">\n",

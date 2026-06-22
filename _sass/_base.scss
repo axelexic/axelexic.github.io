@@ -52,7 +52,7 @@
 }
 
 html {
-  font-size: 18px;
+  font-size: $base-font-size;
   -webkit-font-smoothing: antialiased;
   box-sizing: border-box;
   max-width: 100%;
@@ -294,7 +294,7 @@ strong {
  */
 pre,
 code {
-  font-size: $base-font-size;
+  font-size: inherit;
   border: 1px solid $grey-color-light;
   border-radius: 3px;
   background-color: #eef;
@@ -551,6 +551,14 @@ mjx-container[display="true"] {
   text-decoration-thickness: 1px;
   text-underline-offset: 3px;
   font-weight: bold;
+}
+
+.lowercap {
+  font-variant: small-caps;
+}
+
+.normal{
+  font-weight: normal;
 }
 
 a[target="_blank"]::after {

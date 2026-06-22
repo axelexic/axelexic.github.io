@@ -88,8 +88,6 @@
     }
 }
 
-
-
 /**
  * Site footer
  */
@@ -533,6 +531,7 @@
     h3 {
         font-size: 26px;
         color       : var(--subsection-title-color);
+        margin-bottom: 0px;
         @include media-query($on-laptop) {
             font-size: $post-content-subsection-font-size;
         }
@@ -541,6 +540,7 @@
     h4 {
         font-size: 20px;
         color       : var(--subsubsection-title-color);
+        margin-bottom: 0px;
         @include media-query($on-laptop) {
             font-size: $post-content-subsubsection-font-size;
         }

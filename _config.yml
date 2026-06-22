@@ -1,7 +1,7 @@
 # Site settings
 title: In praise of randomness
 email: axelexic@gmail.com
-description: Decrypting modern cryptography
+description: Website of Yogesh Swami delving into the theoretical and practical aspects of Cryptography, Zero-Knowledge Proofs, Interactive Oracle Proofs, SNARKS, MPC and FHE schemes.
 baseurl: ""
 url: "http://axelexic.github.io"
 twitter_username: axelexic
