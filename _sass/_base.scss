@@ -14,7 +14,7 @@
   --text-color: #{$text-color};
   --site-title-color : #{$site-title-color};
   --post-title-color : #{$section-title-color};
-  --math-accent: fuchsia;
+  --math-accent: var(--site-title-color);
 
   // Section and subsection coloring
   --section-title-color : #{$section-title-color};
@@ -97,6 +97,13 @@ figure {
 .post-content > p {
   margin-left: $spacing-unit;
   margin-right: $spacing-unit;
+}
+
+@include media-query($on-palm) {
+  .post-content > p {
+    margin-left: math.div($spacing-unit, 2);
+    margin-right: math.div($spacing-unit, 2);
+  }
 }
 
 .post-content > ol,
@@ -516,35 +523,6 @@ mjx-container[display="true"] {
     }
   }
 }
-
-@media print {
-  body {
-    font-size: 10pt;
-  }
-
-  h1,
-  h1.post-title,
-  h1.page-heading,
-  .post-content h1 {
-    font-size: 18pt;
-  }
-
-  h2,
-  .post-content h2,
-  h2 .post-link {
-    font-size: 14pt;
-  }
-
-  h3,
-  h4,
-  h5,
-  body .post-content h3,
-  body .post-content h4,
-  body .post-content h5 {
-    font-size: 12pt;
-  }
-}
-
 
 .highlight {
   text-decoration: underline;

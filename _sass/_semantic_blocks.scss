@@ -63,6 +63,10 @@ $semantic-block-title-color : var(--section-title-color);
     color: $semantic-block-desc-color;
 }
 
+.post-content .semantic-block-print-content {
+    display: none;
+}
+
 .post-content .semantic-block-title {
     margin-top: 0;
     margin-bottom: math.ceil(math.div($spacing-unit, 4));
@@ -268,9 +272,23 @@ $semantic-block-title-color : var(--section-title-color);
     background-color: semantic-block-background($proof-border-color, 95%);}
 
 .post-content .proof .proof-part {
+    margin-top: math.floor(math.div($spacing-unit, 4));
     margin-left: $spacing-unit;
     margin-bottom: 1.3rem;
-    padding: 0 math.div($spacing-unit, 2);
-    border-radius: math.div($spacing-unit, 2);
-    background-color: semantic-block-background($proof-border-color, 93%);
+    padding: math.floor(math.div($spacing-unit, 2));
+    border-radius: math.floor(math.div($spacing-unit, 2));
+    background-color: semantic-block-background($proof-border-color, 91%);
+}
+
+.post-content .proof blockquote.proof-part {
+    border-left: 0;
+    color: inherit;
+}
+
+.post-content .proof blockquote.proof-part > :first-child {
+    margin-top: 0;
+}
+
+.post-content .proof blockquote.proof-part > :last-child {
+    margin-bottom: 0;
 }

@@ -182,6 +182,11 @@ module SemanticFencedBlocks
       *body,
       "\n",
       "#{indent}</details>\n",
+      "#{indent}<div class=\"semantic-block-print-content\" markdown=\"block\">\n",
+      "\n",
+      *body,
+      "\n",
+      "#{indent}</div>\n",
       "#{indent}</aside>\n"
     ]
   end

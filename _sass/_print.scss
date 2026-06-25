@@ -1,0 +1,198 @@
+@use "sass:math";
+@use "variables" as *;
+
+$print-base-font-size: 11pt;
+$print-h2-font-size: math.ceil($print-base-font-size * 1.5);
+$print-h3-font-size: math.ceil($print-base-font-size * 1.25);
+$print-h4-font-size: math.ceil($print-base-font-size * 1.125);
+$print-font-family: Cambria, Georgia, "Times New Roman", Times, serif;
+
+@media print {
+  @page {
+    margin: 0.75in;
+  }
+
+  html,
+  body {
+    background: #fff !important;
+    color: #000 !important;
+    font-size: $print-base-font-size !important;
+    line-height: 1.4;
+    max-width: none;
+    overflow: visible;
+  }
+
+  body {
+    font-family: $print-font-family;
+    print-color-adjust: exact;
+    -webkit-print-color-adjust: exact;
+  }
+
+  .wrapper {
+    max-width: none;
+    padding-left: 0;
+    padding-right: 0;
+  }
+
+  .page-content {
+    padding: 0;
+  }
+
+  .site-header,
+  .site-footer,
+  .post-comments,
+  .giscus,
+  .giscus-frame {
+    display: none !important;
+  }
+
+  .post-header {
+    margin-bottom: math.div($spacing-unit, 2);
+  }
+
+  h1,
+  h1.post-title,
+  h1.page-heading,
+  .post-content h1 {
+    font-family: $print-font-family;
+    font-size: 18pt !important;
+    line-height: 1.2;
+  }
+
+  h2,
+  .post-content h2,
+  h2 .post-link {
+    font-family: $print-font-family;
+    font-size: $print-h2-font-size !important;
+    line-height: 1.25;
+  }
+
+  h3,
+  .post-content h3 {
+    font-family: $print-font-family;
+    font-size: $print-h3-font-size !important;
+    line-height: 1.25;
+  }
+
+  h4,
+  .post-content h4 {
+    font-family: $print-font-family;
+    font-size: $print-h4-font-size !important;
+    line-height: 1.25;
+  }
+
+  h5,
+  h6,
+  .post-content h5,
+  .post-content h6,
+  .post-content .semantic-block-title {
+    font-family: $print-font-family;
+    font-size: $print-base-font-size !important;
+    line-height: 1.3;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    break-after: avoid;
+    page-break-after: avoid;
+  }
+
+  p,
+  li,
+  dd {
+    orphans: 3;
+    widows: 3;
+  }
+
+  .post-content > p {
+    margin-left: 0;
+    margin-right: 0;
+  }
+
+  .post-content > ol,
+  .post-content > ul {
+    margin-left: 1.5em;
+    margin-right: 0;
+  }
+
+  a,
+  a:visited {
+    color: #000;
+    text-decoration: none;
+  }
+
+  a[target="_blank"]::after,
+  .semantic-block-anchor {
+    display: none !important;
+  }
+
+  blockquote,
+  .post-content .semantic-block {
+    background: transparent !important;
+    break-inside: avoid-page;
+    page-break-inside: avoid;
+  }
+
+  .post-content .aside .semantic-block-details > :not(summary) {
+    display: none !important;
+  }
+
+  .post-content .aside .semantic-block-print-content {
+    display: block !important;
+  }
+
+  .post-content .semantic-block {
+    margin-left: 0;
+    margin-right: 0;
+    padding: 0.65em 0.8em;
+  }
+
+  pre,
+  code {
+    background: transparent;
+    border-color: #999;
+    font-size: 9pt;
+  }
+
+  pre {
+    white-space: pre-wrap;
+    word-break: break-word;
+  }
+
+  figure,
+  .post-content table,
+  mjx-container[display="true"] {
+    break-inside: avoid-page;
+    page-break-inside: avoid;
+  }
+
+  img {
+    max-width: 100%;
+  }
+
+  .post-content table {
+    font-size: 10pt;
+    margin-bottom: 1.25em;
+    margin-top: 1.25em;
+  }
+
+  .post-tags,
+  .post-meta-tags {
+    display: none !important;
+  }
+
+  .footnotes {
+    font-size: 9pt;
+  }
+
+  .post-content .proof .proof-part {
+    margin-left: 1.5em;
+    margin-right: 0;
+    background: transparent;
+  }
+
+}
