@@ -1,4 +1,5 @@
 <head>
+  {% if jekyll.environment == "production" %}
   <script
     async
     src="https://www.googletagmanager.com/gtag/js?id=G-H8W5SES1BZ"
@@ -12,6 +13,7 @@
 
     gtag("config", "G-H8W5SES1BZ");
   </script>
+  {% endif %}
 
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
