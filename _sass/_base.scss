@@ -109,6 +109,13 @@ li {
   }
 }
 
+.post-content > ol,
+.post-content > ul {
+  margin-left: $spacing-unit;
+  margin-right: math.floor(math.div($spacing-unit, 2));
+  padding-left: $spacing-unit;
+}
+
 
 .post-content > p {
   margin-left: $spacing-unit;
@@ -117,16 +124,21 @@ li {
 
 @include media-query($on-palm) {
   .post-content > p {
-    margin-left: math.div($spacing-unit, 2);
-    margin-right: math.div($spacing-unit, 2);
+    margin-left: 0;
+    margin-right: 0;
   }
-}
 
-.post-content > ol,
-.post-content > ul {
-  margin-left: 1.5 * $spacing-unit;
-  margin-right: math.div($spacing-unit, 2);
-  padding-left: $spacing-unit;
+  .post-content > ol,
+  .post-content > ul {
+    margin-left: math.div($spacing-unit, 2);
+    margin-right: 0;
+    padding-left: math.div($spacing-unit, 2);
+  }
+
+  .post-content > blockquote {
+    margin-left: 0;
+    margin-right: 0;
+  }
 }
 
 dl {

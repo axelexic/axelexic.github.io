@@ -293,3 +293,23 @@ $semantic-block-title-color : var(--section-title-color);
 .post-content .proof blockquote.proof-part > :last-child {
     margin-bottom: 0;
 }
+
+@include media-query($on-palm) {
+    .post-content .semantic-block {
+        margin-left: 0;
+        margin-right: 0;
+        padding-left: math.div($spacing-unit, 2);
+        padding-right: math.div($spacing-unit, 2);
+    }
+
+    .post-content .semantic-block div.indent {
+        margin-left: math.div($spacing-unit, 2);
+    }
+
+    .post-content .proof .proof-part {
+        margin-left: math.div($spacing-unit, 2);
+        margin-right: 0;
+        padding-left: math.div($spacing-unit, 3);
+        padding-right: math.div($spacing-unit, 3);
+    }
+}

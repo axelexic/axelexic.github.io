@@ -6,6 +6,10 @@
     {% assign category = giscus.category | default: "" %}
     {% assign category_id = giscus.category_id | default: "" %}
     {% if repo != "" and repo_id != "" and category != "" and category_id != "" %}
+      {% assign giscus_theme = giscus.theme | default: "light" %}
+      {% if giscus_theme == "axelexic" %}
+        {% assign giscus_theme = "/assets/css/giscus-axelexic.css" | absolute_url %}
+      {% endif %}
       <section class="post-comments" aria-labelledby="comments-title">
         <h2 class="post-comments-title" id="comments-title">Comments</h2>
         <div class="giscus"></div>
@@ -24,7 +28,7 @@
           data-reactions-enabled="{{ giscus.reactions_enabled | default: '1' | escape }}"
           data-emit-metadata="{{ giscus.emit_metadata | default: '0' | escape }}"
           data-input-position="{{ giscus.input_position | default: 'bottom' | escape }}"
-          data-theme="{{ giscus.theme | default: 'light' | escape }}"
+          data-theme="{{ giscus_theme | escape }}"
           data-lang="{{ giscus.lang | default: 'en' | escape }}"
           data-loading="{{ giscus.loading | default: 'lazy' | escape }}"
           crossorigin="anonymous"

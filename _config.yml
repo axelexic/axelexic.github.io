@@ -3,7 +3,7 @@ title: In praise of randomness
 email: axelexic@gmail.com
 description: Website of Yogesh Swami delving into the theoretical and practical aspects of Cryptography, Zero-Knowledge Proofs, Interactive Oracle Proofs, SNARKS, MPC and FHE schemes.
 baseurl: ""
-url: "http://axelexic.github.io"
+url: "https://axelexic.github.io"
 twitter_username: axelexic
 github_username:  axelexic
 encoding: utf-8
@@ -20,7 +20,7 @@ giscus:
   reactions_enabled: "1"
   emit_metadata: "0"
   input_position: "bottom"
-  theme: "noborder_light"
+  theme: "axelexic"
   lang: "en"
   loading: "lazy"
 
