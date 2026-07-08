@@ -14,7 +14,7 @@
   --text-color: #{$text-color};
   --site-title-color : #{$site-title-color};
   --post-title-color : #{$section-title-color};
-  --math-accent: var(--site-title-color);
+  --math-accent: var(--brand-color);
 
   // Section and subsection coloring
   --section-title-color : #{$section-title-color};
@@ -48,7 +48,7 @@
 
   // Tag colors
   --tag-background-color : oldlace;
-  --tag-color : var(--site-title-color);
+  --tag-color : var(--brand-color);
 }
 
 html {
@@ -249,18 +249,17 @@ article > hr {
   margin-bottom: math.div($spacing-unit, 2);
   height: 0.5px;
   border: none;
-  background-color: var(--site-title-color);
 }
 
 /**
  * Links
  */
 a {
-  color: color-mix(in oklab, $brand-color 80%, black);
+  color: color-mix(in oklab, $nav-color 80%, black);
   text-decoration: none;
 
   &:visited {
-    color: color.adjust($brand-color, $lightness: -15%);
+    color: color.adjust($nav-color, $lightness: -15%);
   }
 
   &:hover {
@@ -356,11 +355,10 @@ sup > a[role="doc-noteref"] {
   text-decoration: none;
 
   &:visited {
-    color: color-mix(in oklab, var(--citation-color) 80, black);
+    color: var(--citation-color);
   }
 
   &:hover {
-    color: $navy-blue-color;
     text-decoration: underline;
   }
 }
@@ -522,7 +520,14 @@ mjx-container[display="true"] {
       fill: $grey-color;
     }
   }
+
+  > svg:hover {
+    path {
+      fill: var(--brand-color);
+    }
+  }
 }
+
 
 .highlight {
   text-decoration: underline;

@@ -15,7 +15,8 @@ $spacing-unit: 30px;
 
 $text-color: #111;
 $background-color: linen;
-$brand-color: #2a7ae2;
+$nav-color: #2a7ae2;
+$brand-color: tomato;
 
 $grey-color: #828282;
 $grey-color-light: color.adjust($grey-color, $lightness: 40%);
@@ -28,7 +29,7 @@ $navy-blue-color: #000080;
 $navy-blue-color-light: #3333ff;
 $navy-blue-color-super-light: color.adjust($navy-blue-color-light, $lightness: 5%);
 
-$site-title-color: tomato;
+$site-title-color: $brand-color;
 $section-title-color: #0808f8;
 $site-title-font:  "PT Serif", "Helvetica", serif, ariel, sans-serif;
 $section-title-font: "PT Serif", "Helvetica", serif, ariel, sans-serif;

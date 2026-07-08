@@ -269,7 +269,7 @@
 }
 
 .home-contact-icon {
-    color: var(--site-title-color);
+    color: var(--brand-color);
     flex: 0 0 auto;
     fill: none;
     height: 1rem;
@@ -568,6 +568,19 @@
     border-top: 1px solid $grey-color-light;
     margin-top: $spacing-unit;
     padding-top: math.div($spacing-unit, 2);
+
+    p {
+        font-size: $small-font-size;
+        margin-left: auto;
+        margin-right: auto;
+        margin-top: 5px;
+        color: $grey-color;
+    }
+
+    a::after {
+        content: none;
+        background-image: none;
+    }
 }
 
 .post-comments-title {
@@ -588,5 +601,7 @@
 
 .giscus,
 .giscus-frame {
-    width: 75%;
+    width: 100%;
+    max-width: 800px;
+    min-width: 300px;
 }
