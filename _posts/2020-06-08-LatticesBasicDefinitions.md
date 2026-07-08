@@ -1184,7 +1184,7 @@ theorem](https://en.wikipedia.org/wiki/Dirichlet%27s_approximation_theorem){:tar
 [^CaiECCC99]:
     **J. Y. Cai**, "Some Recent Progress on the Complexity of Lattice Problems,"
     in Electronic Colloquium on Computational Complexity,
-    [Report No. 6](https://eccc.weizmann.ac.il/report/1999/006/){:target="\_blank"}
+    [Report No. 6](https://eccc.weizmann.ac.il/report/1999/006/){:target="_blank"}
     (1999).
 
 [^IK04]:
@@ -1193,48 +1193,48 @@ theorem](https://en.wikipedia.org/wiki/Dirichlet%27s_approximation_theorem){:tar
 
 [^CZ13]:
     **H. Cohn** and **Y. Zhao**, "Sphere Packing Bounds via Spherical Codes,"
-    [Arxiv 1212.5966](https://arxiv.org/pdf/1212.5966){:target="\_blank"}, 2013.
+    [Arxiv 1212.5966](https://arxiv.org/pdf/1212.5966){:target="_blank"}, 2013.
     See also, Institute for Advanced Study
-    [video lecture](https://www.ias.edu/video/1213/analysis/0122-HenryCohn){:target="\_blank"}.
+    [video lecture](https://www.ias.edu/video/1213/analysis/0122-HenryCohn){:target="_blank"}.
 
 [^JJP18]:
     **M. Jenssen**, **F. Joos**, and **W. Perkins**, "On kissing numbers and
     spherical codes in high dimensions," in Advances in Mathematics, 335,
     (2018),
-    [307-321](https://www.sciencedirect.com/science/article/pii/S0001870818302494){:target="\_blank"}.
+    [307-321](https://www.sciencedirect.com/science/article/pii/S0001870818302494){:target="_blank"}.
 
 [^E272y19]:
     **N. D. Elkies**, "Rational Lattices and their Theta Functions," Harvard
     Math 272y: Rational Lattices and their Theta Functions,
-    [Fall 2019 lecture notes](https://people.math.harvard.edu/~elkies/M272.19/){:target="\_blank"}.
+    [Fall 2019 lecture notes](https://people.math.harvard.edu/~elkies/M272.19/){:target="_blank"}.
 
 [^S11]:
     **G. Strang**, "Positive Definite Matrices and Minima," in MIT OCW Lecture
     Notes on Linear Algebra,
-    [Lecture 21](https://ocw.mit.edu/courses/18-06sc-linear-algebra-fall-2011/pages/positive-definite-matrices-and-applications/positive-definite-matrices-and-minima/){:target="\_blank"},
-    [Fall 2011](https://ocw.mit.edu/courses/18-06sc-linear-algebra-fall-2011/){:target="\_blank"}.
+    [Lecture 21](https://ocw.mit.edu/courses/18-06sc-linear-algebra-fall-2011/pages/positive-definite-matrices-and-applications/positive-definite-matrices-and-minima/){:target="_blank"},
+    [Fall 2011](https://ocw.mit.edu/courses/18-06sc-linear-algebra-fall-2011/){:target="_blank"}.
 
 [^CHR97]:
     **D. Coppersmith**, **J. Hoffman**, and **U. G. Rothblum**, "Inequalities of
     Rayleigh Quotients and Bounds on the Spectral Radius of Nonnegative
     Symmetric Matrices," in Linear Algebra and its Applications,
-    [263:201-220](https://www.sciencedirect.com/science/article/pii/S0024379596005344){:target="\_blank"}
+    [263:201-220](https://www.sciencedirect.com/science/article/pii/S0024379596005344){:target="_blank"}
     (1997), Elsevier Science Inc.
 
 [^KW09]:
     **J. Kelner** and **A. Wibisono**, "Courant-Fischer and Rayleigh Quotients,"
     in MIT OCW Lecture Notes on Algorithmist's Toolkit,
-    [Lecture 03](https://ocw.mit.edu/courses/18-409-topics-in-theoretical-computer-science-an-algorithmists-toolkit-fall-2009/535add3f6457cc13e51d9774f16bf48f_MIT18_409F09_scribe3.pdf){:target="\_blank"},
-    [Fall 2009](https://ocw.mit.edu/courses/18-409-topics-in-theoretical-computer-science-an-algorithmists-toolkit-fall-2009/){:target="\_blank"}.
+    [Lecture 03](https://ocw.mit.edu/courses/18-409-topics-in-theoretical-computer-science-an-algorithmists-toolkit-fall-2009/535add3f6457cc13e51d9774f16bf48f_MIT18_409F09_scribe3.pdf){:target="_blank"},
+    [Fall 2009](https://ocw.mit.edu/courses/18-409-topics-in-theoretical-computer-science-an-algorithmists-toolkit-fall-2009/){:target="_blank"}.
 
 [^V03]:
     **V. V. Vazirani**, "Approximation Algorithms," Springer 2003. Author's
-    [online](https://ics.uci.edu/~vazirani/book.pdf){:target="\_blank"} copy.
+    [online](https://ics.uci.edu/~vazirani/book.pdf){:target="_blank"} copy.
 
 [^A98]:
     **M. Ajtai**, "The Shortest Vector Problem in $\ell_2$ is $\NP$-hard for
     randomized reductions,"
-    ([extended abstract](https://dl.acm.org/doi/10.1145/276698.276705){:target="\_blank"}).
+    ([extended abstract](https://dl.acm.org/doi/10.1145/276698.276705){:target="_blank"}).
     In STOC, pages 10–19. 1998.
 
 [^M98]: **J. Munkres**, "Topology a first course," [Web
