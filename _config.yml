@@ -23,6 +23,7 @@ giscus:
   theme: "axelexic"
   lang: "en"
   loading: "lazy"
+  input_position: "top"
 
 # Build settings
 markdown: kramdown

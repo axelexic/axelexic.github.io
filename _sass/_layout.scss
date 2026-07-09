@@ -23,6 +23,10 @@
     &, &:visited {
         color: var(--site-title-color);
     }
+    &:hover {
+        color: var(--section-title-color);
+        text-decoration: none;
+    }
 }
 
 .site-nav {
@@ -392,6 +396,11 @@
 .post-link {
     display: block;
     font-size: 24px;
+}
+
+a.post-link:hover {
+    color: var(--brand-color);
+    text-decoration: none;
 }
 
 .post-excerpt {
