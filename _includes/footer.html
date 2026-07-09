@@ -2,7 +2,7 @@
   <div class="wrapper">
     <div class="footer-col-wrapper">
       <div class="footer-col footer-col-1">
-        <p class="footer-site-title">{{ site.title }}</p>
+        <p class="footer-site-title"><a href="/">{{ site.title }}</a></p>
       </div>
 
       <div class="footer-col footer-col-2">
@@ -60,6 +60,7 @@
             </a>
           </li>
 
+          {% comment %}
           <li>
           <a href="mailto:{{ site.email }}" aria-label="Email {{ site.email }}">
             <span class="icon icon--email">
@@ -69,6 +70,8 @@
             </span>
           </a>
         </li>
+        {% endcomment %}
+
         </ul>
       </div>
     </div>

@@ -100,6 +100,15 @@
     padding: $spacing-unit 0;
     color: $grey-color;
     font-size: $small-font-size;
+
+    a {
+        color: $grey-color;
+    }
+
+    a:hover {
+        color: var(--brand-color);
+        text-decoration: none;
+    }
 }
 
 .footer-heading {
