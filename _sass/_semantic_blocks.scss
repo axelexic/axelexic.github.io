@@ -190,6 +190,7 @@ $semantic-block-title-color : var(--section-title-color);
 }
 
 
+.post-content .reduction dl,
 .post-content .algorithm dl,
 .post-content .problem dl {
     display: grid;
@@ -200,6 +201,7 @@ $semantic-block-title-color : var(--section-title-color);
 }
 
 .post-content .algorithm dt,
+.post-content .reduction dt,
 .post-content .problem dt {
     float: none;
     clear: none;
@@ -216,11 +218,13 @@ $semantic-block-title-color : var(--section-title-color);
 }
 
 .post-content .algorithm dt::after,
+.post-content .reduction dt::after,
 .post-content .problem dt::after {
     content: ": ";
 }
 
 .post-content .algorithm dd,
+.post-content .reduction dd,
 .post-content .problem dd {
     grid-column: 2;
     margin: 0;
@@ -228,20 +232,25 @@ $semantic-block-title-color : var(--section-title-color);
 }
 
 .post-content .algorithm dd + dd,
+.post-content .reduction dd + dd,
 .post-content .problem dd + dd {
     text-indent: 0;
 }
 
+.post-content .reduction dt:has(+ dd + dd) + dd,
 .post-content .algorithm dt:has(+ dd + dd) + dd,
 .post-content .problem dt:has(+ dd + dd) + dd,
+.post-content .reduction dd + dd,
 .post-content .algorithm dd + dd,
 .post-content .problem dd + dd {
     padding-left: 1.5em;
     position: relative;
 }
 
+.post-content .reduction dt:has(+ dd + dd) + dd::before,
 .post-content .algorithm dt:has(+ dd + dd) + dd::before,
 .post-content .problem dt:has(+ dd + dd) + dd::before,
+.post-content .reduction dd + dd::before,
 .post-content .algorithm dd + dd::before,
 .post-content .problem dd + dd::before {
     color: $algorithm-io-color;
