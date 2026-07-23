@@ -68,3 +68,19 @@
     .vi    { color: #008080 } // Name.Variable.Instance
     .il    { color: #099 } // Literal.Number.Integer.Long
 }
+
+.language-plaintext {
+  padding: 0;
+  border: none;
+  background: inherit;
+  font-family: inherit;
+}
+
+figure.highlight {
+  text-align: left;
+  padding: 0;
+  margin-left: $spacing-unit;
+  margin-right: $spacing-unit;
+  margin-top: math.ceil(math.div($spacing-unit, 3));
+  margin-bottom: $spacing-unit;
+}

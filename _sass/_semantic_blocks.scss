@@ -11,7 +11,6 @@ $proof-border-color: var(--semantic-proof-border-color);
 
 // Color for highlighted terms like Definition, Theorem, etc. keywords
 $semantic-block-desc-color : var(--brand-color);
-$algorithm-io-color: $semantic-block-desc-color;
 
 // Color for descriptive text after Definition, etc.
 $semantic-block-title-color : var(--section-title-color);
@@ -163,6 +162,16 @@ $semantic-block-title-color : var(--section-title-color);
     content: "Proof:";
 }
 
+.proof-end {
+    margin-bottom: 2rem;
+}
+
+li:last-child > .proof-end:last-of-type,
+dd:last-child  > .proof-end:last-of-type {
+    margin-bottom: 0px;
+}
+
+.proof-end::after,
 .post-content .proof::after {
     content: "\25A0";
     display: block;
@@ -194,9 +203,7 @@ $semantic-block-title-color : var(--section-title-color);
 }
 
 
-.post-content .reduction dl,
-.post-content .algorithm dl,
-.post-content .problem dl {
+.post-content .semantic-block dl {
     display: grid;
     grid-template-columns: max-content 1fr;
     column-gap: math.ceil(math.div($spacing-unit, 2));
@@ -204,15 +211,13 @@ $semantic-block-title-color : var(--section-title-color);
     margin: math.ceil(math.div($spacing-unit, 3)) 0;
 }
 
-.post-content .algorithm dt,
-.post-content .reduction dt,
-.post-content .problem dt {
+.post-content .semantic-block dl dt {
     float: none;
     clear: none;
     counter-reset: semantic-block-dd;
     grid-column: 1;
     margin: 0;
-    color: $algorithm-io-color;
+    color: $semantic-block-desc-color;
     font-family: $site-title-font;
     font-variant: small-caps;
     font-weight: 700;
@@ -221,43 +226,37 @@ $semantic-block-title-color : var(--section-title-color);
     text-underline-offset: 3px;
 }
 
-.post-content .algorithm dt::after,
-.post-content .reduction dt::after,
-.post-content .problem dt::after {
+.post-content .semantic-block > dl > dt
+ {
+    margin-left: math.ceil(math.div($spacing-unit, 2));
+    text-decoration: none;
+    text-align: right;
+}
+
+
+.post-content .semantic-block dl dt::after {
     content: ": ";
 }
 
-.post-content .algorithm dd,
-.post-content .reduction dd,
-.post-content .problem dd {
+.post-content .semantic-block dl dd {
     grid-column: 2;
     margin: 0;
     min-width: 0;
 }
 
-.post-content .algorithm dd + dd,
-.post-content .reduction dd + dd,
-.post-content .problem dd + dd {
+.post-content .semantic-block dl dd + dd {
     text-indent: 0;
 }
 
-.post-content .reduction dt:has(+ dd + dd) + dd,
-.post-content .algorithm dt:has(+ dd + dd) + dd,
-.post-content .problem dt:has(+ dd + dd) + dd,
-.post-content .reduction dd + dd,
-.post-content .algorithm dd + dd,
-.post-content .problem dd + dd {
+.post-content .semantic-block dl dt:has(+ dd + dd) + dd,
+.post-content .semantic-block dl dd + dd {
     padding-left: 1.5em;
     position: relative;
 }
 
-.post-content .reduction dt:has(+ dd + dd) + dd::before,
-.post-content .algorithm dt:has(+ dd + dd) + dd::before,
-.post-content .problem dt:has(+ dd + dd) + dd::before,
-.post-content .reduction dd + dd::before,
-.post-content .algorithm dd + dd::before,
-.post-content .problem dd + dd::before {
-    color: $algorithm-io-color;
+.post-content .semantic-block dl dt:has(+ dd + dd) + dd::before,
+.post-content .semantic-block dl dd + dd::before {
+    color: $semantic-block-desc-color;
     content: counter(semantic-block-dd) ".";
     counter-increment: semantic-block-dd;
     font-weight: 700;
@@ -282,6 +281,17 @@ $semantic-block-title-color : var(--section-title-color);
 .post-content .semantic-block dl dt > blockquote:not(.details) > :last-child,
 .post-content .semantic-block dl dd > blockquote:not(.details) > :last-child {
     margin-bottom: 0;
+}
+
+.post-content .semantic-block dl dd:has(> blockquote.details) {
+    grid-column: 1 / -1;
+    margin: 0;
+    padding-left: 0;
+}
+
+.post-content .semantic-block dl dd > blockquote.details {
+    margin-left: 0;
+    margin-right: 0;
 }
 
 .post-content .example,
@@ -314,6 +324,16 @@ $semantic-block-title-color : var(--section-title-color);
     padding: math.floor(math.div($spacing-unit, 2));
     border-radius: math.floor(math.div($spacing-unit, 2));
     background-color: semantic-block-background(var(--semantic-block-active-border-color), 91%);
+
+    hr {
+        border: none;
+        height: 1px;
+        background-color: var(--semantic-block-active-border-color);
+    }
+}
+
+.post-content .semantic-block .details:last-of-type {
+    margin-bottom: 0px;
 }
 
 .post-content .semantic-block blockquote.details {

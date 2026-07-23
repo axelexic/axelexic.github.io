@@ -544,7 +544,7 @@ mjx-container[display="true"] {
 }
 
 
-.bold_underline {
+.bul {
   text-decoration: underline;
   text-decoration-thickness: 1px;
   text-underline-offset: 3px;
@@ -559,12 +559,6 @@ mjx-container[display="true"] {
   font-weight: normal;
 }
 
-.language-plaintext {
-  padding: 0;
-  border: none;
-  background: transparent;
-  font-family: inherit;
-}
 
 .mathsf {
   font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;

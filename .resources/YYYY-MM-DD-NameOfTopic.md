@@ -29,8 +29,8 @@ Add a note
 Add some definition here.
 ```
 
-<span class="bold_underline">Dimension</span>: The CSS class "bold_underline" bold_underlines
-the text.
+<span class="bul">Dimension</span>: The CSS class "bul" creates bold and
+underlined text.
 
 ```Theorem [Name of the theorem] {#theorem-URL-Marker}
 Add some theorem there
