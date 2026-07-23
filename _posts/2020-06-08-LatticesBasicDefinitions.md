@@ -574,27 +574,27 @@ $\mathcal{S}_j$, one cannot use that oracle to find _all_ elements of
 $\mathcal{S}_j$ in polynomial time.
 ```
 
-### Shortest Vector Problem {#svp-section}
+### Shortest Vector Problem {#section--svp}
 
 The Shortest Vector Problem ($\svp$) is one of the most important
 computational problem in lattice based cryptography. It corresponds to
 finding an element of $\mathcal{S}_1$, given some arbitrary basis $\B$
 of the lattice.
 
-```Problem [<span class="lowercap">Exact-SVP</span>] {#shortest-vector-problem}
+```Problem [<span class="lowercap">Search-SVP</span>] {#problem--shortest-vector-problem}
 Input
   : A _non-singular_ basis matrix $\B \in \ZZ^{n\times n}$ representing
     a full-rank [integral lattice](#integral-lattice-remark) $\L$.
 
 Output
-  : A _non-zero_ $\vec{x} \in \L$ such that $\forall\,\vec{y} \in \L \highlight{\setminus \lbrace \vec{0} \rbrace}:\; \abs{x} \le \abs{y}$.
+  : A _non-zero_ $\vec{x} \in \L$ such that $\forall\,\vec{y} \in \L \highlight{\setminus \lbrace \vec{0} \rbrace}:\; \abs{\vec{x}} \le \abs{\vec{y}}$.
 
 ```
 
 As usual, there's an optimization version and a decisional version of this
 problem which are listed below:
 
-```Problem [<span class="lowercap">Opt-SVP</span>] {#shortest-vector-problem-opt}
+```Problem [<span class="lowercap">Opt-SVP</span>] {#problem--shortest-vector-problem-opt}
 Input
   : A _non-singular_ basis matrix $\B \in \ZZ^{n\times n}$ representing
     a full-rank [integral lattice](#integral-lattice-remark) $\L$.
@@ -606,7 +606,7 @@ Output
 output is allowed to be $\nu_1^p$ instead of $\nu_1$.
 ```
 
-```Problem [<span class="lowercap">Decisional-SVP</span>] {#shortest-vector-problem-decisional}
+```Problem [<span class="lowercap">Decisional-SVP</span>] {#problem--shortest-vector-problem-decisional}
 Input
   : A _non-singular_ basis matrix $\B \in \ZZ^{n\times n}$ representing
     a full-rank [integral lattice](#integral-lattice-remark) $\L$.
@@ -780,7 +780,7 @@ follows:
 ```Definition [Successive Minima] {#successive-minima}
 
 Let $\L \subseteq \RR^n$ be a lattice of dimension $n$ and rank $m$. Let
-$\overline{\mathbb{B}}(\vec{0}, r) := \lrbraces{ \vec{x}\;:\; \abs{x} \le r} \subseteq \RR^n$
+$\overline{\mathbb{B}}(\vec{0}, r) := \lrbraces{ \vec{x}\;:\; \abs{\vec{x}} \le r} \subseteq \RR^n$
 denote a *closed* sphere of radius $r \in \RR$ centered at $\vec{0}$.
 
 For $i \in \braces{1,\cdots, m}$, the $i$-th **successive minima** is
@@ -805,7 +805,7 @@ of successive minima. I'll cover them in some future post.
 We are now ready to define the search and optimization versions of
 Shortest Independent Vector Problem (SIVP):
 
-```Problem [<span class="lowercap">Exact-SIVP</span>] {#sivp-search}
+```Problem [<span class="lowercap">Search-SIVP</span>] {#sivp-search}
 Input
   : A _non-singular_ basis matrix $\B \in \ZZ^{n\times n}$ representing
     a full-rank [integral lattice](#integral-lattice-remark) $\L$.
@@ -816,7 +816,7 @@ Output
 
 Recall, $\vec{0}$ is never part of a linearly independent set and is
 automatically ruled out in the output of
-<span class="lowercap">Exact-SIVP</span>.
+<span class="lowercap">Search-SIVP</span>.
 ```
 
 ```Problem [<span class="lowercap">Opt-SIVP</span>] {#sivp-opt}
@@ -836,9 +836,9 @@ interesting in the approximation algorithm setting.
 
 ### Approximately Optimal Solutions and <span class="lowercap">Gap</span> Problems {#gap-lattice-problems-section}
 
-Both [<span class="lowercap">Exact-SVP</span>](#shortest-vector-problem)
-and [<span class="lowercap">Exact-SIVP</span>](#sivp-search) are known
-to be $\NP$-hard. (<span class="lowercap">Exact-SVP</span> under
+Both [<span class="lowercap">Search-SVP</span>](#problem--shortest-vector-problem)
+and [<span class="lowercap">Search-SIVP</span>](#sivp-search) are known
+to be $\NP$-hard. (<span class="lowercap">Search-SVP</span> under
 randomized reductions [^A98]!) In cryptography, however, _approximate_
 solutions to an otherwise computationally hard problem can be just as
 effective in breaking the cryptosystem as an exact solution. It's
@@ -858,8 +858,9 @@ how well the heuristic algorithm can approximate $p + q$ when it works.
 Can such an algorithm be useful for breaking RSA cryptosystem?
 
 The answer to this, of course, depends upon $\alpha$. If the value of
-$\alpha$ is a polynomial in the _bit-length_ of $N$, i.e., $\alpha \in
-\poly(\log_2 N)$, then one can _enumerate_ all integers $i$ in the range
+$\alpha$ is a polynomial in the _bit-length_ of $N$, i.e.,
+$\alpha \in \poly(\log_2 N)$, then one can _enumerate_ all integers $i$
+in the range
 $r$ and $\alpha\cdot r$ in _polynomial time_ and check if $\Delta := i^2
 - 4N$ is a perfect square. If $\Delta$ turns out to be perfect square,
 then $N$ can be trivially factored. Such a heuristic algorithm will be
@@ -936,7 +937,7 @@ Input
     a full-rank [integral lattice](#integral-lattice-remark) $\L$.
 
 Output
-  : A _non-zero_ $\vec{x} \in \L$ such that $\forall\,\vec{y} \in \L \setminus \lbrace \vec{0} \rbrace:\; \frac{1}{\highlight{\gamma(n)}}\abs{x} \le \abs{y}$, or equivalently, $\vec{x} \in \L \setminus \vec{0} $ such that $\abs{x} \le \highlight{\gamma(n)}\cdot \lambda_1$.
+  : A _non-zero_ $\vec{x} \in \L$ such that $\forall\,\vec{y} \in \L \setminus \lbrace \vec{0} \rbrace:\; \frac{1}{\highlight{\gamma(n)}}\abs{\vec{x}} \le \abs{\vec{y}}$, or equivalently, $\vec{x} \in \L \setminus \vec{0} $ such that $\abs{\vec{x}} \le \highlight{\gamma(n)}\cdot \lambda_1$.
 ```
 
 The decisional version of <span
@@ -954,7 +955,7 @@ anything --- including different outputs even for the same input, or not
 terminate at all! More formally, <span
 class="lowercap">GapSVP$_\gamma$</span> if defined as follows:
 
-```Problem [<span class="lowercap">GapSVP$_\gamma$</span>] {#shortest-vector-problem-decisional}
+```Problem [<span class="lowercap">GapSVP$_\gamma$</span>] {#gap-svp-problem}
 Input
   : A _non-singular_ basis matrix $\B \in \ZZ^{n\times n}$ representing
     a full-rank [integral lattice](#integral-lattice-remark) $\L$.
@@ -995,7 +996,7 @@ between the following two cases:
 
 More formally,
 
-```Problem [<span class="lowercap">GapSIVP$_\gamma$</span>] {#shortest-vector-problem-decisional}
+```Problem [<span class="lowercap">GapSIVP$_\gamma$</span>] {#problem--shortest-vector-problem-decisional}
 Input
   : A _non-singular_ basis matrix $\B \in \ZZ^{n\times n}$ representing
     a full-rank [integral lattice](#integral-lattice-remark) $\L$.
