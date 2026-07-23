@@ -21,6 +21,7 @@ $semantic-block-title-color : var(--section-title-color);
 }
 
 .post-content .semantic-block {
+    --semantic-block-active-border-color: #{$semantic-block-border-color};
     position: relative;
     scroll-margin-top: $spacing-unit;
     margin: math.ceil(math.div($spacing-unit, 2)) math.ceil(math.div($spacing-unit, 2)) math.ceil(math.div($spacing-unit, 2)) $spacing-unit;
@@ -171,6 +172,7 @@ $semantic-block-title-color : var(--section-title-color);
 }
 
 .post-content .definition {
+    --semantic-block-active-border-color: #{$definition-border-color};
     border-left-color: $definition-border-color;
     background-color: semantic-block-background($definition-border-color);
 }
@@ -179,12 +181,14 @@ $semantic-block-title-color : var(--section-title-color);
 .post-content .lemma,
 .post-content .corollary,
 .post-content .claim {
+    --semantic-block-active-border-color: #{$theorem-border-color};
     border-left-color: $theorem-border-color;
     background-color: semantic-block-background($theorem-border-color);
 }
 
 .post-content .problem,
 .post-content .algorithm {
+    --semantic-block-active-border-color: #{$problem-border-color};
     border-left-color: $problem-border-color;
     background-color: semantic-block-background($problem-border-color);
 }
@@ -261,45 +265,67 @@ $semantic-block-title-color : var(--section-title-color);
     position: absolute;
 }
 
+.post-content .semantic-block dl dt > blockquote:not(.details),
+.post-content .semantic-block dl dd > blockquote:not(.details) {
+    border-left: 0;
+    color: inherit;
+    margin: 0;
+    padding: 0;
+    background-color: transparent;
+}
+
+.post-content .semantic-block dl dt > blockquote:not(.details) > :first-child,
+.post-content .semantic-block dl dd > blockquote:not(.details) > :first-child {
+    margin-top: 0;
+}
+
+.post-content .semantic-block dl dt > blockquote:not(.details) > :last-child,
+.post-content .semantic-block dl dd > blockquote:not(.details) > :last-child {
+    margin-bottom: 0;
+}
+
 .post-content .example,
 .post-content .examples,
 .post-content .exercise,
 .post-content .note,
 .post-content .notation,
 .post-content .remark {
+    --semantic-block-active-border-color: #{$example-border-color};
     border-left-color: $example-border-color;
     background-color: semantic-block-background($example-border-color);
 }
 
 .post-content .aside {
+    --semantic-block-active-border-color: #{$aside-border-color};
     border-left-color: $aside-border-color;
     background-color: semantic-block-background($aside-border-color, 96%);
 }
 
 .post-content .proof {
+    --semantic-block-active-border-color: #{$proof-border-color};
     border-left-color: $proof-border-color;
     background-color: semantic-block-background($proof-border-color, 95%);}
 
-.post-content .proof .proof-part {
+.post-content .semantic-block .details {
     margin-top: math.floor(math.div($spacing-unit, 4));
     margin-left: $spacing-unit;
     margin-right: math.floor(math.div($spacing-unit, 2));
-    margin-bottom: 1.0 rem;
+    margin-bottom: 1rem;
     padding: math.floor(math.div($spacing-unit, 2));
     border-radius: math.floor(math.div($spacing-unit, 2));
-    background-color: semantic-block-background($proof-border-color, 91%);
+    background-color: semantic-block-background(var(--semantic-block-active-border-color), 91%);
 }
 
-.post-content .proof blockquote.proof-part {
+.post-content .semantic-block blockquote.details {
     border-left: 0;
     color: inherit;
 }
 
-.post-content .proof blockquote.proof-part > :first-child {
+.post-content .semantic-block .details > :first-child {
     margin-top: 0;
 }
 
-.post-content .proof blockquote.proof-part > :last-child {
+.post-content .semantic-block .details > :last-child {
     margin-bottom: 0;
 }
 
@@ -315,7 +341,7 @@ $semantic-block-title-color : var(--section-title-color);
         margin-left: math.div($spacing-unit, 2);
     }
 
-    .post-content .proof .proof-part {
+    .post-content .semantic-block .details {
         margin-left: math.div($spacing-unit, 2);
         margin-right: 0;
         padding-left: math.div($spacing-unit, 3);

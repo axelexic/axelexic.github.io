@@ -207,7 +207,7 @@ $\B_2 = \B_1\cdot \U$.
 >  and $\V$ are both integer matrices, and they can be inverses of
 >  each other _if and only if_ $\det(\U) = \det(\V) = \pm 1.$
 >
-{: .proof-part }
+{: .details }
 
 Conversely, if $\U \in \ZZ^{m\times n}$ is such that $\B_2 = \B_1\cdot\U$
   and $\det(\U) = \pm 1$, then we need to show that $\L(\B_2) = \L(\B_1)$.
@@ -230,7 +230,7 @@ Conversely, if $\U \in \ZZ^{m\times n}$ is such that $\B_2 = \B_1\cdot\U$
 >
 >  Since
 >  $\L(\B_2) \subseteq \L(\B_1)$ and $\L(\B_1) \subseteq \L(\B_2) \highlight{\implies} \L(\B_1) = \L(\B_2).$
-{: .proof-part }
+{: .details }
 
 ```
 
@@ -349,7 +349,7 @@ of $\L,$ _if and only if_ $$\P(\C) \cap \L = \braces{\vec{0}}.$$
 >  is $0$, therefore,
 >  $$\P(\C) \cap \L = \lbrace \C\cdot \vec{0} \rbrace = \lbrace \vec{0} \rbrace.$$
 >
-{: .proof-part }
+{: .details }
 
 ###### ($\Leftarrow$): If $\C \subseteq \L$ and $\P(\C) \cap \L = \lbrace \vec{0} \rbrace \highlight{\implies} \C$ is a basis of $\L.$
 
@@ -377,7 +377,7 @@ of $\L,$ _if and only if_ $$\P(\C) \cap \L = \braces{\vec{0}}.$$
 >    written as an integer linear combination of columns of $\C$. In
 >    short, $\C$ is a basis of $\L.$
 >
-{: .proof-part}
+{: .details}
 
 ```
 
@@ -1089,7 +1089,7 @@ We first prove that given any arbitrary matrix $\B \in \RR^{n\times m}$ of colum
 >   point since its smaller than the shorted distance between any two
 >   distinct lattice point.
 >
-{: .proof-part}
+{: .details}
 
 Next we prove the converse.
 
@@ -1154,7 +1154,7 @@ Next we prove the converse.
 > But $L'$ has rank $m$, therefore $s \ge m$. On the other hand, the dimension
 > of $\span_\RR(\L)$ is $m$, therefore $s \le m \implies s = m$. Therefore
 > $\L$ is a lattice of rank $m$.
-{: .proof-part }
+{: .details }
 
 ```
 
