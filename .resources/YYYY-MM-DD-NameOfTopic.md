@@ -29,7 +29,7 @@ Add a note
 Add some definition here.
 ```
 
-<span class="highlight">Dimension</span>: The CSS class "highlight" highlights
+<span class="bold_underline">Dimension</span>: The CSS class "bold_underline" bold_underlines
 the text.
 
 ```Theorem [Name of the theorem] {#theorem-URL-Marker}
