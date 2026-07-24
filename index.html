@@ -97,7 +97,7 @@ layout: frontlayout
 
         <h3>
           <a class="post-link" href="{{ post.url | relative_url }}">
-            {{ post.title }}
+            {{ post.title | render_math }}
           </a>
         </h3>
         <p class="post-excerpt">

@@ -521,6 +521,11 @@ mjx-container[display="true"] {
   margin-right: math.div($spacing-unit, 2) !important;
 }
 
+mjx-container [data-mml-node="mtext"],
+mjx-container [data-mml-node="merror"] {
+  font-family: $base-font-family;
+}
+
 /**
  * Icons
  */

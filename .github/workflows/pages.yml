@@ -31,6 +31,15 @@ jobs:
           ruby-version: "3.4.4"
           bundler-cache: true
 
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: .node-version
+          cache: npm
+
+      - name: Install Node dependencies
+        run: npm ci
+
       - name: Build with Jekyll
         run: bundle exec jekyll build --baseurl "${{ steps.pages.outputs.base_path }}"
         env:

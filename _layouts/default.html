@@ -3,7 +3,13 @@
   {% include head.html %}
 
   <body>
-    {% include mathjax_macros.html %}
+    {% assign server_side_mathjax = site.server_side_mathjax %}
+    {% if page.server_side_mathjax == true or page.server_side_mathjax == false %}
+      {% assign server_side_mathjax = page.server_side_mathjax %}
+    {% endif %}
+    {% unless server_side_mathjax %}
+      {% include mathjax_macros.html %}
+    {% endunless %}
     {% include header.html %}
 
     <div class="page-content">

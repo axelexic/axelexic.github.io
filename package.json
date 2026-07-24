@@ -1,0 +1,11 @@
+{
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": "22.17.1",
+    "npm": "10.9.2"
+  },
+  "dependencies": {
+    "mathjax": "4.1.3"
+  }
+}

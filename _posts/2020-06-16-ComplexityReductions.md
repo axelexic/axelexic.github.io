@@ -4,8 +4,8 @@ title: Classical complexity reductions among hard lattice problems
 date: 2020-06-16
 author: Yogesh Swami
 published: true
+server_side_mathjax: false
 tags: [svp, cvp, lattices, foundations]
-
 mathjax_macros: |
   \[
     \newcommand{\A}{\mathbf{A}}
