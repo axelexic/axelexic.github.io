@@ -521,9 +521,14 @@ mjx-container[display="true"] {
   margin-right: math.div($spacing-unit, 2) !important;
 }
 
-mjx-container [data-mml-node="mtext"],
-mjx-container [data-mml-node="merror"] {
+mjx-container[jax="CHTML"] mjx-mtext,
+mjx-container[jax="CHTML"] mjx-merror {
   font-family: $base-font-family;
+}
+
+.mathjax-eqref {
+  font-family: $base-font-family;
+  white-space: nowrap;
 }
 
 /**

@@ -1,12 +1,11 @@
 import MathJax from "mathjax";
 
-const PT_SERIF_STACK = '"PT Serif", Georgia, "Times New Roman", Times, serif';
 const input = await readStdin();
 const request = JSON.parse(input);
 
 await MathJax.init({
   loader: {
-    load: ["input/tex", "output/svg", "[tex]/html", "[tex]/color"],
+    load: ["input/tex", "output/chtml", "[tex]/html", "[tex]/color"],
   },
   startup: {
     typeset: false,
@@ -50,20 +49,18 @@ await MathJax.init({
       braces: ["{\\lbrace {#1} \\rbrace }", 1],
       lrbraces: ["{\\left \\lbrace {#1} \\right \\rbrace }", 1],
       highlight: ["\\class{math-accent}{#1}", 1],
-      textsf: ["\\mathsf{#1}", 1],
     },
   },
   output: {
-    mtextInheritFont: false,
-    mtextFont: PT_SERIF_STACK,
-    merrorInheritFont: false,
-    merrorFont: PT_SERIF_STACK,
+    mtextInheritFont: true,
+    merrorInheritFont: true,
     linebreaks: {
       inline: false,
     },
   },
-  svg: {
-    fontCache: "local",
+  chtml: {
+    fontURL:
+      "https://cdn.jsdelivr.net/npm/@mathjax/mathjax-newcm-font@4.1.3/chtml/woff2",
   },
 });
 
@@ -108,7 +105,7 @@ async function renderDocument({ html, preamble }) {
   }
 
   const stylesheet = adaptor.getElement(
-    "#MJX-SVG-styles",
+    "#MJX-CHTML-styles",
     adaptor.head(document.document),
   );
   const styles = stylesheet ? adaptor.outerHTML(stylesheet) : "";
@@ -122,28 +119,88 @@ async function renderDocument({ html, preamble }) {
 async function typesetDocument(body, preamble) {
   const document = MathJax.startup.getDocument(buildDocument(body, preamble));
   await document.renderPromise();
-  deduplicateTextFontStyles(document);
+  normalizeInheritedText(document);
+  replaceStandaloneEquationReferences(document);
   return document;
 }
 
-function deduplicateTextFontStyles(document) {
+function normalizeInheritedText(document) {
   const adaptor = MathJax.startup.adaptor;
-  const textFontStyle = `font-family: ${PT_SERIF_STACK};`;
+  const body = adaptor.body(document.document);
 
-  for (const group of adaptor.tags(adaptor.body(document.document), "g")) {
-    const nodeType = adaptor.getAttribute(group, "data-mml-node");
-    if (nodeType !== "mtext" && nodeType !== "merror") {
+  for (const kind of ["mjx-mtext", "mjx-merror"]) {
+    for (const text of adaptor.tags(body, kind)) {
+      removeInlineStyle(adaptor, text, "font-family");
+
+      for (const content of adaptor.tags(text, "mjx-utext")) {
+        removeInlineStyle(adaptor, content, "width");
+      }
+    }
+  }
+
+  for (const row of adaptor.tags(body, "mjx-mlabeledtr")) {
+    const height = adaptor.getStyle(row, "height");
+    if (height && !Number.isFinite(Number.parseFloat(height))) {
+      removeInlineStyle(adaptor, row, "height");
+    }
+  }
+}
+
+function removeInlineStyle(adaptor, node, property) {
+  adaptor.setStyle(node, property, "");
+  if (!(adaptor.getAttribute(node, "style") || "").trim()) {
+    adaptor.removeAttribute(node, "style");
+  }
+}
+
+function replaceStandaloneEquationReferences(document) {
+  const adaptor = MathJax.startup.adaptor;
+  const body = adaptor.body(document.document);
+
+  for (const reference of adaptor.elementsByClass(body, "MathJax_ref")) {
+    const container = closestElement(adaptor, reference, "mjx-container");
+    const referenceLink = adaptor.parent(reference);
+    const math = referenceLink ? adaptor.parent(referenceLink) : null;
+    const isMathRoot =
+      math &&
+      (adaptor.kind(math) === "mjx-math" ||
+        adaptor.getAttribute(math, "data-mml-node") === "math");
+    if (
+      !container ||
+      !referenceLink ||
+      adaptor.kind(referenceLink) !== "a" ||
+      !isMathRoot
+    ) {
       continue;
     }
 
-    const style = adaptor.getAttribute(group, "style") || "";
-    const remainingStyle = style.replace(textFontStyle, "").trim();
-    if (remainingStyle) {
-      adaptor.setAttribute(group, "style", remainingStyle);
-    } else {
-      adaptor.removeAttribute(group, "style");
+    const mathChildren = adaptor.childNodes(math);
+    if (mathChildren.length !== 1 || mathChildren[0] !== referenceLink) {
+      continue;
+    }
+
+    const href = adaptor.getAttribute(referenceLink, "href");
+    const label = adaptor.textContent(reference).trim();
+    if (!href || !label) {
+      continue;
+    }
+
+    const link = adaptor.node("a", {
+      class: "mathjax-eqref",
+      href,
+    });
+    adaptor.append(link, adaptor.text(label));
+    adaptor.replace(link, container);
+  }
+}
+
+function closestElement(adaptor, node, kind) {
+  for (let current = node; current; current = adaptor.parent(current)) {
+    if (adaptor.kind(current) === kind) {
+      return current;
     }
   }
+  return null;
 }
 
 function buildDocument(body, preamble) {
