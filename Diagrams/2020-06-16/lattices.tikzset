@@ -1,0 +1,184 @@
+\definecolor{sectionColor}{HTML}{0808f8}
+\definecolor{brandColor}{HTML}{FF6347}
+\definecolor{backgroundColor}{HTML}{FAF0E6}
+\colorlet{markerColor}{gray}
+% \pagecolor{backgroundColor}
+
+\pgfmathsetmacro{\pointcountX}{28}
+\pgfmathsetmacro{\pointcountY}{24}
+\pgfmathsetmacro{\gridstep}{2}
+\pgfmathsetmacro{\xstep}{4}
+\pgfmathsetmacro{\ystep}{8}
+\pgfmathsetmacro{\arrowheadsize}{10}
+
+\tikzset{
+    overgrid node/.style={
+      midway,
+    },
+    gridstyle/.style={
+      step=\gridstep,
+      draw=gray!50!white,
+      very thin
+    },
+    dotstyle/.style={
+      fill=black,
+      radius=\gridstep/6
+    },
+    inactivedotstyle/.style={
+      draw=gray,
+      thick
+    },
+    activedot/.pic={
+      \draw[dotstyle] (0,0) circle;
+    },
+    inactivedot/.pic={
+      \draw[inactivedotstyle]
+        ({-\gridstep/6},{-\gridstep/6}) --
+        ({\gridstep/6},{\gridstep/6})
+        ({-\gridstep/6},{\gridstep/6}) --
+        ({\gridstep/6},{-\gridstep/6});
+    },
+    parallelepiped/.style={
+      fill=black,
+      thick,
+      opacity=0.15
+    },
+    vect/.style={
+      -{Latex[length=\arrowheadsize ]},
+      very thick,
+      sectionColor,
+    },
+    tgt/.style={
+      radius=\gridstep/4,
+      draw=brandColor,
+      very thick
+    },
+    oldtgt/.pic={
+      \filldraw[black] (0,0) circle (\gridstep/8);
+      \draw[sectionColor] (0,0) circle (\gridstep/4);
+    },
+    tgtvec/.style={
+      -{Latex[length=\arrowheadsize]},
+      brandColor,
+      thick
+    },
+    dist/.style={
+      markerColor,
+      % Wrapping the tip options in extra braces prevents parsing errors
+      arrows={|[scale=2.5]-|[scale=2.5]}
+    }
+}
+
+%% Picture of the lattice with grid
+\tikzset{
+    latticegrid/sizeX/.initial={\pointcountX},
+    latticegrid/sizeY/.initial={\pointcountY},
+    latticegrid/b1x/.initial={\xstep},
+    latticegrid/b1y/.initial={0},
+    latticegrid/b2x/.initial={0},
+    latticegrid/b2y/.initial={\ystep},
+    latticegrid/dotpic/.initial={activedot},
+    latticegrid/.pic={
+        \pgfmathtruncatemacro{\gridSizeX}{
+          \pgfkeysvalueof{/tikz/latticegrid/sizeX}
+        }
+        \pgfmathtruncatemacro{\gridSizeY}{
+          \pgfkeysvalueof{/tikz/latticegrid/sizeY}
+        }
+        \pgfmathtruncatemacro{\gridNext}{1}
+        \pgfmathtruncatemacro{\gridBOneX}{
+          \pgfkeysvalueof{/tikz/latticegrid/b1x}
+        }
+        \pgfmathtruncatemacro{\gridBOneY}{
+          \pgfkeysvalueof{/tikz/latticegrid/b1y}
+        }
+        \pgfmathtruncatemacro{\gridBTwoX}{
+          \pgfkeysvalueof{/tikz/latticegrid/b2x}
+        }
+        \pgfmathtruncatemacro{\gridBTwoY}{
+          \pgfkeysvalueof{/tikz/latticegrid/b2y}
+        }
+        \pgfmathtruncatemacro{\gridDet}{
+          \gridBOneX*\gridBTwoY - \gridBOneY*\gridBTwoX
+        }
+        \pgfmathtruncatemacro{\gridAbsDet}{abs(\gridDet)}
+        \foreach \x in {0, \gridNext, ..., \gridSizeX} {
+          \foreach \y in {0, \gridNext, ..., \gridSizeY} {
+            \pgfmathtruncatemacro{\gridNumOne}{
+              \x*\gridBTwoY - \y*\gridBTwoX
+            }
+            \pgfmathtruncatemacro{\gridNumTwo}{
+              \gridBOneX*\y - \gridBOneY*\x
+            }
+            \pgfmathtruncatemacro{\gridRemOne}{
+              mod(\gridNumOne,\gridAbsDet)
+            }
+            \pgfmathtruncatemacro{\gridRemTwo}{
+              mod(\gridNumTwo,\gridAbsDet)
+            }
+            \ifnum\gridRemOne=0\relax
+              \ifnum\gridRemTwo=0\relax
+                \pic at (\x,\y) {
+                  \pgfkeysvalueof{/tikz/latticegrid/dotpic}
+                };
+              \fi
+            \fi
+          }
+        }
+    }
+}
+
+%% Picture of one parallelepiped
+\tikzset{
+    latticevec/b1/.initial={\xstep, 0},
+    latticevec/b2/.initial={0, \ystep},
+    latticevec/delta/.initial={\xstep, \ystep},
+    latticevec/cvp/.initial={0, \ystep},
+    latticevec/b1text/.initial={$\vec{b}_1$},
+    latticevec/b1textLeftShift/.initial={18},
+    latticevec/b1textAboveShift/.initial={10},
+    latticevec/b2textRightShift/.initial={17},
+    latticevec/b2textBelowShift/.initial={22},
+    latticevec/b2text/.initial={$\vec{b}_2$},
+    latticevec/.pic={
+        \coordinate (-O) at (0,0);
+        \coordinate (-b1) at
+          (\pgfkeysvalueof{/tikz/latticevec/b1});
+        \coordinate (-b2) at
+          (\pgfkeysvalueof{/tikz/latticevec/b2});
+        \coordinate (-delta) at
+          (\pgfkeysvalueof{/tikz/latticevec/delta});
+        \coordinate (-cvp) at
+          (\pgfkeysvalueof{/tikz/latticevec/cvp});
+
+        \begin{scoped}[on background layer]
+          \fill[parallelepiped]
+            (-O) --
+            ($(-O) + (-b1)$) --
+            ($(-O) + (-b1) + (-b2)$) --
+            ($(-O) + (-b2)$) --
+            cycle;
+        \end{scoped}
+
+        \draw[vect]
+          (-O) -- node[overgrid node, %
+                      left=\pgfkeysvalueof{/tikz/latticevec/b1textLeftShift},  %
+                      above=\pgfkeysvalueof{/tikz/latticevec/b1textAboveShift}  %
+                      ] %
+              {\pgfkeysvalueof{/tikz/latticevec/b1text}}
+          ($(-O) + (-b1)$);
+
+        \draw[vect]
+          (-O) -- node[overgrid node, %
+                        below=\pgfkeysvalueof{/tikz/latticevec/b2textBelowShift},    %
+                        right=\pgfkeysvalueof{/tikz/latticevec/b2textRightShift}%
+                      ] %
+              {\pgfkeysvalueof{/tikz/latticevec/b2text}}
+          ($(-O) + (-b2)$);
+
+        \fill[black]
+          ($(-cvp) + (-delta)$) circle (\gridstep/16);
+
+        \draw[tgt] ($(-cvp) + (-delta)$) circle;
+    }
+}
