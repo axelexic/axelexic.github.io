@@ -229,27 +229,57 @@ figure {
   margin-right: auto;
   margin-top: 10px;
   margin-bottom: 30px;
+  max-width: $on-laptop;
 }
 
-figure > img {
+figure  img {
   display: block;
   margin-left: auto;
   margin-right: auto;
 }
 
+figure .multi-images {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: flex-start;
+  column-gap: 15px;
+  row-gap: 15px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: math.ceil(math.div($spacing-unit,1.75));
+}
+
+figure .multi-images > * {
+  flex: 0 1 auto;
+  min-width: 0;
+  max-width: 100%;
+  margin: 0 0 math.ceil(math.div($spacing-unit,1.75)) 0;
+}
+
+figure .multi-images img {
+  width: 100%;
+  max-width: 100%;
+  margin: 0;
+}
+
 figurecaption {
   font-size: $small-font-size;
-  counter-increment: figure_counter;
+  color: var(--brand-color);
+}
+
+figure > figurecaption {
+  font-size: $small-font-size;
   color: var(--section-title-color);
   font-weight: bold;
+  counter-increment: figure_counter;
 }
 
-figurecaption::before {
-  content: "Fig. " counter(figure_counter) ": ";
+figure > figurecaption::before {
   color: var(--section-title-color);
-  font-weight: bolder;
+  font-weight: bold;
+  content: "Fig. " counter(figure_counter) ": ";
 }
-
 
 h5,
 h6 {
