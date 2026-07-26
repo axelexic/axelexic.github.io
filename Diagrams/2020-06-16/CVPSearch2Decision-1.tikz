@@ -1,0 +1,55 @@
+\input{lattices.tikzset}
+
+\begin{tikzpicture}[x=10, y=10]
+    \pgfmathtruncatemacro{\startvalX}{-\pointcountX/2}
+    \pgfmathtruncatemacro{\startvalY}{-\pointcountY/2}
+    \pgfmathtruncatemacro{\endvalX}{\pointcountX/2}
+    \pgfmathtruncatemacro{\endvalY}{\pointcountY/2}
+    \pgfmathtruncatemacro{\bOneX}{\xstep}
+    \pgfmathtruncatemacro{\bOneY}{\ystep}
+    \pgfmathtruncatemacro{\bTwoX}{2*\xstep}
+    \pgfmathtruncatemacro{\bTwoY}{0}
+
+    \coordinate (O) at (\startvalX + \gridstep,%
+                        \startvalY + 2*\gridstep);
+    \coordinate (b1) at (\bOneX,\bOneY);
+    \coordinate (b2) at (\bTwoX,\bTwoY);
+    \coordinate (delta) at (\gridstep,-2*\gridstep);
+    \coordinate (gridX) at (\gridstep,0);
+    \coordinate (gridY) at (0,\gridstep);
+
+    \begin{scoped}[on background layer]
+      \draw[gridstyle] (\startvalX,\startvalY) grid (\endvalX,\endvalY);
+    \end{scoped}
+
+    % First Grid
+    \pic[
+      latticegrid/sizeX={\pointcountX - \gridstep },
+      latticegrid/sizeY={\pointcountY - 3*\gridstep },
+      latticegrid/b1x=\bOneX,
+      latticegrid/b1y=\bOneY,
+      latticegrid/b2x=\bTwoX,
+      latticegrid/b2y=\bTwoY
+    ] at (O) {latticegrid};
+
+    % Actual vector diagram
+    %% First CVP parallelepiped
+    \path let \p1=(b1),   %
+              \p2=(b2),   %
+              \p3=(delta) %
+          in              %
+              pic [
+                latticevec/b2textRightShift={-10pt},
+                latticevec/b1textAboveShift={0pt},
+                latticevec/b1={\x1, \y1}, % b1
+                latticevec/b2={\x2, \y2}, % b2
+                latticevec/cvp={\x1, \y1},  % cvp is b1
+                latticevec/delta={\x3, \y3} % target
+              ] (CVPB1) at (O) {latticevec};
+
+    \draw [tgtvec] (O) -- ($(O) + (b1) + (delta)$);
+    \draw [dist] ($(O) + (b1)$) -- ($(O) + (b1) + (delta)$);
+
+    \node[brandColor] at ($(O) + 0.5*(b1) + 0.25*(delta)$) {$\vec{t}$};
+    \node[black, right ] at ($(O) + (b1) + 0.5*(delta) +  0.25*(gridY)$) {$d^\dagger$};
+\end{tikzpicture}
