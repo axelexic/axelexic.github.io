@@ -1,7 +1,7 @@
 # TikZ/LaTeX -> standalone SVG via latex + dvisvgm.
 
 BUILD     ?= build
-BORDER    ?= 30pt
+BORDER    ?= 10pt
 FONT_SIZE ?= 18pt
 
 TEX_SOURCES := $(wildcard *.tex)
@@ -19,7 +19,7 @@ DVISVGM  := dvisvgm
 LATEX_FLAGS   := -interaction=nonstopmode -file-line-error -outdir=$(BUILD)
 PDFLATEXFLAGS := $(LATEX_FLAGS)
 DVILATEXFLAGS := $(LATEX_FLAGS)
-DVISVGMFLAGS  := --no-fonts --optimize=all,-remove-clippath --exact-bbox --bbox=papersize --libgs=/opt/homebrew/lib/libgs.dylib
+DVISVGMFLAGS  := --no-fonts --optimize=all,-remove-clippath --exact-bbox --bbox=$(BORDER) --libgs=/opt/homebrew/lib/libgs.dylib
 
 # Fail early if required tools are missing
 ifeq (, $(shell command -v $(DVILATEX) 2> /dev/null))

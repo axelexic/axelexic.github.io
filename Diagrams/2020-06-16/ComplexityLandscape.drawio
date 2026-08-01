@@ -1,0 +1,97 @@
+<mxfile host="Electron">
+  <diagram name="Page-1" id="BJ_-B4-XgcUP7olBgAI0">
+    <mxGraphModel dx="600" dy="464" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="600" pageHeight="100" math="1" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="za7ioZ_kLCMm98wvQd_w-2" edge="1" parent="1" style="endArrow=none;html=1;rounded=0;dashed=1;dashPattern=1 2;strokeColor=#111111;fontFamily=PT Sans;fontSource=https%3A%2F%2Ffonts.googleapis.com%2Fcss%3Ffamily%3DPT%2BSans;" value="">
+          <mxGeometry height="50" relative="1" width="50" as="geometry">
+            <mxPoint x="30" y="80" as="sourcePoint" />
+            <mxPoint x="30" y="38" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="RgUbrlkGRh1Kvu0CgUnI-1" edge="1" parent="1" style="endArrow=none;html=1;rounded=0;dashed=1;dashPattern=1 2;strokeColor=#111111;fontFamily=PT Sans;fontSource=https%3A%2F%2Ffonts.googleapis.com%2Fcss%3Ffamily%3DPT%2BSans;" value="">
+          <mxGeometry height="50" relative="1" width="50" as="geometry">
+            <mxPoint x="240" y="88" as="sourcePoint" />
+            <mxPoint x="240" y="38" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Ww30olczJ6ZgOy5ayscY-1" edge="1" parent="1" style="endArrow=none;html=1;rounded=0;dashed=1;dashPattern=1 2;strokeColor=#111111;fontFamily=PT Sans;fontSource=https%3A%2F%2Ffonts.googleapis.com%2Fcss%3Ffamily%3DPT%2BSans;" value="">
+          <mxGeometry height="50" relative="1" width="50" as="geometry">
+            <mxPoint x="480" y="87" as="sourcePoint" />
+            <mxPoint x="480" y="37" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Ww30olczJ6ZgOy5ayscY-6" edge="1" parent="1" style="endArrow=none;html=1;rounded=0;dashed=1;dashPattern=1 2;strokeColor=#111111;fontFamily=PT Sans;fontSource=https%3A%2F%2Ffonts.googleapis.com%2Fcss%3Ffamily%3DPT%2BSans;" value="">
+          <mxGeometry height="50" relative="1" width="50" as="geometry">
+            <mxPoint x="320" y="88" as="sourcePoint" />
+            <mxPoint x="320" y="38" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Oh4cSEUjhryiaSzFRNY9-2" edge="1" parent="1" style="endArrow=none;html=1;rounded=0;dashed=1;dashPattern=1 2;strokeColor=#111111;fontFamily=PT Sans;fontSource=https://fonts.googleapis.com/css?family=PT+Sans;" value="">
+          <mxGeometry height="50" relative="1" width="50" as="geometry">
+            <mxPoint x="160" y="80" as="sourcePoint" />
+            <mxPoint x="160.39" y="38" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Di1Ri7c-8a9FgB07wa0a-1" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;fontSize=24;fontColor=#FF6347;" value="\(\gamma\)" vertex="1">
+          <mxGeometry height="30" width="33" x="518.5" y="37" as="geometry" />
+        </mxCell>
+        <mxCell id="RgUbrlkGRh1Kvu0CgUnI-9" parent="1" style="text;html=1;whiteSpace=wrap;overflow=hidden;rounded=0;align=center;verticalAlign=bottom;fontSize=16;container=0;fontFamily=PT Sans;fontSource=https%3A%2F%2Ffonts.googleapis.com%2Fcss%3Ffamily%3DPT%2BSans;" value="1" vertex="1">
+          <mxGeometry height="30" width="20" x="20" y="7" as="geometry" />
+        </mxCell>
+        <mxCell id="RgUbrlkGRh1Kvu0CgUnI-5" parent="1" style="text;html=1;whiteSpace=wrap;overflow=hidden;rounded=0;align=center;verticalAlign=middle;fontFamily=PT Sans;fontSource=https%3A%2F%2Ffonts.googleapis.com%2Fcss%3Ffamily%3DPT%2BSans;" value="\( \textsf{NP} \bigcap \textsf{coAM} \)" vertex="1">
+          <mxGeometry height="20" width="80" x="240" y="68" as="geometry" />
+        </mxCell>
+        <mxCell id="za7ioZ_kLCMm98wvQd_w-1" edge="1" parent="1" style="endArrow=none;html=1;rounded=0;strokeWidth=3;strokeColor=tomato;fontFamily=PT Sans;fontSource=https%3A%2F%2Ffonts.googleapis.com%2Fcss%3Ffamily%3DPT%2BSans;" value="">
+          <mxGeometry height="50" relative="1" width="50" as="geometry">
+            <mxPoint x="30" y="57" as="sourcePoint" />
+            <mxPoint x="360" y="57" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="za7ioZ_kLCMm98wvQd_w-7" parent="1" style="text;html=1;whiteSpace=wrap;overflow=hidden;rounded=0;align=right;verticalAlign=middle;fontFamily=PT Sans;fontSource=https%3A%2F%2Ffonts.googleapis.com%2Fcss%3Ffamily%3DPT%2BSans;" value="\(\textsf{SVP}^*\),\(\textsf{CVP}\)&amp;nbsp;&amp;nbsp;&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;\(\textsf{NP}\)-Hard&lt;/span&gt;" vertex="1">
+          <mxGeometry height="23" width="130" x="30" y="68" as="geometry" />
+        </mxCell>
+        <mxCell id="za7ioZ_kLCMm98wvQd_w-9" parent="1" style="text;html=1;whiteSpace=wrap;overflow=hidden;rounded=0;align=center;verticalAlign=bottom;fontSize=16;fontFamily=PT Sans;fontSource=https%3A%2F%2Ffonts.googleapis.com%2Fcss%3Ffamily%3DPT%2BSans;" value="\(n^{c/\log \log n}\)" vertex="1">
+          <mxGeometry height="30" width="80" x="120" y="8" as="geometry" />
+        </mxCell>
+        <mxCell id="RgUbrlkGRh1Kvu0CgUnI-2" parent="1" style="text;html=1;whiteSpace=wrap;overflow=hidden;rounded=0;align=center;verticalAlign=middle;fontFamily=PT Sans;fontSource=https%3A%2F%2Ffonts.googleapis.com%2Fcss%3Ffamily%3DPT%2BSans;" value="\(\sqrt{n/\log n}\)" vertex="1">
+          <mxGeometry height="30" width="70" x="205" y="8" as="geometry" />
+        </mxCell>
+        <mxCell id="RgUbrlkGRh1Kvu0CgUnI-4" parent="1" style="text;html=1;whiteSpace=wrap;overflow=hidden;rounded=0;align=center;verticalAlign=middle;fontFamily=PT Sans;fontSource=https%3A%2F%2Ffonts.googleapis.com%2Fcss%3Ffamily%3DPT%2BSans;" value="\(\sqrt{n}\)" vertex="1">
+          <mxGeometry height="30" width="40" x="300" y="8" as="geometry" />
+        </mxCell>
+        <mxCell id="Ww30olczJ6ZgOy5ayscY-2" parent="1" style="text;html=1;whiteSpace=wrap;overflow=hidden;rounded=0;align=center;verticalAlign=middle;fontFamily=PT Sans;fontSource=https%3A%2F%2Ffonts.googleapis.com%2Fcss%3Ffamily%3DPT%2BSans;" value="\( \textsf{NP} \bigcap \textsf{coNP} \)" vertex="1">
+          <mxGeometry height="20" width="100" x="320" y="68" as="geometry" />
+        </mxCell>
+        <mxCell id="Ww30olczJ6ZgOy5ayscY-3" edge="1" parent="1" style="endArrow=classicThin;html=1;rounded=0;strokeWidth=3;strokeColor=tomato;fontFamily=PT Sans;fontSource=https%3A%2F%2Ffonts.googleapis.com%2Fcss%3Ffamily%3DPT%2BSans;endFill=1;" value="">
+          <mxGeometry height="50" relative="1" width="50" as="geometry">
+            <mxPoint x="420" y="57" as="sourcePoint" />
+            <mxPoint x="520" y="57" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Ww30olczJ6ZgOy5ayscY-4" edge="1" parent="1" style="endArrow=none;html=1;rounded=0;strokeWidth=3;strokeColor=tomato;dashed=1;dashPattern=1 4;fontFamily=PT Sans;fontSource=https%3A%2F%2Ffonts.googleapis.com%2Fcss%3Ffamily%3DPT%2BSans;" value="">
+          <mxGeometry height="50" relative="1" width="50" as="geometry">
+            <mxPoint x="360" y="57" as="sourcePoint" />
+            <mxPoint x="420" y="57" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Ww30olczJ6ZgOy5ayscY-5" parent="1" style="text;html=1;whiteSpace=wrap;overflow=hidden;rounded=0;align=center;verticalAlign=bottom;fontSize=16;fontFamily=PT Sans;fontSource=https%3A%2F%2Ffonts.googleapis.com%2Fcss%3Ffamily%3DPT%2BSans;" value="\(2^{n\log \log n/\log n}\)" vertex="1">
+          <mxGeometry height="30" width="120" x="420" y="7" as="geometry" />
+        </mxCell>
+        <mxCell id="Ww30olczJ6ZgOy5ayscY-10" parent="1" style="text;html=1;whiteSpace=wrap;overflow=hidden;rounded=0;align=center;verticalAlign=middle;fontFamily=PT Sans;fontSource=https%3A%2F%2Ffonts.googleapis.com%2Fcss%3Ffamily%3DPT%2BSans;" value="\( \textsf{BPP}\)" vertex="1">
+          <mxGeometry height="20" width="50" x="480" y="68" as="geometry" />
+        </mxCell>
+        <mxCell id="Oh4cSEUjhryiaSzFRNY9-4" edge="1" parent="1" style="endArrow=open;html=1;rounded=0;strokeColor=#0808F8;strokeWidth=1;align=center;verticalAlign=middle;fontFamily=Helvetica;fontSize=11;fontColor=default;labelBackgroundColor=default;endFill=0;startArrow=baseDash;startFill=0;" value="">
+          <mxGeometry height="50" relative="1" width="50" as="geometry">
+            <mxPoint x="160" y="68" as="sourcePoint" />
+            <mxPoint x="30" y="68" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Oh4cSEUjhryiaSzFRNY9-11" parent="1" style="text;html=1;whiteSpace=wrap;overflow=hidden;rounded=0;align=center;verticalAlign=middle;fontFamily=PT Sans;fontSource=https://fonts.googleapis.com/css?family=PT+Sans;fontColor=#FF0000;" value="??" vertex="1">
+          <mxGeometry height="20" width="79" x="160" y="61" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
