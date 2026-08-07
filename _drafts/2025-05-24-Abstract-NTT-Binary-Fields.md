@@ -3,7 +3,6 @@ layout: post
 title: Abstract NTT and its application to Binary Fields
 date: 2025-05-24
 author : Yogesh Swami
-published : false
 tags: [NTT, Additive NTT, EC-FFT]
 mathjax_macros: |
   \[
