@@ -1,7 +1,7 @@
 @use "sass:math";
 @use "variables" as *;
 
-$print-base-font-size: 11pt;
+$print-base-font-size: 9pt;
 $print-h2-font-size: math.ceil($print-base-font-size * 1.5);
 $print-h3-font-size: math.ceil($print-base-font-size * 1.25);
 $print-h4-font-size: math.ceil($print-base-font-size * 1.125);
@@ -193,6 +193,7 @@ $print-font-family: Cambria, Georgia, "Times New Roman", Times, serif;
     margin-left: 1.5em;
     margin-right: 0;
     background: transparent;
+    box-shadow: none;
   }
 
 }

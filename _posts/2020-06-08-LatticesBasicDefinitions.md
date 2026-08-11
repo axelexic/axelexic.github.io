@@ -777,7 +777,7 @@ length of shortest _linearly independent_ vectors in the lattice. It's
 denoted by $\lambda_i$ (where $\lambda_1 = \nu_1$) and defined as
 follows:
 
-```Definition [Successive Minima] {#successive-minima}
+```Definition [Successive Minima] {#defn--successive-minima}
 
 Let $\L \subseteq \RR^n$ be a lattice of dimension $n$ and rank $m$. Let
 $\overline{\mathbb{B}}(\vec{0}, r) := \lrbraces{ \vec{x}\;:\; \abs{\vec{x}} \le r} \subseteq \RR^n$
@@ -902,7 +902,7 @@ $\gamma$-approximate solution to $\sivp$ if
 $$\allin{i}{n}:\; \abs{\vec{x}_i} \le \highlight{\gamma(n)}\cdot
 \lambda_{n},$$
 
-where $\lambda_n$ is the [$n$-th successive minima](#successive-minima).
+where $\lambda_n$ is the [$n$-th successive minima](#defn--successive-minima).
 ```
 
 $\gamma$ measures how well an approximation algorithm performs compared to the
@@ -971,7 +971,7 @@ Output
 
 The approximate and gap versions of $\sivp$ are defined analogously to $\svp$.
 Recall that $\lambda_i$ denotes the
-[$i$-th successive minima](#successive-minima) of linearly independent vectors
+[$i$-th successive minima](#defn--successive-minima) of linearly independent vectors
 in $\L$.
 
 ```Problem [<span class="lowercap">Approx-SIVP$_\gamma$</span>] {#approx-svp-problem}

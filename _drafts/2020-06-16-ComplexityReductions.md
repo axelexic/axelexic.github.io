@@ -20,6 +20,13 @@ mathjax_macros: |
   \]
 ---
 
+<details class="post-toc" markdown="1" open>
+<summary>Table of Contents</summary>
+* TOC
+{:toc}
+</details>
+
+
 The difficulty of solving a hard lattice problem depends significantly
 on the choice of its parameters. One cannot meaningfully discuss
 cryptographic constructions --- especially FHE schemes --- without first
@@ -55,26 +62,13 @@ augmented tensor codes.
 
 Recall that an `NP Optimization (NPO)`{: .mathsf } problem is a
 minimization or maximization problem where the goal is to find an
-optimal solution from a set of possible solutions. An _approximation
+_optimal solution_ from a set of possible solutions. An _approximation
 algorithm_ for an `NPO`{: .mathsf } problem always returns a _valid
 solution_, but with the caveat that it may not be optimal. However, even
 in the worst case, these algorithms do provide the guarantee that the
-output will be no worse than $\gamma \in \RR \;(\gamma \ge 1)$ times the
-optimal solution. $\gamma$ is called the _approximation ratio_ and its
+output will be no worse than $ \gamma \in \RR \;(\gamma \ge 1) $ times the
+optimal. $\gamma$ is called the _approximation ratio_ and its
 value depends on the algorithm, not the problem instance.
-
-```Note [Approximation algorithms vs. Heuristics]
-An approximation algorithm differs from a _heuristic algorithm_ in the
-types of guarantees they provides. An approximation algorithm guarantees
-that even for worst case problem instances:
-
-1. The algorithm will terminate in polynomial time, and
-2. The output will be no worse than $\gamma$ times the optimal.
-
-A heuristic, on the other hand, provides no such guarantee. In spite of
-this, for cryptanalysis, heuristic algorithms are just as important as
-exact- or approximation algorithms.
-```
 
 Both `SVP`{: .mathsf} and `CVP`{: .mathsf} are `NP Optimization (NPO)`{:
 .mathsf } problems. Recall that an $\svp_\gamma$ [problem instance]({%
@@ -118,9 +112,9 @@ new definition:
 
 ```Definition [Distance from a Lattice, Closest Vector] {#defn--lattice-point-distance}
 Let $\L$ be a lattice specified by a basis $\B \in \RR^{n\times m}$, and
-let $\vec{t} \in \RR^n$ be an arbitrary point in space. Then, the
+let $\vec{t} \in \RR^n$ be an arbitrary point in space. The
 distance between $\vec{t}$ and $\L(\B)$ is defined as the
-_minimum distance_ between $\vec{t}$ and any point $\vec{y}$ in the
+_minimum distance_ between $\vec{t}$ and _any vector_ $\vec{y}$ in the
 lattice, i.e.,
 $$ \Delta(\vec{t}, \L(\B)) := \min_{\vec{y} \in \L(\B)} \lrbraces{ \norm{\vec{t} - \vec{y}} } =
 \min_{\vec{z} \in \ZZ^m} \lrbraces{ \norm{\vec{t} - \B\cdot\vec{z}}}.$$
@@ -137,7 +131,7 @@ basis]({% post_url 2020-06-08-LatticesBasicDefinitions
 \RR^{n\times m}$. In addition, the target vector is assumed to be a
 vector over rationals, i.e., $\vec{t} \in \QQ^n \subseteq \RR^n$,
 with a fixed $\poly(n)$ size bit representation. In addition, to avoid
-precision issues with $\ell_p$ norm, its often acceptable to consider
+precision issues with $\ell_p$ norm, it's often acceptable to consider
 $\abs{\cdot}^p \in \QQ$ as the distance metric instead of the exact
 $\ell_p$ norm. (The rest of this post only considers euclidean norm.)
 
@@ -190,13 +184,41 @@ Output
   : `No`{: .lowercap } otherwise.
 ```
 
-#### Approximate <span class="mathsf">CVP</span> {#subsubsection--approx-cvp}
+A specific subclass of `CVP`{: .mathsf }, similar in spirit to _unique
+decoding_ of error correcting codes, is known as the Bounded Distance
+Decoding (`BDD`{: .mathsf}) Problem [^LLM06]. The `BDD`{: .mathsf}
+problem is formally defined as follows:
 
-Let $\gamma \in \RR\;(\gamma > 1)$  be an approximation factor. $\gamma$
-will often be written as $\gamma(n)$ to emphasize that it may depend on
-the dimension of the lattice $\L \subseteq \RR^n$. Indeed, the entire of
-game of inapproximability is to understand the dependence of $\gamma$ on
-$n$.
+```Problem [Bounded distance Decoding, $\alpha$<span class="lowercap">-BDD</span>] {#problem--bdd}
+Input
+  : A _non-singular_ basis matrix $\B \in \ZZ^{n\times n}$ representing
+    a full-rank [integral lattice]({% post_url 2020-06-08-LatticesBasicDefinitions %}#integral-lattice-remark) $\L$ whose shortest non-zero vector has length
+    $\lambda_1$. ($\lambda_1$ is not an explicit input to the algorithm.)
+  : A target vector $\vec{t} \in \QQ^n$ with the guarantee that
+    $0 \le \Delta(\vec{t}, \L(\B)) < \highlight{\alpha}\cdot\lambda_1$.
+
+Output
+  : A _unique_ vector $\vec{x} \in \L(\B)$ such that
+    $\forall\,\vec{y} \in \L(\B) :\; \abs{\vec{t} - \vec{x}} \le \abs{\vec{t} - \vec{y}}$.
+
+`Note`{: .bul}: $\alpha$ is a measure of the effectiveness of the
+algorithm. It must satisfy the constraint
+$0 < \highlight{\alpha} \le \frac{1}{2}$ to ensure that there's a
+_unique lattice vector_ $\vec{x} \in \L(\B)$ that's closest to $\vec{t}$.
+Consequently, $\vec{t}$ can be written as $\vec{t} = \vec{x} + \vec{e}$
+where $\vec{x} \in \L(\B)$ and $\vec{e} \in \P(\B)$ are uniquely determined.
+```
+
+Complexity results related to `BDD`{: .mathsf} are not discussed further
+in this post. See [^LLM06] (and a very recent work by Bennett and Peikert
+[^BP20], which I haven't fully read) for a deeper dive.
+
+#### Approximate Closest Vector Problem {#subsubsection--approx-cvp}
+
+Let $\gamma \in \RR\;(\gamma \ge 1)$  be an approximation factor. $\gamma$
+will often be written as $\gamma(n)$ to emphasize its dependence on
+the dimension of $\L \subseteq \RR^n$. Indeed, the entire game of
+inapproximability is to understand the dependence of $\gamma$ on $n$.
 
 The approximate search and decision (`Gap`{:.lowercap}) problems related
 to `CVP`{:.mathsf} are listed below:
@@ -210,7 +232,6 @@ Input
 Output
   : A lattice vector $\vec{x} \in \L$ such that $\forall\,\vec{y} \in \L:\; \abs{x} \le \gamma(n)\cdot \abs{y}$.
 ```
-
 
 ```Problem [<span class="lowercap">GapCVP$_\gamma$</span>] {#problem--GapCVP}
 Input
@@ -233,26 +254,240 @@ Output
 
 ## Reductions among exact problems {#section--exact-reductions}
 ---
-This section lists a series of reductions related to `SVP`{: .mathsf}
-and `CVP`{: .mathsf}.
+This section lists a series of reductions related to exact version of
+`CVP`{: .mathsf} and `SVP`{: .mathsf}.
+
+### [Decisional-CVP](#problem--decisional-cvp){: .lowercap} is $\NP$-Complete
+
+We are given a lattice basis $\B \in \ZZ^{n \times n}$, a target vector
+$\vec{t} \in \QQ^n$, and a distance threshold $r \in \QQ$. To prove
+`Decisional-CVP`{: .lowercap} is in $\NP$, we need to provide a witness
+and an efficient verification procedure that can validate the claim:
+$$\Delta(\vec{t}, \L(\B)) \highlight{\stackrel{?}{\le}} r.$$
+
+If $\Delta(\vec{t}, \L(\B)) \le r$, then there exists
+$\vec{x} \in \L(\B)$ such that $\abs{\vec{t} - \vec{x}} \le r$. Any
+such $\vec{x}$ can act as an $\NP$ witness with the following
+verification procedure:
+
+1. Verifier computes $r' := \abs{\vec{x} - \vec{t}}$ and checks
+   $r' \highlight{\stackrel{?}{\le}} r$.
+2. Verifier checks whether $\vec{x} \highlight{\stackrel{?}{\in}} \L(\B)$
+   by treating $\B$ as an element of $\QQ^{n \times n}$ and $\vec{x}$
+   as an element of $\QQ^n$ and solving the following linear equation in
+   $\vec{z} \in \QQ$:
+   $$\B\cdot\vec{z} = \vec{x}. $$
+   If all elements of $\vec{z}$ turn out to be integers (i.e.,
+   has denominator $1$) then $\vec{x} \in \L(\B)$ otherwise not.
+
+To prove $\NP$-Completeness, a reduction from `Subset-Sum`{: .lowercap}
+ to `Decisional-CVP`{: .lowercap} suffice (reduction below is
+ adapted from Chapter 03 of [^MG02]). But first, the
+ `Subset-Sum`{: .lowercap} problem (`SSP`{: .mathsf}) is defined
+ precisely.
+
+```Problem [<span class="lowercap">Subset-Sum</span>]{#problem--subset-sum}
+Input
+  : A set $A := \braces{a_1,\cdots, a_n} \subseteq \ZZ$ of $n$ integers
+    (distinct by definition of a set).
+  : A target sum $U \in \ZZ$.
+
+Output
+  : `Yes`{: .lowercap } if there exists a subset $A' \subseteq A$ such that $U = \sum_{a' \in A'} a'$
+  : `No`{: .lowercap} otherwise
+
+Subset sum is a well known
+[$\NP$-complete problem](https://www.iitg.ac.in/deepkesh/CS301/assignment-2/subsetsum.pdf){: target="_blank"}, with various applications in cryptography and
+cryptanalysis.
+```
+
+```Reduction [<span class="lowercap">Subset-Sum</span> $\preceq$ <span class="lowercap">Decisional-CVP</span>] {#reduction--subset-sum-to-decisional-cvp}
+Input
+  : A set $A = \braces{a_1,\cdots, a_n} \subseteq \ZZ$,
+  : A target sum $U \in \ZZ$.
+
+Output
+  : `Yes`{: .lowercap } if $\exists A' \subseteq A:\; \sum_{a' \in A'} a' = U$
+  : `No`{: .lowercap} otherwise.
+
+Oracle
+  : [<span class="lowercap">Decisional-CVP</span>$(\B, \vec{t}, r)$](#problem--decisional-cvp)
+    where $\B \in \ZZ^{(n+1) \times n}$, $\vec{t} \in \QQ^{n+1}$ and
+    $r \in \QQ$. (`Note`{: .bul}: Given a fixed target $\vec{t}$,
+    there are standard techniques to transform low-rank
+    `CVP`{: .mathsf} instances into a full rank
+    `CVP`{: mathsf} instance.)
+
+Algorithm
+  : Let $\abs{\cdot}_p$ denote the usual $\ell_p$ norm. Recall
+    that $\ell_p$ norm of a vector $\vec{x} = \braces{x_i}$ is defined as
+    $$
+    \norm{\vec{x}}_p = \begin{cases}
+                        \sqrt[p]{\sum_i \norm{x_i}_p^p} & \text{if } p < \infty\\
+                        & \\
+                        \max_i\lrbraces{ \left|x_i \right| } & \text{if } p = \infty
+                       \end{cases}
+    $$
+
+    While this post is mainly geared towards $\ell_2$ norm, this
+    reduction works for arbitrary $\ell_p$ norm without much
+    technicality, therefore the proof is given in full generality.
+
+    Given $A = \braces{a_i}$, the reduction needs to convert the
+    `Subset-Sum`{:.lowercap} instance into a
+    `Decisional-CVP`{:.lowercap} instance. Consider the following
+    `Decisional-CVP`{:.lowercap} instance
+    $$
+    \begin{equation}
+    \begin{aligned}
+    \B &:= \begin{pmatrix}
+          \highlight{n}\cdot a_1 & \highlight{n}\cdot a_2  & \cdots & \highlight{n}\cdot a_n  \\
+          2   & 0    & \cdots & 0    \\
+          0   & 2    & \cdots & 0    \\
+          \vdots & \vdots & \ddots & \vdots \\
+          0   & 0    & \cdots & 2   \\
+          \end{pmatrix} \in \ZZ^{(n+1)\times n}, \\
+          & \\
+          \vec{t} &:= \begin{pmatrix}
+                      \highlight{n}\cdot U \\
+                      1 \\
+                      1 \\
+                      \vdots \\
+                      1 \\
+                      1
+                      \end{pmatrix} \in \ZZ^{n+1} \subseteq \QQ^{n+1}
+          \quad\text{and}, \\ &\\
+          r &:= \begin{cases}
+                                      \highlight{\sqrt[p]{n}} & \text{for } p < \infty\\
+                                      & \\
+                                      \highlight{1} & \text{for } \ell_\infty\; \text{norm}
+                                    \end{cases}
+        \end{aligned}
+          \label{subset-sum-to-cvp-instance}
+    \end{equation}
+    $$
+
+    If $\vec{z} := \braces{z_1,\cdots,z_n} \in \ZZ^n$ then the
+    difference between a lattice vector $\B\cdot \vec{z}$ and
+    $\vec{t}$ is:
+    $$
+      \begin{equation}
+      \B\cdot\vec{z} - \vec{t} = \begin{pmatrix}
+                      \highlight{n}\sum_{i=1}^n z_i\cdot a_i - \highlight{n} U \\
+                      2z_1-1 \\
+                      \vdots \\
+                      2z_n - 1
+                      \end{pmatrix} \in \QQ^{n+1}
+      \label{subset-sum-lattice-vec}
+      \end{equation}
+    $$
+
+    We will prove that `Subset-Sum`{:.lowercap}$(A, U)$ is
+    `True`{: .lowercap} _if and only if_
+    $\Delta_{\highlight{p}}(\vec{t}, \L(\B)) \le r$, where
+    $\Delta_\highlight{p}(\cdot, \cdot)$ denotes the distance of $\vec{t}$ from
+    $\L(\B)$ in $\ell_p$ norm.
+
+    >
+    > $(\Rightarrow)$
+    >   : Suppose `Subset-Sum`{:.lowercap}$(A, U)$ is `True`{:.lowercap}.
+          Then there exists an index set
+          $J := \braces{j_1,\cdots,j_k} \subseteq \braces{1,2,\cdots, n}$
+          such that $\sum_{1 \le i \le k} a_{j_i} = U$. Consider
+          $$\vec{z} := \braces{z_1, \cdots, z_n} \in \ZZ^{n},\quad (z_i \in \braces{0,1})$$
+          where $z_i = 1$ if $i \in J$ and zero otherwise. Then by
+          \eqref{subset-sum-lattice-vec}
+          $$\B\cdot\vec{z} - \vec{t}=\begin{pmatrix}
+                      0 \\
+                      2z_1-1 \\
+                      \vdots \\
+                      2z_n - 1
+                      \end{pmatrix}
+          $$
+    >     Since $z_i \in \braces{0,1}$ $\highlight{\implies}$
+          $2z_i - 1 \in \braces{-1,1}$ $\highlight{\implies}$
+          $\norm{\B\cdot \vec{z} - \vec{t}}_p = \begin{cases}\sqrt[p]{n}& \text{if } p < \infty \\ 1 & \text{if } p = \infty\end{cases}$
+          $\highlight{\implies}$ $\Delta_p(\vec{t}, \B) \le r$ and
+          `Decisional-CVP`{:.lowercap}$(\B, \vec{t}, r)$
+    >      correspond to an `Yes`{:.lowercap} instance.
+    >      <div class="proof-end"/>
+    >
+    {: .details}
+
+    >
+    > $(\Leftarrow)$
+    >   : Conversely, suppose $\Delta_p(\vec{t}, \L(\B)) \le r$.
+          We need to show that
+          $\exists\;\vec{z} := \braces{z_1,\cdots,z_n} \in \highlight{\braces{0,1}^n}$,
+    >     such that $\sum_{z_i \in \vec{z}} z_i\cdot a_i = U$. By
+          \eqref{subset-sum-lattice-vec}
+          $$
+            \norm{\B\cdot\vec{z} - \vec{t}}_p^p = \begin{cases}
+              n^p\cdot\norm{\sum_{i=1}^{n}z_i\cdot a_i - U}_p^p + \sum_{j=1}^{n} \norm{2z_j - 1}_p^p & \text{if } p < \infty\\
+              & \\
+              \max_{1 \le i \le n}\lrbraces{ \left|2z_i-1\right|, \;\;n\cdot\left|\sum_{i=j}^{n}z_j\cdot a_j - U\right| } & \text{if } p = \infty
+              \end{cases}
+          $$
+    >
+    >     We consider $\ell_{p|_{p < \infty}}$ and $\ell_\infty$ norms separately:
+    >
+    >     $\ell_{p|_{p < \infty}}$ norm
+    >       : Since each $z_i$ is an integer, $\norm{2z_i - 1}_p \ge 1$.
+                Therefore $$\sum_{j=1}^{n} \norm{2z_j - 1}_p^p \ge n$$
+                which implies $\norm{\B\cdot\vec{z} - \vec{t}}_p^p \ge n$.
+                However, by assumption,
+                $\norm{\B\cdot\vec{z} - \vec{t}}_p^p \le n$ therefore the only feasible solution is
+                $$\begin{aligned}
+                  & \norm{\B\cdot\vec{z} - \vec{t}}_p^p = n \\
+                  \highlight{\implies} & \norm{n^p\left(\sum_{i=1}^{n}z_i\cdot a_i - U\right)}_p^p = 0 \;\;\text{and}\;\; \forall i: \abs{2z_i - 1}_p = 1 \\
+                  \highlight{\implies} & \sum_{i=1}^{n}z_i\cdot a_i =  U\;\;\text{and}\;\; \braces{z_1,\cdots, z_n} \in \braces{0,1}.
+                  \end{aligned}
+                $$
+    >
+    >     $\ell_\infty$ norm
+    >       : As before, $\forall z_i \in \ZZ: |2z_i - 1| \ge 1.$ If $|\sum_{i=1}^{n}z_i\cdot a_i - U| \ne 0$ then
+    >         $$\max_{1\le i \le n}\lrbraces{\;|2z_i - 1|,\;\;n\cdot \left|\sum_{j=1}^{n}z_j\cdot a_j - U\right|} \ge n.$$
+    >         By assumption, $\Delta_\infty(\B, \vec{t}) \le 1$.
+    >         Therefore, the only feasible solution is
+              $$\begin{aligned}
+                  & \norm{\B\cdot\vec{z} - \vec{t}}_\infty = 1 \;\;\text{and}\;\; \left|\sum_{j=1}^{n}z_j\cdot a_j - U\right| = 0\\
+                  \highlight{\implies} & \forall i: |2z_i - 1| = 1\\
+                  \highlight{\implies} & \sum_{i=1}^{n}z_i\cdot a_i =  U\;\;\text{and}\;\; \braces{z_1,\cdots, z_n} \in \braces{0,1}.
+                  \end{aligned}
+                $$
+    > <div class="proof-end"/>
+    >
+    {: .details}
+
+  Based on the result above, a `Subset-Sum`{: .lowercap} problem instance
+  can be encoded as a `Decisional-CVP`{: .lowercap} instance using
+  \eqref{subset-sum-to-cvp-instance}. Since `Subset-Sum`{: .lowercap} is
+  $\NP$-complete, `Decisional-CVP`{: .lowercap} is also $\NP$-complete.
+```
+
+### [Decisional-SVP]({% post_url 2020-06-08-LatticesBasicDefinitions %}#problem--shortest-vector-problem-decisional){: .lowercap} is $\NP$-Complete in $\ell_\infty$ norm
+
+This result is adapted from [^vEB81].
+
+### [Search-SVP]({% post_url 2020-06-08-LatticesBasicDefinitions %}/#problem--shortest-vector-problem-decisional){: .lowercap} is $\NP$-Hard in $\ell_2$ norm
 
 ### [<span class="lowercap">Search-CVP</span>](#problem--search-cvp) reduces to [<span class="lowercap">Decisional-CVP</span>](#problem--decisional-cvp) {#subsection-search-cvp-to-decisional-cvp-reduction}
 
 We are given an oracle that can _somehow_ solve [<span class="lowercap">
 Decisional-CVP</span>$(\C, \vec{s}, r)$](#problem--decisional-cvp) for
-lattice basis $\C \in \ZZ^{n\times n}$, target vector
-$\vec{s} \in \ZZ^n$, and a distance threshold $r \in \QQ$. Given a basis
-$\B \in \ZZ^{n \times n}$ and a target vector $\vec{t} \in \ZZ^n$, the
+any lattice basis $\C \in \ZZ^{n\times n}$, target vector
+$\vec{s} \in \QQ^n$, and a distance threshold $r \in \QQ$. Given a basis
+$\B \in \ZZ^{n \times n}$ and a target vector $\vec{t} \in \QQ^n$, the
 goal of the reduction is to use the `Decisional-CVP`{: .lowercap} oracle
-to find $\vec{x} \in \L(\B)$ such that $\abs{\vec{t} - \vec{x}} =
-\Delta(\vec{t}, \L)$. Notice, that both sides of this equation, namely
+to find a $\vec{x} \in \L(\B)$ such that $\abs{\vec{t} - \vec{x}} =
+\Delta(\vec{t}, \L)$. Notice that both sides of this equation, namely
 $\vec{x}$ and $\Delta(\vec{t}, \L)$, are unknown.
 
 Indeed, like most `Search`{: .lowercap} to `Decision`{: .lowercap}
-reductions for `NP`{: .mathsf} optimization problems, the first
-challenge is to compute the optimal measure using the decisional oracle.
-In this particular case that means coming up with a reduction from
-[Opt-CVP](#problem--opt-cvp){: .lowercap} to
+reductions for `NPO`{: .mathsf} problems, the first
+challenge is to compute the optimal distance (metric) using the
+decisional oracle. In case of `CVP`{: .mathsf} that means coming up
+with a reduction from [Opt-CVP](#problem--opt-cvp){: .lowercap} to
 [Decisional-CVP](#problem--decisional-cvp){: .lowercap}. Since the
 distance between $\vec{t}$ and $\L$ is _polynomially bounded_ from above
 and below, standard binary search using the decisional oracle is
@@ -261,21 +496,34 @@ sufficient to compute $d^\dagger := \Delta(\vec{t}, \L).$
 Once $d^\dagger$ is known, the `Search-CVP`{: .lowercap} solver works as
 follows: It iteratively creates _sublattices_
 $\L(\B^*) \leftarrow \L(\B)$ and new targets
-$\vec{t}^* \leftarrow \vec{t}$ such that in each iteration the following
-invariant is maintained
-$$ d^\dagger = \Delta(\L(\B), \vec{t}) = \Delta(\L(\B^*), \vec{t}^*).$$
-A consequence of maintaining the distance while dilating the lattice is
-that the target vector gradually gets "cornered" towards a specific
-lattice vector (see [Fig. 2](#fig--CVPSearch-to-Decision-Reduction)),
-which allows one to efficiently compute $\vec{t}^{*\cdots*}$ and finally
-$\vec{t}$ from $\vec{t}^{*\cdots*}$.
+$\vec{t}^* \leftarrow \vec{t}$ such that the shortest vector length
+$\lambda_1(\B^*)$ of the dilated sublattice keeps doubling, while the
+distance between $\L(\B^*)$ and $\vec{t}^*$ remains fixed, i.e.,
 
-These two reductions are described in detail as follows:
+$$
+\begin{equation}
+d^\dagger = \Delta(\vec{t}, \L(\B)) = \Delta(\vec{t}^*, \L(\B^*)).
+\label{search-to-decision-invariant}
+\end{equation}
+$$
 
-```Reduction [<span class="lowercap">Opt-CVP</span> $\le$ <span class="lowercap">Decisional-CVP</span> ]
+Since $d^\dagger$ remains fixed while $\lambda_1(\B^*)$ keeps doubling,
+after an appropriate (polynomial) number of iterations, the
+[Search-CVP](#problem--search-cvp){: .lowercap} instance transforms
+into an [$\alpha$-BDD](#problem--bdd){:.lowercap} instance with
+$\alpha < \frac{1}{1+2^{n/2}}$. For such small values of $\alpha$,
+Babai's Nearest Plane _approximation algorithm_ solves
+$\alpha{-}$`BDD`{:.lowercap} instance exactly, leading to a polynomial
+time reduction. (`Note`{: .bul}: There are other ways of getting this
+reduction [^K87], but this is most elegant, in my opinion.)
+
+These reductions are described in detail as follows:
+
+```Reduction [<span class="lowercap">Opt-CVP</span> $\preceq$ <span class="lowercap">Decisional-CVP</span> ]
 Input
-  : Basis Vector $\B \in \ZZ^{n\times n}$
-  : Target Vector $\vec{t} \in \ZZ^n$
+  : A _non-singular_ basis matrix $\B \in \ZZ^{n \times n}$ representing
+    a full-rank [integral lattice]({% post_url 2020-06-08-LatticesBasicDefinitions %}#integral-lattice-remark) $\L(\B)$.
+  : Target Vector $\vec{t} \in \QQ^n$
 
 Output
   : Distance $\highlight{d^\dagger} \in \QQ$ that's arbitrarily close to
@@ -285,7 +533,7 @@ Output
     for arbitrary user selected constant $c > 1 \in \ZZ$.
 
 Oracle
-  : [<span class="lowercap">Decisional-CVP</span>$(\C, \vec{s}, r)$](#problem--decisional-cvp), where $\C \in \ZZ^{n\times n}$, $\vec{s} \in \ZZ^n$, and $r \in \QQ$.
+  : [<span class="lowercap">Decisional-CVP</span>$(\C, \vec{s}, r)$](#problem--decisional-cvp), where $\C \in \ZZ^{n\times n}$, $\vec{s} \in \QQ^n$, and $r \in \QQ$.
 
 Algorithm
   : We first establish a lower and upper bound on $\Delta(\vec{t}, \L)$.
@@ -308,13 +556,13 @@ Algorithm
     > Proof
     >    : Recall that the lattice-translates of the parallelepiped
            tiles the entire space, that is,
-           $$\RR^n = \bigcup_{\vec{y} \in \L} \vec{y} + \P(\L).$$
+           $$\RR^n = \bigcup_{\vec{y} \in \L} \vec{y} + \P(\B).$$
            Therefore, given the target vector $\vec{t} \in \RR^n$, it must
            fall in some lattice-translate of $\P(\B)$. Let
            $\vec{t} = \vec{y}^* + \vec{v}^*$ for some $\vec{y}^* \in \L(\B)$
            and $\vec{v}^* \in \P(\B)$. By definition,
            $\Delta(\vec{t}, \L)$ is the smallest distance between
-           $\vec{t}$ and _any_ lattice point $\vec{y} \in \L$, therefore
+           $\vec{t}$ and _any_ lattice vector $\vec{y} \in \L$, therefore
            $$
            \Delta(\vec{t}, \L) \le \abs{\vec{t} - \vec{y}^*} = \abs{\vec{v}^*}.
            $$
@@ -344,38 +592,261 @@ Algorithm
     >
     > 2. `Repeat until`{: .bul } $\beta - \alpha < \frac{1}{2^{O(n^c)}}$:
     >
-    >    a. Set $\highlight{\gamma} = \frac{\alpha + \beta}{2} \in \QQ$.
+    >    a. Set $\highlight{\psi} = \frac{\alpha + \beta}{2} \in \QQ$.
     >
     >    b. `Invoke`{: .bul }
-    >       `Decisional-CVP`{: .lowercap}$(\B, \vec{t}, \highlight{\gamma})$
-    >       oracle to determine if $\Delta(\vec{t}, \L) < \highlight{\gamma}$?
+    >       `Decisional-CVP`{: .lowercap}$(\B, \vec{t}, \highlight{\psi})$
+    >       oracle to determine if $\Delta(\vec{t}, \L) < \highlight{\psi}$?
     >
-    >    c. If $\Delta(\vec{t}, \L) < \highlight{\gamma}\;$ `then`{: .bul} set
-    >        $\beta \leftarrow \highlight{\gamma}$, `else`{: .bul}
-    >        set $\alpha \leftarrow \highlight{\gamma}$.
+    >    c. If $\Delta(\vec{t}, \L) < \highlight{\psi}\;$ `then`{: .bul} set
+    >        $\beta \leftarrow \highlight{\psi}$, `else`{: .bul}
+    >        set $\alpha \leftarrow \highlight{\psi}$.
     >
     >    d. `Continue`{: .bul} to step $2$.
     >
-    > 3. `Return`{: .bul } Set
-          $\highlight{d^\dagger} \leftarrow \frac{\alpha + \beta}{2}$ and return
-          $\highlight{d^\dagger}$.
+    > 3. Set $\highlight{d^\dagger} \leftarrow \frac{\alpha + \beta}{2}$
+         and `return`{: .bul } $\highlight{d^\dagger}$.
     >
     {: .details }
 
-
   `Note`{: .bul}: The precision threshold $\frac{1}{2^{O(n^c)}}$
-  determines the running time of this algorithm.
+  determines the running a of this algorithm.$.
 ```
 
-<figure id="fig--CVPSearch-to-Decision-Reduction">
+Given $d^\dagger$, any $\vec{x} \in \L(\B)$ that lies in the
+$n$-dimensional sphere of radius $d^\dagger$ centered around $\vec{t}$
+is a valid solution to `Search-CVP`{: .lowercap}. How many lattice
+vectors are exactly $d^\dagger$ distance away from $\vec{t}$? There are
+$2^n$ corners of the parallelepiped, so in the worst case, each one of
+the $2^n$ corners could be a potential candidate. This leads to the
+following trivial exhaustive search algorithm with a worst case running
+time of $O(2^n)$.
+
+```Algorithm [CVP Exhaustive Search] {#algo--cvp-exhaustive-search}
+
+Input
+  : A _non-singular_ basis matrix $\B \in \ZZ^{n \times n}$ representing
+    a full-rank [integral lattice]({% post_url 2020-06-08-LatticesBasicDefinitions %}#integral-lattice-remark) $\L(\B)$.
+  : A target vector $\vec{t} \in \QQ^n$
+  : Distance $d^\dagger = \Delta(\vec{t}, \L(\B))$ and a precision threshold $O(1/2^c)$
+
+Output
+  : $\vec{x} \in \L(\B)$ such that $\abs{\vec{t} - \vec{x}} = d^\dagger$
+
+The algorithm works as follows:
+
+> 1. Since $\vec{t} \in \QQ^n$ and $\B \in \ZZ^{n\times n} \subseteq \QQ^{n\times n}$ is
+     non-singular, it can be uniquely written as an element of
+     $\textsf{span}_\QQ(\B)$, i.e.,
+     $$
+        \forall i \in 1\cdots n,\;\exists! q_i\in\QQ:\; \vec{t} = q_1\vec{b}_1 + \cdots + q_n\vec{b}_n.
+     $$
+>
+> 2. `Let`{: #algo--cvp-exhaustive-search-step-2} $\fractional{q_i} := q_i - \floor{q_i} \in [0,1) \subseteq \QQ$ denote the
+     fractional part of $q_i$. Compute the target vector within the parallelepiped
+     $$ \vec{t}^* = \fractional{q_1}\vec{b}_1 + \cdots + \fractional{q_n}\vec{b}_n \in \P(\B)
+     $$
+>
+>
+> 3. `for`{: .bul #algo--cvp-exhaustive-search-step-3} $ i \leftarrow 0 \cdots (2^n - 1)$ `do`{: .bul}
+>
+>      * Bit decompose $i$ as $\braces{i_1,\cdots, i_n} \in \{0,1\}^n $ (that is
+>          $i = \sum_{j=1}^{n} i_j2^{j-1}$).
+>
+>      * Let $ \vec{x}_i^* := i_1\vec{b}_1 + i_2\vec{b}_2 + \cdots + i_n\vec{b}_n \in \L(\B)$
+>         and compute $\mu_i = \abs{\vec{t}^* - \vec{x}_i^*}$
+>
+>      * `If`{: .bul} $|\mu_i - d^\dagger| < \frac{1}{2^c}$ `break`{: .bul}.
+>
+> 4. Compute the final closest vector as
+>    $$ \vec{x} = \vec{x}_i^* + \sum_{j=1}^n \floor{q_j}\vec{b}_j$$
+>    and `return`{: .bul} $\vec{x}$.
+{: .details }
+
+The loop in [step-3](#algo--cvp-exhaustive-search-step-3) enumerates all
+lattice vectors on the corners the parallelepiped. Since $d^\dagger$ is
+guaranteed to be within $O(1/2^c)$ of $\Delta(\vec{t}, \L(\B))$, the loop
+terminates on the first corner $\vec{x}_i^*$ that's roughly $d^\dagger$
+away from $\vec{t}^*$. The final closest lattice vector is then obtained
+by adding the lattice-translate of the parallelepiped in which $\vec{t}$
+resides.
+```
+
+The exhaustive search algorithm above _does not_ lead to a polynomial
+time reduction. As alluded before, a better strategy to get a polynomial
+time reduction is to transform `Search-CVP`{: .lowercap} into an
+$\alpha$`-BDD`{: .lowercap} instance, and then use Babai's nearest plane
+algorithm to exactly solve $\alpha$`-BDD`{: .lowercap}. These two steps
+are described in next two subsections:
+
+#### `Search-CVP`{: .lowercap} reduces to $\alpha$`-BDD`{: .lowercap}
+
+Given the explicit knowledge of $d^\dagger = \Delta(\vec{t}, \L(\B))$
+and access to `Decisional-CVP`{: .lowercap} oracle, the reduction from
+`Search-CVP`{: .lowercap} to $\alpha$`-BDD`{: .lowercap} works as
+follows (adapted from Chapter 03 of [^MG02] and [Regev's Lecture
+Notes](https://cims.nyu.edu/~regev/teaching/lattices_fall_2004/ln/complexity.pdf){:
+target="_blank"}):
+
+```Reduction [<span class="lowercap">Search-CVP<sup style="vertical-align: super;padding-left:0.25em"><span class="lowercap">[Decisional-CVP]</span></sup></span> $\preceq \alpha$<span class="lowercap">-BDD</span>]{#reduction--search-cvp-to-alpha-bdd}
+
+Input
+  : A _non-singular_ basis matrix $\B \in \ZZ^{n \times n}$ representing
+    a full-rank [integral lattice]({% post_url 2020-06-08-LatticesBasicDefinitions %}#integral-lattice-remark) $\L(\B)$.
+  : Target Vector $\vec{t} \in \QQ^n$
+  : Distance $d^\dagger = \Delta(\vec{t}, \L(\B)) \in \QQ$
+
+Output
+  : A vector $\vec{x} \in \L(\B)$ such that $\forall\,\vec{y} \in \L(\B):\; \abs{\vec{t} - \vec{x}} \le \abs{\vec{t} - \vec{y}}$.
+
+Oracle
+  : [Decisional-CVP$(\C, \vec{s}, r)$](#problem--decisional-cvp){: .lowercap} that outputs
+    $1$ if $\Delta(\vec{s}, \L(\C)) \le r$ and $0$ otherwise, where
+    $\C \in \ZZ^{n\times n}$, $\vec{s} \in \QQ^n$, and $r \in \QQ$.
+  : [$\alpha$-BDD$(\C, \vec{s})$](#problem--decisional-cvp){: .lowercap} that
+    outputs unique $\vec{x} \in \L(\C)$ closest to $\vec{s} \in \QQ^n$, provided
+    $\frac{\Delta(\vec{s}, \L(\C))}{\lambda_1(\C)} < \alpha$,
+    where $\lambda_1(\C)$ is the length of shortest non-zero vector in $\L(\C)$,
+    $\C \in \ZZ^{n\times n}$ and $0 \le \alpha < \frac{1}{2}$.
+
+Algorithm
+  : We first describe the high level ideas of the reduction:
+
+    * Given the lattice basis $\B := \braces{b_1,\cdots, b_n}$, the
+      `Search-CVP`{: .lowercap } solver creates sublattices $\L(\B^*)$ of
+      $\L(\B)$ using a "dilated" basis
+
+      $$
+        \B^* := [\highlight{2\vec{b}_1}, \vec{b}_2,\cdots, \vec{b}_n ].
+      $$
+
+      Since $\L(\B^*)$ is a subgroup of $\L(\B)$, by construction, its
+      quotient group is
+      $$ \begin{aligned}
+      & \quad \L(\B)/\L(\B^*) = \braces{\L(\B^*), \L(\B^*) + \vec{b}_1 } \\
+      \Longrightarrow & \quad \L(\B) = \L(\B^*) \bigsqcup \left (\L(\B^*) + \vec{b}_1 \right) \\
+      \Longrightarrow & \quad \P(\B^*) = \P(\B) \bigsqcup \left (\P(\B) + \vec{b}_1 \right ).
+      \end{aligned}
+      $$
+
+      Given that $\P(\B^*)$ is the disjoint union of $\P(\B)$ and
+      $\P(\B) + \vec{b}_1$, either $\vec{t}$ of $\vec{t} + \vec{b}_1$ must
+      be $d^\dagger$ apart from $\L(\B^*)$. (See [Fig.
+      2](#figcaption--CVPSearch-to-Decision-Reduction) for an
+      illustration.) Therefore, the solver can easily maintain the
+      invariant in \eqref{search-to-decision-invariant} provided it can
+      decide whether:
+      $$\begin{equation}
+        \Delta(\vec{t}, \L(\B^*)) = d^\dagger\quad\highlight{\text{or}}\quad
+      \Delta(\vec{t} + \vec{b}_1, \L(\B^*)) = d^\dagger?
+        \label{translation-decision}
+        \end{equation}
+      $$
+
+    * To decide between the above two cases in \eqref{translation-decision},
+      the solver invokes $\highlight{\xi_1} \longleftarrow$
+      `Decisional-CVP`{: .lowercap}$(\B^*, \vec{t}, \highlight{d^\dagger}) \in \braces{0,1}$ to
+      determine if $\vec{t}$ is still $d^\dagger$ apart from $\L(\B^*)$?
+      If $\xi_1 = 1$ then $\Delta(\vec{t}, \L(\B^*)) = d^\dagger$, otherwise
+      $\Delta(\vec{t} + \highlight{\vec{b}_1}, \L(\B^*)) = d^\dagger$.
+      By updating the target vector to
+      $$\vec{t}^* \leftarrow \vec{t} + \highlight{(1-\xi_1)}\cdot\vec{b}_1,$$
+      the solver can maintain the invariant
+      $$
+      \Delta(\vec{t}^*, \L(\B^*)) = \Delta(\vec{t}, \L(\B)) = d^\dagger.
+      $$
+
+      Furthermore, suppose the `Search-CVP`{: .lowercap } solver could
+      somehow find the closest vector $\vec{x}^* \in \L(\B^*)$ to
+      $\vec{t}^*$, then finding the closest vector  $\vec{x} \in \L(\B)$
+      to $\vec{t}$ is easy:
+      $$
+        \vec{x} = \vec{x}^* - \highlight{(1 - \xi_1)}\cdot\vec{b}_1.
+      $$
+
+    * The solver repeats the above procedure for all the $n$ basis
+      vectors, $\vec{b}_1, \cdots, \vec{b}_n$, updating the target vector
+      $\vec{t}$ to $\vec{t}^{*\cdots *}$ using help from
+      `Decisional-CVP`{: .lowercap} oracle. At the end of one complete round
+      covering all columns of $\B$, the `Search-CVP`{: .lowercap }
+      solver would be left with:
+
+        * A sublattice $\L(2\B) \subseteq \L(\B)$ with basis
+          $
+            2\B = [2\vec{b}_1, 2\vec{b}_2, \cdots, 2\vec{b}_n]
+          $
+
+        * A displacement vector
+          $$\vec{h} := \sum_{i=1}^n (1- \xi_i)\cdot \vec{b}_i \in \L(\B)$$
+          where each $\xi_i \in \braces{0,1}$ is the output of
+          invocations to `Decisional-CVP`{: .lowercap} oracle, and
+
+        * The updated target vector
+          $$\vec{t}^{*\cdots *} \leftarrow \vec{t} + \vec{h}$$
+          that maintains the invariant
+          $$\Delta(\vec{t}^{*\cdots *}, 2\B) = \Delta(\vec{t}, \B) = d^\dagger.$$
+
+        * As before, if the `Search-CVP`{: .lowercap} solver could somehow
+          find the closest lattice vector $\vec{x}^{*\cdots *} \in \L(2\B)$
+          to $\vec{t}^{*\cdots *}$, then the solver can find the closest
+          lattice vector $\vec{x} \in \L(\B)$ to $\vec{t}$ as
+          $$
+            \vec{x} = \vec{x}^{*\cdots *} - \vec{h} \in \L(\B).
+          $$
+
+
+    * Let $\lambda_1(\B)$ be the length of the shortest non-zero vector in
+      $\L(\B)$ and let
+      $$\widehat{\alpha}(\vec{t}, \B) := \frac{\Delta(\vec{t}, \L(\B))}{\lambda_1(\B)}.$$
+
+      Before the solver can invoke $\alpha$`-BDD`{: .lowercap} oracle, it
+      must ensure that $\widehat{\alpha}(\vec{t}^{*\cdots *}, \B^{*\cdots *}) < \alpha$
+      for $\alpha$`-BDD`{: .lowercap} to find the unique solution.
+      Since $\lambda_1(2\B) = 2\cdot\lambda_1(\B)$ while
+      $\Delta(\vec{t}, \L(\B)) = \Delta(\vec{t}^{*\cdots *}, \L(2\B))$
+      $\highlight{\implies}$
+      $\alpha(\vec{t}^{*\cdots *}, 2\B) = \frac{1}{2}\alpha(\vec{t}, \B)$. Therefore,
+      repeating the above procedure $k$-times results in the updated
+      target vector $\vec{t}^{\overbrace{*\cdots *}^{\text{k times}}}$
+      with a sublattice basis
+      $2^k\B = [2^k\vec{b}_1,\cdots, 2^k\vec{b}_n]$ and
+      $$\alpha(\vec{t}^{\overbrace{*\cdots *}^{\text{k times}}}, 2^k\B) = \frac{1}{2^k}\alpha(\vec{t}, \B).$$
+
+      Unfortunately, the solver doesn't know $\lambda_1(\B)$! To address
+      that, let $L = \min_{1 \le i \le n}\{ \abs{\vec{b}_i } \}$
+      be the length of the shortest basis vector of $\B$. By definition,
+      $\lambda_1(\B) \le L$, therefore
+      $$
+        \frac{\Delta(\vec{t}, \L(\B))}{L} \le \frac{\Delta(\vec{t}, \L(\B))}{\lambda_1(\B)} \highlight{\implies} \frac{d^\dagger}{2^k\cdot L} = \frac{\Delta(\vec{t}^{\overbrace{*\cdots *}^{\text{k times}}}, \L(\B^{\overbrace{*\cdots *}^{\text{k times}}}))}{2^k\cdot L} \le \frac{\Delta(\vec{t}^{\overbrace{*\cdots *}^{\text{k times}}}, \L(\B^{\overbrace{*\cdots *}^{\text{k times}}}))}{2^k\cdot \lambda_1(\B)}.
+      $$
+
+      Therefore, to ensure $\widehat{\alpha}(\vec{t}^{\overbrace{*\cdots *}^{\text{k times}}}, 2^k\cdot \B) < \alpha$ it's sufficient to iterate the above steps
+      $k$-times, where
+      $$
+        \begin{equation}
+        k \ge \ceil{ \log_2 \left( \frac{d^\dagger}{\alpha \cdot L} \right ) }
+        \label{cvp-to-bdd-iteration-count}
+        \end{equation}
+      $$
+
+      As proved in the [next subsection](#section--polynomial-time-algorithm),
+      Babai's nearest plane _approximation algorithm_ acts as an
+      $\alpha$`-BDD`{: .lowercap} solver for $\alpha = \frac{1}{1 + 2^{n/2}}$.
+      Substituting this value of $\alpha$ in
+      \eqref{cvp-to-bdd-iteration-count} leads to
+      $$
+        k \ge \ceil{ \log_2(1 + 2^{n/2}) + \log_2(d^\dagger / L) } \in O(n).
+      $$
+
+<figure id="fig--cvpsearch-to-decision-reduction">
   <div class="multi-images">
-    <div style="max-width:400px" id="CVPSearch-to-Decision-Itr-0">
+    <div style="max-width:350px" id="CVPSearch-to-Decision-Itr-0">
       <img src="/Diagrams/2020-06-16/final/CVPSearch2Decision-1.svg"/>
             <figurecaption>Lattice with basis $\B := [\vec{b}_1, \vec{b}_2],$
             target vector $\vec{t}$, and computed minimum distance
             $d^\dagger = \Delta(\L(\B), \vec{t})$.</figurecaption>
     </div>
-    <div style="max-width:400px;" id="CVPSearch-to-Decision-Itr-1">
+    <div style="max-width:350px;" id="CVPSearch-to-Decision-Itr-1">
       <img src="/Diagrams/2020-06-16/final/CVPSearch2Decision-2.svg" />
       <figurecaption><span class="bul">Iteration-1</span>: Sublattice
       with basis $\B^* := [2\vec{b}_1, \vec{b}_2]$ has
@@ -384,7 +855,7 @@ Algorithm
       $\vec{t}^* \leftarrow \vec{t} + \vec{b}_1$ to maintain the invariant
       $\Delta(\L(\B^*), \vec{t}^*) = d^\dagger$. </figurecaption>
     </div>
-    <div style="max-width:400px" id="CVPSearch-to-Decision-Itr-2">
+    <div style="max-width:350px" id="CVPSearch-to-Decision-Itr-2">
       <img src="/Diagrams/2020-06-16/final/CVPSearch2Decision-3.svg"/>
         <figurecaption><span class="bul">Iteration-2</span>: Sublattice
       with basis $\B^{**} := [2\vec{b}_1, 2\vec{b}_2]$ implicitly
@@ -396,6 +867,144 @@ Algorithm
   <figurecaption id="figcaption--CVPSearch-to-Decision-Reduction">Two iterations of <span class="lowercap">Search-CVP</span>
   to <span class="lowercap">Decisional-CVP</span> reduction.</figurecaption>
 </figure>
+
+
+  The exact steps of the reduction are described below:
+
+  > ###### <span class="lowercap">Search-CVP</span> solver via $\frac{1}{1 + 2^{n/2}}$<span class="lowercap">-BDD</span>
+  > <hr/>
+  >
+  > 1. Compute $L = \min_{1 \le i \le n}\{ \abs{\vec{b}_i } \}$
+  > 2. `set`{: .bul} iteration count $k = \ceil{ \log_2(1 + 2^{n/2}) + \log_2(d^\dagger / L) }$
+  > 3. `set`{: .bul} displacement vector $\vec{h} = \vec{0} \in \L(\B)$
+  > 4. `for`{:.bul} $i \leftarrow 1\cdots k$ `do`{: .bul}
+  >
+  >    * `for`{: .bul} $j = 1\cdots n$ `do`{: .bul}
+  >
+  >       * Let the basis so far be $\B = [\vec{b}_1, \cdots, \vec{b}_n]$,
+            `update`{: .bul} basis:
+            $$\B \leftarrow \left[\vec{b}_1,\cdots, \vec{b}_{j-1},\;\highlight{2\cdot\vec{b}_j},\;\vec{b}_{j+1}, \cdots, \vec{b}_n \right]$$
+  >
+  >       * `invoke`{: .bul} $\;\;\xi \leftarrow$ `Decisional-CVP`{: .lowercap}$(\B, \vec{t}, d^\dagger)$ and `update`{: .bul} $$\begin{aligned} \vec{t} &\leftarrow \vec{t} + (1 - \xi)\cdot \vec{b}_j\\ \vec{h} &\leftarrow \vec{h} + (1-\xi)\cdot \vec{b}_j \end{aligned} $$
+  >
+  > 5. `compute`{: .bul} `LLL`{: .mathsf} reduced basis $\widetilde{\B} \leftarrow \textsf{LLL}(\B)$.
+  >
+  > 6. `invoke`{: .bul} $\;\;\vec{x} \leftarrow \alpha$`-BDD`{:.lowercap}$(\widetilde{\B}, \vec{t})$.
+  >
+  > 6. `return`{: .bul} $\vec{x} - \vec{h}$.
+  {: .details }
+
+`Note`{: .bul}: Even though the `BDD`{: .mathsf} oracle is invoked on
+`LLL`{: .mathsf} reduced basis, the closeness of $\vec{x}$ to $\vec{t}$
+is independent of the choice of basis.
+```
+
+The next subsection describes Babai's nearest plane algorithm and proves
+that it solves $\alpha$`-BDD`{: .lowercap} exactly for
+$\alpha < \frac{1}{1+2^{n/2}}$.
+
+#### Polynomial time algorithm for $\frac{1}{1+2^{n/2}}$`-BDD`{: .lowercap} instance {#section--polynomial-time-algorithm}
+
+Babai's nearest plane algorithm is a polynomial time _approximation
+algorithm_ for `CVP`{: .mathsf}. Details of this algorithm for an arbitrary
+lattice basis $\B$ is described below.
+
+```Algorithm [Babai's Nearest Plane Algorithm]{#algo--babai-nearest-plane}
+Input
+  : A non-singular lattice basis $\B = \braces{b_i} \in \ZZ^{n\times n}$
+  : A target vector $\vec{t} \in \QQ^n$
+
+Output
+  : $\vec{x} \in \L(\B)$
+  : $\vec{e} \in \P(\B^\perp)$ such that $\vec{t} = \vec{x} + \vec{e}$
+    where $\P(\B^\perp)$ is fundamental domain of Gram-Schmidt
+    orthogonal basis.
+
+The algorithm works by computing the Gram-Schmidt orthogonal basis
+$\B^\perp := [\vec{b}_1^\perp,\cdots, \vec{b}_n^\perp]$
+and progressively projecting the target vector to $\vec{b}_i^\perp$ and uses rounding to
+find a lattice vector "close" to $\vec{t}$.
+
+In more detail:
+
+> 1. Compute Gram-Schmidt orthogonal basis
+     $\B^\perp := [\vec{b}_1^\perp,\cdots, \vec{b}_n^\perp] \leftarrow \textsf{gso}(\B) \in \QQ^{n\times n}$
+>
+> 2. `Initialize`{: .bul} error term $\vec{e} \leftarrow \vec{t} \in \QQ^n$
+>
+> 3. `Initialize`{: .bul} "close" lattice $\vec{x} \leftarrow \vec{0} \in \ZZ^{n}$
+>
+> 4. `for`{: .bul #algo--bababi-nearest-plane-step-4} $i \leftarrow n\cdots 1$ `do`{: .bul}
+>
+>    * Compute $k := \round{ \frac{\left \langle \vec{e},\;\vec{b}_i^\perp \right \rangle}{\norm{\vec{b}_i^\perp}^2} } \in \ZZ$
+>
+>    * $\vec{e} \leftarrow \vec{e} - k\cdot \vec{b}_i$
+>
+>    * $\vec{x} \leftarrow \vec{x} + k\cdot \vec{b}_i$
+> 5. `Return`{: .bul} $(\vec{x}, \vec{e})$.
+>
+{: .details }
+```
+
+For an arbitrary (bad) basis $\B$, this algorithm does not guarantee
+that its output will be a known bounded approximation to
+[Search-CVP](#problem--search-cvp){: .lowercap}. If $\B$ is an
+[LLL](https://ocw.mit.edu/courses/18-409-topics-in-theoretical-computer-science-an-algorithmists-toolkit-fall-2009/eaa6bc3cd49d94630490cfe3227fa5dc_MIT18_409F09_scribe20.pdf#page=2){: target="_blank" .mathsf}
+reduced basis, then one can show that $\vec{x}$ is guaranteed to be at a
+distance that's _at most_ $2^{n/2}$ times the optimal. That is, if the
+optional solution to `Search-CVP`{: .lowercap}$(\B, \vec{t})$ is
+$\highlight{\vec{x}^\dagger}$ then
+$$
+  \abs{\vec{x} - \vec{t}} \le  2^{n/2} \cdot \Delta(\vec{t}, \L(\B)) = 2^{n/2} \cdot \abs{\highlight{\vec{x}^\dagger} - \vec{t}}.
+$$
+
+More generally, suppose Babai's nearest plane algorithm returns
+$\vec{x} \in \L(\B)$ that's a $\gamma(n)$ approximation to
+`Search-CVP`{: .lowercap}, i.e.,
+$\abs{\vec{x} - \vec{t}} \le  \gamma(n) \cdot \Delta(\vec{t}, \L(\B))$.
+For an [$\alpha$-BDD](#problem--bdd){:.lowercap} problem instance, we
+wish to derive the range of values of $\alpha \in [0, \frac{1}{2})$ for
+which Babai's nearest plane algorithm can solve `Search-CVP`{:
+.lowercap} _exactly_ in polynomial time.
+
+By triangle inequality
+$$
+\begin{equation}
+\abs{\vec{x} - \vec{x}^\dagger} = \abs{\vec{x} - \vec{t} + \highlight{\vec{t} - \vec{x}^\dagger}} \le \abs{\vec{x} - \vec{t}} + \highlight{\abs{\vec{x}^\dagger - \vec{t}}}
+\label{bdd-triangle-inequality}
+\end{equation}
+$$
+
+By assumption, for an $\alpha$`-BDD`{: .lowercap} instance,
+$\abs{\vec{x}^\dagger - \vec{t}} < \alpha\cdot\lambda_1$. Furthermore,
+the nearest plane algorithm guarantees that
+$\abs{\vec{x} - \vec{t}} < \gamma(n)\cdot \Delta(\vec{t}, \L(\B))$, which
+again by $\alpha$`-BDD`{: .lowercap} promise implies
+$\abs{\vec{x} - \vec{t}} < \gamma(n)\cdot\alpha\cdot \lambda_1$.
+Therefore by \eqref{bdd-triangle-inequality}:
+$$
+\abs{\vec{x} - \vec{x}^\dagger} \highlight{\le} \gamma(n)\cdot\Delta(\vec{t}, \L(\B)) + \alpha\cdot\lambda_1 \highlight{\le} \gamma(n)\cdot\alpha\cdot \lambda_1
+ + \alpha\cdot\lambda_1 \highlight{=} (1 + \gamma(n))\cdot \alpha \cdot \lambda_1.$$
+
+On the other hand, if $\vec{x}$ and $\vec{x}^\dagger$ are distinct, then
+$\lambda_1 \le \abs{\vec{x} - \vec{x}^\dagger}$, and hence
+$$
+  \lambda_1 \highlight{\le} (1 + \gamma(n))\cdot \alpha \cdot \lambda_1 \highlight{\implies}  \alpha \ge \frac{1}{1 + \gamma(n)}.
+$$
+
+In other words, if $\alpha \ge \frac{1}{1 + \gamma(n)}$ then Babai's
+nearest plane algorithm is likely to output a lattice vector that's
+not necessarily the optimal $\vec{x}^\dagger$. Conversely,
+if $\alpha < \frac{1}{1 + \gamma(n)}$ then $\vec{x}$ and
+$\vec{x}^\dagger$ cannot be distinct and Babai's nearest plane algorithm
+_will output_ the optimal solution to `Search-CVP`{: .lowercap}!
+For example, if $\B$ is an `LLL`{: .mathsf} reduced
+basis, then for $\alpha <  \frac{1}{1 + 2^{n/2}}$, the nearest plane
+algorithm will output _the optimal_ solution to `Search-CVP`{: .lowercap}.
+
+`Sanity Check`{: .bul}: If $\gamma(n) = 1$ then the result above
+ requires $\alpha < \frac{1}{2}$ for a unique solution, which matches
+ with the uniqueness requirement for $\alpha$`-BDD`{: .lowercap}.
 
 ## Approximate Reductions
 
@@ -411,3 +1020,33 @@ Algorithm
 
 [^K05]: **S. Khot**, "Hardness of approximating the shortest vector
     problem in lattices," in Journal of the ACM (JACM), Volume 52, Issue 5., [Pages 789 - 808](https://dl.acm.org/doi/epdf/10.1145/1089023.1089027){:target="_blank"}
+
+[^LLM06]: **Y. Liu**, **V. Lyubashevsky** and **D. Micciancio**, "On
+    Bounded Distance Decoding for General Lattices," in 9th
+    International Workshop on Approximation Algorithms for Combinatorial
+    Optimization Problems, APPROX 2006 and 10th International Workshop
+    on Randomization and Computation, RANDOM 2006, Barcelona, Spain,
+    August 28-30, 2006. [Pages 450 -
+    461](https://link.springer.com/chapter/10.1007/11830924_41){:target="_blank"}
+
+[^BP20]: **H. Bennett** and **C. Peikert**, "Hardness of Bounded
+    Distance Decoding on Lattices in $\ell_p$ Norms," in 35th
+    Computational Complexity Conference (CCC 2020). [Available
+    Online](https://d-nb.info/1366619331/34){:target="_blank"}
+
+[^MG02]: **D. Micciancio** and **S. Goldwasser**, "Complexity of Lattice
+    Problems: A Cryptographic Perspective," Springer, New York,
+    NY., 2002, DOI:
+    [https://doi.org/10.1007/978-1-4615-0897-7](https://doi.org/10.1007/978-1-4615-0897-7){:
+    target="_blank"}
+
+[^K87]: **R. Kannan**, "Minkowski’s convex body theorem and integer
+    programming," Mathematics of Operations Research, 12(3), 1987.
+    [Pages 415–440](http://www.jstor.org/stable/3689974){:
+    target="_blank"}
+
+[^vEB81]: **P. v. E. Boas**, "Another $\NP$-complete partition problem
+    and the complexity of computing short vectors in a lattice.
+    Technical Report, 1981. [Available
+    Online](https://staff.fnwi.uva.nl/p.vanemdeboas/vectors/mi8104c.html){:
+    target="_blank"}
