@@ -26,6 +26,9 @@ $semantic-block-title-color : var(--section-title-color);
     margin: math.ceil(math.div($spacing-unit, 2)) math.ceil(math.div($spacing-unit, 2)) math.ceil(math.div($spacing-unit, 2)) $spacing-unit;
     padding: math.ceil(math.div($spacing-unit, 2)) math.ceil(math.div($spacing-unit, 1.75));
     border-left: 4px solid $semantic-block-border-color;
+    @media print {
+        border-left: 2px solid $semantic-block-border-color;
+    }
     background-color: semantic-block-background($semantic-block-border-color, 96%);
     > :last-child {
         margin-bottom: 0;
@@ -195,8 +198,7 @@ dd:last-child  > .proof-end:last-of-type {
     background-color: semantic-block-background($theorem-border-color);
 }
 
-.post-content .problem,
-.post-content .algorithm {
+.post-content .problem {
     --semantic-block-active-border-color: #{$problem-border-color};
     border-left-color: $problem-border-color;
     background-color: semantic-block-background($problem-border-color);
@@ -323,7 +325,7 @@ dd:last-child  > .proof-end:last-of-type {
     margin-bottom: 1rem;
     padding: math.floor(math.div($spacing-unit, 2));
     border-radius: math.floor(math.div($spacing-unit, 2));
-    background-color: semantic-block-background(var(--semantic-block-active-border-color), 91%);
+    background-color: rgb(from var(--semantic-block-active-border-color) r g b / 5%);
 
     hr {
         border: none;
