@@ -633,6 +633,7 @@ a.post-link:hover {
     display: block;
     width: 300pt;
     background-color: var(--toc-background-color);
+    border-radius: math.floor(math.div($spacing-unit, 2.25));
 }
 
 @include media-query($on-palm) {
@@ -652,14 +653,16 @@ a.post-link:hover {
 
 .post-toc summary {
     color: var(--toc-summary-color);
-    font-size: $post-content-title-font-size;
+    font-size: $post-content-section-font-size;
     font-weight: bold;
+    font-variant: petite-caps;
 }
 
 #markdown-toc {
     margin-left: math.floor(math.div($spacing-unit, 2));
     padding-left: math.ceil(math.div($spacing-unit, 3));
     padding-right: math.ceil(math.div($spacing-unit, 3));
+    font-size: $toc-font-size;
 }
 
 #markdown-toc  ul {
@@ -667,14 +670,14 @@ a.post-link:hover {
 }
 
 #markdown-toc li::marker {
-    color: var(--section-title-color);
+    color: var(--toc-summary-color);
 }
 
 #markdown-toc a, #markdown-toc a:visited {
-    color: var(--brand-color);
+    color: var(--toc-content-color);
 }
 
 #markdown-toc a:hover {
-    color: var(--section-title-color);
+    color: var(--toc-summary-color);
     text-decoration: none;
 }

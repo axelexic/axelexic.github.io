@@ -1,7 +1,7 @@
 @use "sass:math";
 @use "variables" as *;
 
-$print-base-font-size: 9pt;
+$print-base-font-size: 10pt;
 $print-h2-font-size: math.ceil($print-base-font-size * 1.5);
 $print-h3-font-size: math.ceil($print-base-font-size * 1.25);
 $print-h4-font-size: math.ceil($print-base-font-size * 1.125);

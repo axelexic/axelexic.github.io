@@ -10,6 +10,7 @@ $post-content-title-font-size: math.ceil($base-font-size * 1.5);
 $post-content-section-font-size: math.ceil($base-font-size * 1.25);
 $post-content-subsection-font-size: math.ceil($base-font-size * 1.125);
 $post-content-subsubsection-font-size: $base-font-size;
+$toc-font-size: $small-font-size;
 
 $spacing-unit: 30px;
 
@@ -33,7 +34,6 @@ $site-title-color: $brand-color;
 $section-title-color: #0808f8;
 $site-title-font:  "PT Serif", "Helvetica", serif, ariel, sans-serif;
 $section-title-font: "PT Serif", "Helvetica", serif, ariel, sans-serif;
-
 
 @mixin media-query($device) {
     @media screen and (max-width: $device) {
