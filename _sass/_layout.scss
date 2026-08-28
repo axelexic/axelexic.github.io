@@ -623,3 +623,58 @@ a.post-link:hover {
     max-width: 800px;
     min-width: 0;
 }
+
+.post-toc {
+    margin-left: $spacing-unit;
+    margin-bottom: $spacing-unit;
+    padding-left: math.floor(math.div($spacing-unit, 2.5));
+    padding-right: math.floor(math.div($spacing-unit, 2.5));
+    float: right;
+    display: block;
+    width: 300pt;
+    background-color: var(--toc-background-color);
+}
+
+@include media-query($on-palm) {
+    .post-toc {
+        float: none;
+        margin: 0 0 $spacing-unit;
+        padding-left: math.floor(math.div($spacing-unit, 3));
+        padding-right: math.floor(math.div($spacing-unit, 3));
+        width: auto;
+    }
+}
+
+#markdown-toc li::marker {
+    color: var(--toc-content-color);
+}
+
+
+.post-toc summary {
+    color: var(--toc-summary-color);
+    font-size: $post-content-title-font-size;
+    font-weight: bold;
+}
+
+#markdown-toc {
+    margin-left: math.floor(math.div($spacing-unit, 2));
+    padding-left: math.ceil(math.div($spacing-unit, 3));
+    padding-right: math.ceil(math.div($spacing-unit, 3));
+}
+
+#markdown-toc  ul {
+    list-style-type: disc;
+}
+
+#markdown-toc li::marker {
+    color: var(--section-title-color);
+}
+
+#markdown-toc a, #markdown-toc a:visited {
+    color: var(--brand-color);
+}
+
+#markdown-toc a:hover {
+    color: var(--section-title-color);
+    text-decoration: none;
+}

@@ -196,4 +196,12 @@ $print-font-family: Cambria, Georgia, "Times New Roman", Times, serif;
     box-shadow: none;
   }
 
+  .post-toc {
+    background: transparent !important;
+    float: none;
+    margin-left: 0;
+    padding-left: 0;
+    width: auto;
+  }
+
 }

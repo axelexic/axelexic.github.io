@@ -4,6 +4,7 @@ title: Classical complexity reductions among hard lattice problems
 date: 2020-06-16
 author: Yogesh Swami
 tags: [svp, cvp, lattices, foundations]
+add_toc: "Yes"
 
 mathjax_macros: |
   \[
@@ -19,13 +20,6 @@ mathjax_macros: |
     \newcommand{\abs}[1]{\lVert {#1} \rVert}
   \]
 ---
-
-<details class="post-toc" markdown="1" open>
-<summary>Table of Contents</summary>
-* TOC
-{:toc}
-</details>
-
 
 The difficulty of solving a hard lattice problem depends significantly
 on the choice of its parameters. One cannot meaningfully discuss
