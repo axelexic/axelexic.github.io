@@ -4,7 +4,7 @@ layout: post
 title: Name of Some Topic
 date: YYYY-MM-DD
 author : Yogesh Swami
-published : false
+add_toc: "Yes"
 tags: [Cryptography, Provable Security, Number Theory]
 mathjax_macros: |
   \[

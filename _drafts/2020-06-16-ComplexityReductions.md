@@ -51,7 +51,7 @@ $\gamma(n) \le n^{c/\log \log n}$. These reductions are not covered in
 this post as they deserve a standalone post with a discussion about
 augmented tensor codes.
 
-## `SVP`{: .mathsf } and `CVP`{: .mathsf } Problem Instances {#section--svp-cvp-instances}
+## <span class="mathsf">SVP</span> and <span class="mathsf">CVP</span> Problem Instances {#section--svp-cvp-instances}
 ---
 
 Recall that an `NP Optimization (NPO)`{: .mathsf } problem is a
@@ -207,7 +207,7 @@ Complexity results related to `BDD`{: .mathsf} are not discussed further
 in this post. See [^LLM06] (and a very recent work by Bennett and Peikert
 [^BP20], which I haven't fully read) for a deeper dive.
 
-#### Approximate Closest Vector Problem {#subsubsection--approx-cvp}
+#### Approximate Closest Vector Problem (<span class="mathsf">$\gamma$-CVP</span>) {#subsubsection--approx-cvp}
 
 Let $\gamma \in \RR\;(\gamma \ge 1)$  be an approximation factor. $\gamma$
 will often be written as $\gamma(n)$ to emphasize its dependence on
@@ -251,7 +251,7 @@ Output
 This section lists a series of reductions related to exact version of
 `CVP`{: .mathsf} and `SVP`{: .mathsf}.
 
-### [Decisional-CVP](#problem--decisional-cvp){: .lowercap} is $\NP$-Complete
+### [<span class="lowercap">Decisional-CVP</span>](#problem--decisional-cvp) is $\NP$-Complete
 
 We are given a lattice basis $\B \in \ZZ^{n \times n}$, a target vector
 $\vec{t} \in \QQ^n$, and a distance threshold $r \in \QQ$. To prove
@@ -459,13 +459,83 @@ Algorithm
   $\NP$-complete, `Decisional-CVP`{: .lowercap} is also $\NP$-complete.
 ```
 
-### [Decisional-SVP]({% post_url 2020-06-08-LatticesBasicDefinitions %}#problem--shortest-vector-problem-decisional){: .lowercap} is $\NP$-Complete in $\ell_\infty$ norm
+### [<span class="lowercap">Decisional-SVP$|_{\ell_\infty}$</span>]({% post_url 2020-06-08-LatticesBasicDefinitions %}#problem--shortest-vector-problem-decisional) is $\NP$-Complete
 
-This result is adapted from [^vEB81].
+Recall that a [Decisional-SVP$_\infty(\B, r)$]({% post_url
+2020-06-08-LatticesBasicDefinitions
+%}#problem--shortest-vector-problem-decisional){: .lowercap} problem
+instance consists of an integral lattice basis $\B \in \ZZ^{n\times n}$
+and a distance threshold $r \in \QQ$. The goal is to decide if
+$\lambda_1^\infty(\B) \highlight{\lessgtr} r$? Also recall that in
+$\ell_\infty$ norm, if $\vec{x} := \braces{x_1,\cdots,x_n} \in \ZZ^n$
+then $$ \norm{\vec{x}}_\infty = \max_{1\le i \le n}\lrbraces{ |x_i| } $$
 
-### [Search-SVP]({% post_url 2020-06-08-LatticesBasicDefinitions %}/#problem--shortest-vector-problem-decisional){: .lowercap} is $\NP$-Hard in $\ell_2$ norm
+This proof is an adaptation of the original 1981 proof by van Emde Boas
+[^vEB81] and is different from the proof in [^MG02]. The proof follows
+the following chain of reductions
+
+$2$`-Partition`{: .lowercap }
+$\highlight{\preceq}$ `Bounded Homogenous Linear Equation`{:.lowercap }
+$\highlight{\preceq}$ `Decisional-SVP`{: .lowercap }
+{: .centered-text .larger-font .bolder-font }
+
+These individual problems and the corresponding reductions are described
+next.
+
+#### <span class="lowercap">$2$-Partition</span> is $\NP$-Complete
+
+Given a set $S$ of integers, the $2$`-Partition`{:.lowercap} problem
+asks if $S$ can be split into two disjoint sets $T \subseteq S$ and
+$S\setminus T$ such that the sum of all the elements of $T$ equals the
+sum of all elements of $S\setminus T$. Or equivalently, does there exist
+$\alpha_i \in \lrbraces{+1, -1}$ such that
+$$\sum_{i=1}^n \alpha_i\cdot s_i = 0,$$
+where $s_i \in S$ corresponds to $i$-th element of $S$ under some
+predefined indexing of set elements. More precisely
+
+```Problem [<span class="lowercap">$2$-Partition</span>]{#problem--partition}
+Input
+  : A set $S \subseteq \ZZ$ with cardinality $|S| = n$.
+
+Output
+  : `Yes`{: .lowercap } if $\exists\,T \subseteq S$ such that
+    $$ \sum_{t \,\in\, T} t = \sum_{s \,\in\, S \setminus T } s.$$
+  : `No`{: .lowercap } otherwise.
+```
+
+The following reduction from [Subset-Sum$(S, U)$](#problem--subset-sum){: .lowercap }
+to $2$`-Partition`{: .lowercap} establishes
+`NP`{: .mathsf}-completeness of $2$`-Partition`{: .lowercap}.
+
+```Reduction [<span class="lowercap">Subset-Sum $\preceq$ $2$-Partition</span>]{#reduction--subset-sum-to-partition}
+
+Input
+  : A `Subset-Sum`{: .lowercap} instance set $S \subset \ZZ$, and
+  : A `Subset-Sum`{: .lowercap} target value $U \in \ZZ$.
+
+Output
+  : `Yes`{: .lowercap} if $\exists\, S' \subset S:\; \sum_{s' \in S} s' \highlight{\stackrel{?}{=}} U$
+  : `No`{: .lowercap} otherwise
+
+Oracle
+  : [<span class="lowercap">$2$-Partition</span>$(S)$](#problem--decisional-cvp), where $S \subset \ZZ$.
+
+Algorithm
+  : This is an easy and very [well known reduction](https://www.youtube.com/watch?v=_mpVTPBepjY){: target="_blank"}; details are left as an exercise to the reader 😊. (See page 60 and Appending A3.2 of [^GJ79] for a
+  detailed analysis.)
+```
+
+#### Bounded Homogenous Linear Equation (<span class="mathsf">BHLE</span>) is $\NP$-Complete
+
+```Problem [Bounded Homogenous Linear Equation]{#problem--bhle}
+
+```
+
+### [<span class="lowercap">Search-SVP$|_{\ell_p}$</span>]({% post_url 2020-06-08-LatticesBasicDefinitions %}/#problem--shortest-vector-problem) is $\NP$-Hard
 
 ### [<span class="lowercap">Search-CVP</span>](#problem--search-cvp) reduces to [<span class="lowercap">Decisional-CVP</span>](#problem--decisional-cvp) {#subsection-search-cvp-to-decisional-cvp-reduction}
+
+(This section is limited to $\ell_2$ norm.)
 
 We are given an oracle that can _somehow_ solve [<span class="lowercap">
 Decisional-CVP</span>$(\C, \vec{s}, r)$](#problem--decisional-cvp) for
@@ -542,6 +612,8 @@ Algorithm
           distance is realized if and only if $\vec{t} \in \L$.
           <div class="proof-end"/>
     >
+    {: .details }
+
     > Claim-2
     >   : Let $\vec{b}_i$ denote the $i$-th column of $\B$ and let
           $D(\B) := \ceil{\sum_{i=1}^n \abs{\vec{b}_i}} \in \ZZ$, then
@@ -1040,7 +1112,11 @@ algorithm will output _the optimal_ solution to `Search-CVP`{: .lowercap}.
     target="_blank"}
 
 [^vEB81]: **P. v. E. Boas**, "Another $\NP$-complete partition problem
-    and the complexity of computing short vectors in a lattice.
+    and the complexity of computing short vectors in a lattice,"
     Technical Report, 1981. [Available
     Online](https://staff.fnwi.uva.nl/p.vanemdeboas/vectors/mi8104c.html){:
     target="_blank"}
+
+[^GJ79]: **M. R. Garey** and **D. S. Johnson**, "Computers and
+    Intractability: A Guide to the Theory of
+    `NP`{: .mathsf}-Completeness," W. H. Freeman, 1979.

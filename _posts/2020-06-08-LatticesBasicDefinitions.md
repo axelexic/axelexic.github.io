@@ -2,8 +2,10 @@
 layout: post
 title: Lattices of Cryptography &mdash; Basic Results
 date: 2020-06-08
+last_modified : 2020-06-16
 author: Yogesh Swami
 published: true
+add_toc: "Yes"
 server_side_mathjax: false
 tags: [lattices, foundations]
 mathjax_macros: |
@@ -594,13 +596,13 @@ Output
 As usual, there's an optimization version and a decisional version of this
 problem which are listed below:
 
-```Problem [<span class="lowercap">Opt-SVP</span>] {#problem--shortest-vector-problem-opt}
+```Problem [<span class="lowercap">Opt-SVP</span>]{#problem--shortest-vector-problem-opt}
 Input
   : A _non-singular_ basis matrix $\B \in \ZZ^{n\times n}$ representing
     a full-rank [integral lattice](#integral-lattice-remark) $\L$.
 
 Output
-  : The _length_ of the shortest non-zero vector $\nu_1$.
+  : The _length_ of the shortest non-zero vector $\nu_1 \in \QQ$.
 
 **<u>Note</u>**: If the distance is measured in $\ell_p$ norm, then the
 output is allowed to be $\nu_1^p$ instead of $\nu_1$.
@@ -610,7 +612,7 @@ output is allowed to be $\nu_1^p$ instead of $\nu_1$.
 Input
   : A _non-singular_ basis matrix $\B \in \ZZ^{n\times n}$ representing
     a full-rank [integral lattice](#integral-lattice-remark) $\L$.
-  : An a distance threshold $r \in \ZZ$.
+  : A distance threshold $r \in \QQ$.
 
 Output
   : <span class="lowercap">Yes</span> if $\nu_1 < r$ and
@@ -788,7 +790,7 @@ defined as
 $$\lambda_i(\L) := \inf \lrbraces{ r \; :\; \dim\left(\span_\RR\left (\L \cap \overline{\mathbb{B}}(\vec{0}, r)\right)\right) \ge i }$$
 
 In words: $\lambda_i$ is the _smallest_ radius of a ball that contains
-at least $i$ linearly independent _lattice_ vectors.
+at least $i$ _linearly independent lattice_ vectors.
 ```
 
 In the previous example,
@@ -959,7 +961,7 @@ class="lowercap">GapSVP$_\gamma$</span> if defined as follows:
 Input
   : A _non-singular_ basis matrix $\B \in \ZZ^{n\times n}$ representing
     a full-rank [integral lattice](#integral-lattice-remark) $\L$.
-  : An threshold value $r \in \ZZ$.
+  : A distance threshold value $r \in \QQ$.
 
 Output
   : <span class="lowercap">Yes</span> if $\lambda_1 \le r$,
@@ -1000,7 +1002,7 @@ More formally,
 Input
   : A _non-singular_ basis matrix $\B \in \ZZ^{n\times n}$ representing
     a full-rank [integral lattice](#integral-lattice-remark) $\L$.
-  : An threshold value $r \in \ZZ$.
+  : A distance threshold value $r \in \QQ$.
 
 Output
   : <span class="lowercap">Yes</span> if $\lambda_n \le r$,

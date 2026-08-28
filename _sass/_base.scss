@@ -2,12 +2,6 @@
 @use "sass:math";
 @use "variables" as *;
 
-/**
- * Reset some basic elements
- */
-
-@import url("https://fonts.googleapis.com/css?family=PT+Serif:400,400italic,700,700italic&subset=latin,cyrillic-ext,cyrillic,latin-ext");
-
 :root {
   --brand-color : #{$brand-color};
   --background-color: #{$background-color};
@@ -53,7 +47,7 @@
   // TOC colors
   --toc-background-color :      color-mix(in srgb, var(--background-color) 96%, black);
   --toc-summary-color : var(--section-title-color);
-  --toc-content-color : varvar(--brand-color);
+  --toc-content-color : var(--brand-color);
 }
 
 html {
@@ -386,8 +380,9 @@ pre {
 }
 
 sup {
-  vertical-align: text-bottom;
+  vertical-align: baseline;
   position: relative;
+  font-size: inherit;
 }
 
 sup > a[role="doc-noteref"] {
@@ -597,9 +592,25 @@ mjx-container[display="true"] {
   font-weight: normal;
 }
 
-
 .mathsf {
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+  font-family: PT Sans, sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+}
+
+// Use sparingly which is why names are long
+.centered-text {
+  text-align: center;
+}
+
+.highlighted-text {
+  color: var(--math-accent);
+}
+
+.larger-font {
+  font-size: larger;
+}
+
+.bolder-font {
+  font-weight: bolder;
 }
 
 a[target="_blank"]::after {
