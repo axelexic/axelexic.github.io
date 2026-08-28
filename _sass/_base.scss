@@ -49,6 +49,11 @@
   // Tag colors
   --tag-background-color : oldlace;
   --tag-color : var(--brand-color);
+
+  // TOC colors
+  --toc-background-color :      color-mix(in srgb, var(--background-color) 96%, black);
+  --toc-summary-color : var(--section-title-color);
+  --toc-content-color : varvar(--brand-color);
 }
 
 html {

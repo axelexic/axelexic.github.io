@@ -39,6 +39,14 @@ $semantic-block-title-color : var(--section-title-color);
     }
 }
 
+// A semantic block normally spans its parent's full width, which lets its
+// background extend underneath a floated table of contents. In a TOC-enabled
+// post, establish a block formatting context so the block uses the remaining
+// horizontal space beside the float instead.
+.post-content:has(> .post-toc) .semantic-block {
+    display: flow-root;
+}
+
 .post-content .semantic-block h5,
 .post-content .semantic-block h6 {
     text-decoration: none;

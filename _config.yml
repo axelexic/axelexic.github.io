@@ -33,6 +33,7 @@ kramdown:
   input: Kramdown
   math_engine: mathjax
   syntax_highlighter: rouge
+  toc_levels: 2..4
 
 plugins:
   - jekyll-last-modified-at
