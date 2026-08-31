@@ -14,6 +14,8 @@
       processRefs: true,
       tags: "ams",
       packages: { "[+]": ["html", "color"] },
+      // if you update the macros, don't forget to update
+      // axelexic.github.io/scripts/render-math.mjs
       macros: {
         ZZ: "{\\mathbb{Z}}",
         NN: "{\\mathbb{N}}",
@@ -42,6 +44,8 @@
         braces : ["{\\lbrace {#1} \\rbrace }", 1],
         lrbraces : ["{\\left \\lbrace {#1} \\right \\rbrace }", 1],
         highlight: ["\\class{math-accent}{#1}", 1],
+        althighlight: ["\\class{math-alt-accent}{#1}", 1],
+        normalcolor: ["\\class{math-normal}{#1}", 1],
         textsc: ['\\class{lowercap}{\\text{#1}}', 1]
       }
     },

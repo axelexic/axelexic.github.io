@@ -10,6 +10,8 @@ await MathJax.init({
   startup: {
     typeset: false,
   },
+  // if you update the macros, don't forget to update
+  // axelexic.github.io/_includes/mathjax.html
   tex: {
     inlineMath: { "[+]": [["$", "$"]] },
     displayMath: [
@@ -49,6 +51,9 @@ await MathJax.init({
       braces: ["{\\lbrace {#1} \\rbrace }", 1],
       lrbraces: ["{\\left \\lbrace {#1} \\right \\rbrace }", 1],
       highlight: ["\\class{math-accent}{#1}", 1],
+      althighlight: ["\\class{math-alt-accent}{#1}", 1],
+      normalcolor: ["\\class{math-normal}{#1}", 1],
+      textsc: ['\\class{lowercap}{\\text{#1}}', 1]
     },
   },
   output: {
@@ -60,7 +65,7 @@ await MathJax.init({
   },
   chtml: {
     fontURL:
-      "https://cdn.jsdelivr.net/npm/@mathjax/mathjax-newcm-font@4.1.3/chtml/woff2",
+      "https://cdn.jsdelivr.net/npm/@mathjax/mathjax-newcm-font@4/chtml/woff2",
   },
 });
 
@@ -112,8 +117,14 @@ async function renderDocument({ html, preamble }) {
   const body = adaptor.innerHTML(adaptor.body(document.document));
 
   return {
+    fontURLs: fontURLsFrom(styles),
     html: styles ? `${styles}\n${body}` : body,
   };
+}
+
+function fontURLsFrom(styles) {
+  const urls = styles.matchAll(/url\(\s*["']?([^"')]+\.woff2(?:\?[^"')]+)?)["']?\s*\)/g);
+  return [...new Set([...urls].map((match) => match[1]))];
 }
 
 async function typesetDocument(body, preamble) {

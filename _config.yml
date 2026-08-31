@@ -8,6 +8,7 @@ twitter_username: axelexic
 github_username:  axelexic
 encoding: utf-8
 server_side_mathjax: true
+toc: true
 
 # Giscus comments
 giscus:

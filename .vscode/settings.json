@@ -1,7 +1,18 @@
 {
     "cSpell.words": [
         "approximability",
+        "dotprod",
+        "Haviv",
         "inapproximability",
-        "inapproximable"
-    ]
+        "inapproximable",
+        "jxkmath",
+        "Khot's",
+        "lowercap",
+        "mathsf",
+        "Regev's",
+        "uvec"
+    ],
+    "cSpell.enabledFileTypes": {
+        "markdown": true
+    }
 }

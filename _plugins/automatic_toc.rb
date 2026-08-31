@@ -1,9 +1,15 @@
 # frozen_string_literal: true
 
 # Adds Kramdown's generated table of contents to opted-in Markdown documents.
-# Use `add_toc: "Yes"` in a post's front matter to enable it.
+# Set `toc: true` in a post's front matter to override the site-wide default.
 Jekyll::Hooks.register :documents, :pre_render do |document|
-  next unless document.data["add_toc"].to_s.casecmp?("yes")
+  toc_enabled = if document.data.key?("toc")
+                  document.data["toc"] == true
+                else
+                  document.site.config["toc"] == true
+                end
+
+  next unless toc_enabled
   next if document.content.include?("{:toc}")
 
   document.content = <<~MARKDOWN + document.content

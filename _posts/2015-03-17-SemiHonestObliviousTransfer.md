@@ -1,9 +1,11 @@
 ---
 layout: post
-title: Semi-Honest Oblivious Transfer ($\textsf{OT}$) Primitives
+title: Semi-Honest Oblivious Transfer (<span class="mathsf">OT</span>) Primitives
 date: 2015-03-17
 author : Yogesh Swami
 tags : [ "mpc", "oblivious transfer" ]
+server_side_mathjax: false
+toc : false
 last_modified : 2018-10-2
 ---
 

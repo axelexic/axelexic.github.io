@@ -17,10 +17,12 @@ module StandardTexMath
 
     if StandardTexMath.server_side_mathjax_enabled?
       html = restore_mathjax_source(html, math, unwrap_display: true)
-      html = StandardTexMath.render_document(
+      rendered = StandardTexMath.render_document(
         html,
         preamble: StandardTexMath.current_mathjax_preamble
       )
+      StandardTexMath.add_font_urls_to_current_document(rendered.fetch("fontURLs", []))
+      html = rendered.fetch("html")
     else
       html = restore_mathjax_source(html, math)
     end
@@ -40,13 +42,20 @@ module StandardTexMath
   end
 
   def self.render_document(html, preamble:)
-    rendered = run_mathjax(
+    run_mathjax(
       {
         html: html,
         preamble: preamble,
       }
     )
-    rendered.fetch("html")
+  end
+
+  def self.add_font_urls_to_current_document(urls)
+    return unless current_document
+
+    current_document.data["mathjax_font_urls"] = (
+      Array(current_document.data["mathjax_font_urls"]) + urls
+    ).uniq
   end
 
   def self.render_all(math, preamble:)
