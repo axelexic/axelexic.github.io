@@ -5,7 +5,6 @@ date: 2020-06-08
 last_modified : 2020-06-16
 author: Yogesh Swami
 add_toc: "Yes"
-server_side_mathjax: true
 tags: [lattices, foundations]
 mathjax_macros: |
   \[

@@ -3,7 +3,6 @@ layout: post
 title: Classical complexity reductions among hard lattice problems
 date: 2020-06-16
 author: Yogesh Swami
-server_side_mathjax: true
 tags: [svp, cvp, lattices, foundations]
 add_toc: "Yes"
 

@@ -7,7 +7,7 @@ url: "https://axelexic.github.io"
 twitter_username: axelexic
 github_username:  axelexic
 encoding: utf-8
-server_side_mathjax: false
+server_side_mathjax: true
 
 # Giscus comments
 giscus:
