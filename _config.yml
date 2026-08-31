@@ -7,6 +7,7 @@ url: "https://axelexic.github.io"
 twitter_username: axelexic
 github_username:  axelexic
 encoding: utf-8
+server_side_mathjax: false
 
 # Giscus comments
 giscus:
@@ -42,3 +43,9 @@ last-modified-at:
 
 sass:
   style: compressed
+
+exclude:
+  - node_modules
+  - package.json
+  - package-lock.json
+  - scripts/render-math.mjs

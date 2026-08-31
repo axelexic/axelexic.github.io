@@ -4,9 +4,8 @@ title: Lattices of Cryptography &mdash; Basic Results
 date: 2020-06-08
 last_modified : 2020-06-16
 author: Yogesh Swami
-published: true
 add_toc: "Yes"
-server_side_mathjax: false
+server_side_mathjax: true
 tags: [lattices, foundations]
 mathjax_macros: |
   \[

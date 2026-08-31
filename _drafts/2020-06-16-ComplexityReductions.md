@@ -3,6 +3,7 @@ layout: post
 title: Classical complexity reductions among hard lattice problems
 date: 2020-06-16
 author: Yogesh Swami
+server_side_mathjax: true
 tags: [svp, cvp, lattices, foundations]
 add_toc: "Yes"
 
@@ -98,68 +99,47 @@ with `CVP`{: .mathsf } can safely skip the next subsection.
 
 The distance between any _lattice vector_ $\vec{x} \in \L$ and a point
 $\vec{t} \in \RR^n$ in space is defined as the usual euclidean distance
-(or more generally any $\ell_p$ norm) between two points in space:
-$\Delta(\vec{t}, \vec{x}) := \abs{\vec{t} -\vec{x}}$. However, a lattice
-is an infinite collection of vectors (also called points), so defining
-the distance between a target vector and the _entire lattice_ requires a
-new definition:
+(or any $\ell_p$ norm) between two points in space: $\Delta(\vec{t},
+\vec{x}) := \abs{\vec{t} -\vec{x}}$. However, a lattice is an infinite
+collection of points, so defining the distance between a point and the
+_entire lattice_ requires a new definition:
 
 ```Definition [Distance from a Lattice, Closest Vector] {#defn--lattice-point-distance}
-Let $\L$ be a lattice specified by a basis $\B \in \RR^{n\times m}$, and
-let $\vec{t} \in \RR^n$ be an arbitrary point in space. The
-distance between $\vec{t}$ and $\L(\B)$ is defined as the
-_minimum distance_ between $\vec{t}$ and _any vector_ $\vec{y}$ in the
-lattice, i.e.,
-$$ \Delta(\vec{t}, \L(\B)) := \min_{\vec{y} \in \L(\B)} \lrbraces{ \norm{\vec{t} - \vec{y}} } =
-\min_{\vec{z} \in \ZZ^m} \lrbraces{ \norm{\vec{t} - \B\cdot\vec{z}}}.$$
+Let $\L$ be a full-rank lattice specified by a basis
+$\B \in \RR^{n\times n}$, and let $\vec{t} \in \RR^n$ be an arbitrary
+point in space. Then, the distance between $\vec{t}$ and $\L$ is
+defined as the _minimum distance_ between $\vec{t}$ and any point
+$\vec{y}$ in the lattice, i.e.,
+$$ \Delta(\vec{t}, \L) := \min_{\vec{y} \in \L} \lrbraces{ \norm{\vec{t} - \vec{y}} }.$$
 
-A lattice vector $\vec{x} \in \L(\B)$ is a **closest vector** to $\vec{t}$ if
-$\Delta(\vec{t}, \L(\B)) = \Delta(\vec{t}, \vec{x})$.
-```
-
-```Remark
-Since bit representation of real numbers is challenging, it's customary
-to limit the study of `CVP`{: .mathsf} to lattices with [integral
-basis]({% post_url 2020-06-08-LatticesBasicDefinitions
-%}#integral-lattice-remark) where $\B \in \ZZ^{n\times m} \subseteq
-\RR^{n\times m}$. In addition, the target vector is assumed to be a
-vector over rationals, i.e., $\vec{t} \in \QQ^n \subseteq \RR^n$,
-with a fixed $\poly(n)$ size bit representation. In addition, to avoid
-precision issues with $\ell_p$ norm, it's often acceptable to consider
-$\abs{\cdot}^p \in \QQ$ as the distance metric instead of the exact
-$\ell_p$ norm. (The rest of this post only considers euclidean norm.)
-
-In principal, one could multiply both the lattice basis $\B$ and the
-target vector $\vec{t}$ by an appropriate integer such that $\vec{t} \in
-\ZZ^n$, however, this post follows the standard convention of specifying
-$\vec{t}$ over the rationals instead of integers.
-
+A lattice vector $\vec{x} \in \L$ is a **closest vector** to $\vec{t}$ if
+$\Delta(\vec{t}, \L) = \Delta(\vec{t}, \vec{x})$.
 ```
 
 #### Exact Closest Vector Problem (<span class="mathsf">CVP</span>) {#subsubsection--cvp}
 
-The _exact_ search, optimization, and decision problems related to
+The _exact_ search, optimization, and decision problem related to
 `CVP`{: .mathsf } are listed below:
 
 ```Problem [<span class="lowercap">Search-CVP</span>] {#problem--search-cvp}
 Input
   : A _non-singular_ basis matrix $\B \in \ZZ^{n\times n}$ representing
-    a full-rank [integral lattice]({% post_url 2020-06-08-LatticesBasicDefinitions %}#integral-lattice-remark) $\L$.
-  : A target vector $\vec{t} \in \QQ^n$.
+    a full-rank [integral lattice](#integral-lattice-remark) $\L$.
+  : A point $\vec{t} \in \ZZ^n$.
 
 Output
-  : A vector $\vec{x} \in \L(\B)$ such that $\forall\,\vec{y} \in \L(\B):\; \abs{\vec{t} - \vec{x}} \le \abs{\vec{t} - \vec{y}}$.
+  : A vector $\vec{x} \in \L$ such that $\forall\,\vec{y} \in \L:\; \abs{\vec{t} - \vec{x}} \le \abs{\vec{t} - \vec{y}}$.
 
 ```
 
 ```Problem [<span class="lowercap">Opt-CVP</span>] {#problem--opt-cvp}
 Input
   : A _non-singular_ basis matrix $\B \in \ZZ^{n\times n}$ representing
-    a full-rank [integral lattice]({% post_url 2020-06-08-LatticesBasicDefinitions %}#integral-lattice-remark) $\L$.
-  : A target vector $\vec{t} \in \QQ^n$.
+    a full-rank [integral lattice](#integral-lattice-remark) $\L$.
+  : A point $\vec{t} \in \ZZ^n$.
 
 Output
-  : The _length_ between $\vec{t}$ and the lattice $\L(\B)$, i.e.,
+  : The _length_ between $\vec{t}$ and the lattice $\L$, i.e.,
     $\Delta(\vec{t}, \L)$.
 
 `Note`{: .bul }: In $\ell_p$ norm, the algorithm is allowed to return
@@ -169,13 +149,18 @@ $\Delta(\L, \vec{t})^p$ instead of $\Delta(\L, \vec{t})$.
 ```Problem [<span class="lowercap">Decisional-CVP</span>] {#problem--decisional-cvp}
 Input
   : A _non-singular_ basis matrix $\B \in \ZZ^{n\times n}$ representing
-    a full-rank [integral lattice]({% post_url 2020-06-08-LatticesBasicDefinitions %}#integral-lattice-remark) $\L$.
-  : A target vector $\vec{t} \in \QQ^n$.
+    a full-rank [integral lattice](#integral-lattice-remark) $\L$.
+  : A point $\vec{t} \in \ZZ^n$.
   : A distance threshold $r \in \QQ$.
 
 Output
   : `Yes`{: .lowercap } if $\Delta(\vec{t}, \L) \leq r$
   : `No`{: .lowercap } otherwise.
+
+`Note`{: .bul }: The distance threshold $r$ is allowed to be
+a rational number. However, it's assumed that the numerator and
+the denominator of $r$ can be represented using polynomial (in
+dimension) number of bits.
 ```
 
 A specific subclass of `CVP`{: .mathsf }, similar in spirit to _unique
@@ -221,7 +206,7 @@ to `CVP`{:.mathsf} are listed below:
 Input
   : A _non-singular_ basis matrix $\B \in \ZZ^{n\times n}$ representing
     a full-rank [integral lattice]({% post_url 2020-06-08-LatticesBasicDefinitions %}#integral-lattice-remark) $\L$.
-  : A target vector $\vec{t} \in \QQ^n$.
+  : A target vector $\vec{t} \in \ZZ^n$.
 
 Output
   : A lattice vector $\vec{x} \in \L$ such that $\forall\,\vec{y} \in \L:\; \abs{x} \le \gamma(n)\cdot \abs{y}$.
@@ -231,19 +216,20 @@ Output
 Input
   : A _non-singular_ basis matrix $\B \in \ZZ^{n\times n}$ representing
     a full-rank [integral lattice]({% post_url 2020-06-08-LatticesBasicDefinitions %}#integral-lattice-remark) $\L$.
-  : A target vector $\vec{t} \in \QQ^n$.
-  : A distance threshold $r \in \QQ$.
+  : An threshold value $r \in \QQ$.
 
 Output
   : `Yes`{: .lowercap } if $\Delta(\vec{t}, \L) \le r$,
   : `No`{: .lowercap } if $\Delta(\vec{t}, \L) > \gamma(n)\cdot r$,
-  : `Undefined`{: .lowercap } if $r < \Delta(\vec{t}, \L) \le \gamma(n)\cdot r$.
+  : `Undefined`{: .lowercap }, otherwise.
+```
 
-`Note`{: .bul }: When the distance threshold $r$ falls within the
- `Undefined`{: .lowercap} region, the algorithm is allowed to output
- `Yes`{: .lowercap }, `No`{: .lowercap }, or _both_ for different
- invocations of the same problem instance, depending upon internal
- randomness of the algorithm.
+```Remark [<span class="lowercap">Gap</span> Reductions] {#remark--gap-reductions}
+If a problem $\mathcal{X}$ reduces to `GapCVP`{: .lowercap }, it's
+important that the input to `GapCVP`{: .lowercap } oracle either
+ correspond to the `Yes`{: .lowercap } instance or the `No`{:
+ .lowercap } instance of the problem, but never to the
+ `Undefined`{: .lowercap} instance.
 ```
 
 ## Reductions among exact problems {#section--exact-reductions}
@@ -539,37 +525,27 @@ Algorithm
 
 We are given an oracle that can _somehow_ solve [<span class="lowercap">
 Decisional-CVP</span>$(\C, \vec{s}, r)$](#problem--decisional-cvp) for
-any lattice basis $\C \in \ZZ^{n\times n}$, target vector
-$\vec{s} \in \QQ^n$, and a distance threshold $r \in \QQ$. Given a basis
-$\B \in \ZZ^{n \times n}$ and a target vector $\vec{t} \in \QQ^n$, the
-goal of the reduction is to use the `Decisional-CVP`{: .lowercap} oracle
-to find a $\vec{x} \in \L(\B)$ such that $\abs{\vec{t} - \vec{x}} =
-\Delta(\vec{t}, \L)$. Notice that both sides of this equation, namely
-$\vec{x}$ and $\Delta(\vec{t}, \L)$, are unknown.
+any arbitrary lattice basis $\C \in \ZZ^{n\times n}$, target vector
+$\vec{s} \in \ZZ^n$, and a distance threshold $r \in \RR$. Given another
+basis $\B \in \ZZ^{n \times n}$ and a target vector $\vec{t} \in \ZZ^n$,
+the goal of the reduction is to use the `Decisional-CVP`{: .lowercap}
+oracle to find $\vec{x} \in \L(\B)$ such that $\abs{\vec{t} - \vec{x}} =
+\Delta(\vec{t}, \L)$. Notice, that both sides of the previous equation,
+namely $\vec{x}$ and $\Delta(\vec{t}, \L)$, are unknown.
 
 Indeed, like most `Search`{: .lowercap} to `Decision`{: .lowercap}
-reductions for `NPO`{: .mathsf} problems, the first
-challenge is to compute the optimal distance (metric) using the
-decisional oracle. In case of `CVP`{: .mathsf} that means coming up
-with a reduction from [Opt-CVP](#problem--opt-cvp){: .lowercap} to
-[Decisional-CVP](#problem--decisional-cvp){: .lowercap}. Since the
-distance between $\vec{t}$ and $\L$ is _polynomially bounded_ from above
-and below, standard binary search using the decisional oracle is
-sufficient to compute $d^\dagger := \Delta(\vec{t}, \L).$
+reductions for `NP`{: .mathsf} optimization problems, the first
+challenge is to compute the optimal measure, i.e., $\Delta(\vec{t}, \L)$
+using the decisional oracle. In this particular case, that means coming
+up with a reduction from [Opt-CVP](#problem--opt-cvp){: .lowercap} to
+`Decisional-CVP`{: .lowercase}. Fortunately, the distance between
+$\vec{t}$ and $\L$ is _polynomially bounded_ from above and below, and a
+simple binary search is sufficient to compute $\Delta(\vec{t}, \L)$.
+Once $\Delta(\vec{t}, \L)$ is known, we will use Babai's nearest plane
+algorithm to solve `Search-CVP`{: .lowercap} using `Opt-CVP`{:
+.lowercase} as an oracle.
 
-Once $d^\dagger$ is known, the `Search-CVP`{: .lowercap} solver works as
-follows: It iteratively creates _sublattices_
-$\L(\B^*) \leftarrow \L(\B)$ and new targets
-$\vec{t}^* \leftarrow \vec{t}$ such that the shortest vector length
-$\lambda_1(\B^*)$ of the dilated sublattice keeps doubling, while the
-distance between $\L(\B^*)$ and $\vec{t}^*$ remains fixed, i.e.,
-
-$$
-\begin{equation}
-d^\dagger = \Delta(\vec{t}, \L(\B)) = \Delta(\vec{t}^*, \L(\B^*)).
-\label{search-to-decision-invariant}
-\end{equation}
-$$
+These two reductions are described independently as follows:
 
 Since $d^\dagger$ remains fixed while $\lambda_1(\B^*)$ keeps doubling,
 after an appropriate (polynomial) number of iterations, the
@@ -585,19 +561,14 @@ These reductions are described in detail as follows:
 
 ```Reduction [<span class="lowercap">Opt-CVP</span> $\preceq$ <span class="lowercap">Decisional-CVP</span> ]
 Input
-  : A _non-singular_ basis matrix $\B \in \ZZ^{n \times n}$ representing
-    a full-rank [integral lattice]({% post_url 2020-06-08-LatticesBasicDefinitions %}#integral-lattice-remark) $\L(\B)$.
-  : Target Vector $\vec{t} \in \QQ^n$
+  : Basis Vector $\B \in \ZZ^{n\times n}$
+  : Target Vector $\vec{t} \in \ZZ$
 
 Output
-  : Distance $\highlight{d^\dagger} \in \QQ$ that's arbitrarily close to
-    $\Delta(\vec{t}, \L(\B))$. In other words, $d^\dagger$ is such
-    that
-    $$\abs{d^\dagger - \Delta(\vec{t}, \L(\B)) } <\frac{1}{2^{O(n^c)}}$$
-    for arbitrary user selected constant $c > 1 \in \ZZ$.
+  : Distance between $\vec{t}$ and $\L$, i.e., $\Delta(\vec{t}, \L(\B))$.
 
 Oracle
-  : [<span class="lowercap">Decisional-CVP</span>$(\C, \vec{s}, r)$](#problem--decisional-cvp), where $\C \in \ZZ^{n\times n}$, $\vec{s} \in \QQ^n$, and $r \in \QQ$.
+  : [<span class="lowercap">Decisional-CVP</span>$(\C, \vec{s}, r)$](#problem--decisional-cvp), where $\C \in \ZZ^{n\times n}$, $\vec{s} \in \ZZ^n$, and $r \in \RR$.
 
 Algorithm
   : We first establish a lower and upper bound on $\Delta(\vec{t}, \L)$.
@@ -633,10 +604,10 @@ Algorithm
            \Delta(\vec{t}, \L) \le \abs{\vec{t} - \vec{y}^*} = \abs{\vec{v}^*}.
            $$
     >
-    >      Since $\vec{v}^* \in \P(\B)$, it can be written uniquely as the
+    >      Since $\vec{v}^* \in \P(\B)$, it can be written as the
            _fractional linear combination_ of columns of $\B$, namely,
-           $\vec{v}^* = \sum_{i} u_i^*\cdot \vec{b}_i$ for uniquely
-           determined $u_i^* \in [0,1) \subseteq \RR^n$. Hence,
+           $\vec{v}^* = \sum_{i} u_i^*\cdot \vec{b}_i$ for uniquely determined
+           $u_i^* \in [0,1) \subseteq \RR^n$. Hence,
            $$
            \Delta(\vec{t}, \L) \le \abs{\vec{v}^*} = \norm{\sum_i u_i^*\cdot \vec{b}_i} \le \sum_i \abs{u_i^*\cdot \vec{b}_i} \le \sum_i \abs{\vec{b}_i} \le D(\B).
           $$
@@ -645,7 +616,7 @@ Algorithm
     {: .details }
 
     Based on the upper and lower bounds on $\Delta(\vec{t}, \L)$, the
-    `Opt-CVP`{: .lowercap}$(\B, \vec{t})$ solver uses _binary search_
+    `Opt-CVP`{: .lowercap}$(\B, \vec{t})$ solver can use _binary search_
     in the range $[0, D(\B)]$ to compute $\Delta(\vec{t}, \L)$ as follows:
 
     >
@@ -658,7 +629,7 @@ Algorithm
     >
     > 2. `Repeat until`{: .bul } $\beta - \alpha < \frac{1}{2^{O(n^c)}}$:
     >
-    >    a. Set $\highlight{\psi} = \frac{\alpha + \beta}{2} \in \QQ$.
+    >    a. Set $\highlight{\gamma} = \frac{\alpha + \beta}{2}$.
     >
     >    b. `Invoke`{: .bul }
     >       `Decisional-CVP`{: .lowercap}$(\B, \vec{t}, \highlight{\psi})$
@@ -670,8 +641,8 @@ Algorithm
     >
     >    d. `Continue`{: .bul} to step $2$.
     >
-    > 3. Set $\highlight{d^\dagger} \leftarrow \frac{\alpha + \beta}{2}$
-         and `return`{: .bul } $\highlight{d^\dagger}$.
+    > 3. `Return`{: .bul } $\beta$ (which is also equal to
+    >    $\alpha$ within precision threshold).
     >
     {: .details }
 
@@ -679,260 +650,6 @@ Algorithm
   determines the running a of this algorithm.$.
 ```
 
-Given $d^\dagger$, any $\vec{x} \in \L(\B)$ that lies in the
-$n$-dimensional sphere of radius $d^\dagger$ centered around $\vec{t}$
-is a valid solution to `Search-CVP`{: .lowercap}. How many lattice
-vectors are exactly $d^\dagger$ distance away from $\vec{t}$? There are
-$2^n$ corners of the parallelepiped, so in the worst case, each one of
-the $2^n$ corners could be a potential candidate. This leads to the
-following trivial exhaustive search algorithm with a worst case running
-time of $O(2^n)$.
-
-```Algorithm [CVP Exhaustive Search] {#algo--cvp-exhaustive-search}
-
-Input
-  : A _non-singular_ basis matrix $\B \in \ZZ^{n \times n}$ representing
-    a full-rank [integral lattice]({% post_url 2020-06-08-LatticesBasicDefinitions %}#integral-lattice-remark) $\L(\B)$.
-  : A target vector $\vec{t} \in \QQ^n$
-  : Distance $d^\dagger = \Delta(\vec{t}, \L(\B))$ and a precision threshold $O(1/2^c)$
-
-Output
-  : $\vec{x} \in \L(\B)$ such that $\abs{\vec{t} - \vec{x}} = d^\dagger$
-
-The algorithm works as follows:
-
-> 1. Since $\vec{t} \in \QQ^n$ and $\B \in \ZZ^{n\times n} \subseteq \QQ^{n\times n}$ is
-     non-singular, it can be uniquely written as an element of
-     $\textsf{span}_\QQ(\B)$, i.e.,
-     $$
-        \forall i \in 1\cdots n,\;\exists! q_i\in\QQ:\; \vec{t} = q_1\vec{b}_1 + \cdots + q_n\vec{b}_n.
-     $$
->
-> 2. `Let`{: #algo--cvp-exhaustive-search-step-2} $\fractional{q_i} := q_i - \floor{q_i} \in [0,1) \subseteq \QQ$ denote the
-     fractional part of $q_i$. Compute the target vector within the parallelepiped
-     $$ \vec{t}^* = \fractional{q_1}\vec{b}_1 + \cdots + \fractional{q_n}\vec{b}_n \in \P(\B)
-     $$
->
->
-> 3. `for`{: .bul #algo--cvp-exhaustive-search-step-3} $ i \leftarrow 0 \cdots (2^n - 1)$ `do`{: .bul}
->
->      * Bit decompose $i$ as $\braces{i_1,\cdots, i_n} \in \{0,1\}^n $ (that is
->          $i = \sum_{j=1}^{n} i_j2^{j-1}$).
->
->      * Let $ \vec{x}_i^* := i_1\vec{b}_1 + i_2\vec{b}_2 + \cdots + i_n\vec{b}_n \in \L(\B)$
->         and compute $\mu_i = \abs{\vec{t}^* - \vec{x}_i^*}$
->
->      * `If`{: .bul} $|\mu_i - d^\dagger| < \frac{1}{2^c}$ `break`{: .bul}.
->
-> 4. Compute the final closest vector as
->    $$ \vec{x} = \vec{x}_i^* + \sum_{j=1}^n \floor{q_j}\vec{b}_j$$
->    and `return`{: .bul} $\vec{x}$.
-{: .details }
-
-The loop in [step-3](#algo--cvp-exhaustive-search-step-3) enumerates all
-lattice vectors on the corners the parallelepiped. Since $d^\dagger$ is
-guaranteed to be within $O(1/2^c)$ of $\Delta(\vec{t}, \L(\B))$, the loop
-terminates on the first corner $\vec{x}_i^*$ that's roughly $d^\dagger$
-away from $\vec{t}^*$. The final closest lattice vector is then obtained
-by adding the lattice-translate of the parallelepiped in which $\vec{t}$
-resides.
-```
-
-The exhaustive search algorithm above _does not_ lead to a polynomial
-time reduction. As alluded before, a better strategy to get a polynomial
-time reduction is to transform `Search-CVP`{: .lowercap} into an
-$\alpha$`-BDD`{: .lowercap} instance, and then use Babai's nearest plane
-algorithm to exactly solve $\alpha$`-BDD`{: .lowercap}. These two steps
-are described in next two subsections:
-
-#### `Search-CVP`{: .lowercap} reduces to $\alpha$`-BDD`{: .lowercap}
-
-Given the explicit knowledge of $d^\dagger = \Delta(\vec{t}, \L(\B))$
-and access to `Decisional-CVP`{: .lowercap} oracle, the reduction from
-`Search-CVP`{: .lowercap} to $\alpha$`-BDD`{: .lowercap} works as
-follows (adapted from Chapter 03 of [^MG02] and [Regev's Lecture
-Notes](https://cims.nyu.edu/~regev/teaching/lattices_fall_2004/ln/complexity.pdf){:
-target="_blank"}):
-
-```Reduction [<span class="lowercap">Search-CVP<sup style="vertical-align: super;padding-left:0.25em"><span class="lowercap">[Decisional-CVP]</span></sup></span> $\preceq \alpha$<span class="lowercap">-BDD</span>]{#reduction--search-cvp-to-alpha-bdd}
-
-Input
-  : A _non-singular_ basis matrix $\B \in \ZZ^{n \times n}$ representing
-    a full-rank [integral lattice]({% post_url 2020-06-08-LatticesBasicDefinitions %}#integral-lattice-remark) $\L(\B)$.
-  : Target Vector $\vec{t} \in \QQ^n$
-  : Distance $d^\dagger = \Delta(\vec{t}, \L(\B)) \in \QQ$
-
-Output
-  : A vector $\vec{x} \in \L(\B)$ such that $\forall\,\vec{y} \in \L(\B):\; \abs{\vec{t} - \vec{x}} \le \abs{\vec{t} - \vec{y}}$.
-
-Oracle
-  : [Decisional-CVP$(\C, \vec{s}, r)$](#problem--decisional-cvp){: .lowercap} that outputs
-    $1$ if $\Delta(\vec{s}, \L(\C)) \le r$ and $0$ otherwise, where
-    $\C \in \ZZ^{n\times n}$, $\vec{s} \in \QQ^n$, and $r \in \QQ$.
-  : [$\alpha$-BDD$(\C, \vec{s})$](#problem--decisional-cvp){: .lowercap} that
-    outputs unique $\vec{x} \in \L(\C)$ closest to $\vec{s} \in \QQ^n$, provided
-    $\frac{\Delta(\vec{s}, \L(\C))}{\lambda_1(\C)} < \alpha$,
-    where $\lambda_1(\C)$ is the length of shortest non-zero vector in $\L(\C)$,
-    $\C \in \ZZ^{n\times n}$ and $0 \le \alpha < \frac{1}{2}$.
-
-Algorithm
-  : We first describe the high level ideas of the reduction:
-
-    * Given the lattice basis $\B := \braces{b_1,\cdots, b_n}$, the
-      `Search-CVP`{: .lowercap } solver creates sublattices $\L(\B^*)$ of
-      $\L(\B)$ using a "dilated" basis
-
-      $$
-        \B^* := [\highlight{2\vec{b}_1}, \vec{b}_2,\cdots, \vec{b}_n ].
-      $$
-
-      Since $\L(\B^*)$ is a subgroup of $\L(\B)$, by construction, its
-      quotient group is
-      $$ \begin{aligned}
-      & \quad \L(\B)/\L(\B^*) = \braces{\L(\B^*), \L(\B^*) + \vec{b}_1 } \\
-      \Longrightarrow & \quad \L(\B) = \L(\B^*) \bigsqcup \left (\L(\B^*) + \vec{b}_1 \right) \\
-      \Longrightarrow & \quad \P(\B^*) = \P(\B) \bigsqcup \left (\P(\B) + \vec{b}_1 \right ).
-      \end{aligned}
-      $$
-
-      Given that $\P(\B^*)$ is the disjoint union of $\P(\B)$ and
-      $\P(\B) + \vec{b}_1$, either $\vec{t}$ of $\vec{t} + \vec{b}_1$ must
-      be $d^\dagger$ apart from $\L(\B^*)$. (See [Fig.
-      2](#figcaption--CVPSearch-to-Decision-Reduction) for an
-      illustration.) Therefore, the solver can easily maintain the
-      invariant in \eqref{search-to-decision-invariant} provided it can
-      decide whether:
-      $$\begin{equation}
-        \Delta(\vec{t}, \L(\B^*)) = d^\dagger\quad\highlight{\text{or}}\quad
-      \Delta(\vec{t} + \vec{b}_1, \L(\B^*)) = d^\dagger?
-        \label{translation-decision}
-        \end{equation}
-      $$
-
-    * To decide between the above two cases in \eqref{translation-decision},
-      the solver invokes $\highlight{\xi_1} \longleftarrow$
-      `Decisional-CVP`{: .lowercap}$(\B^*, \vec{t}, \highlight{d^\dagger}) \in \braces{0,1}$ to
-      determine if $\vec{t}$ is still $d^\dagger$ apart from $\L(\B^*)$?
-      If $\xi_1 = 1$ then $\Delta(\vec{t}, \L(\B^*)) = d^\dagger$, otherwise
-      $\Delta(\vec{t} + \highlight{\vec{b}_1}, \L(\B^*)) = d^\dagger$.
-      By updating the target vector to
-      $$\vec{t}^* \leftarrow \vec{t} + \highlight{(1-\xi_1)}\cdot\vec{b}_1,$$
-      the solver can maintain the invariant
-      $$
-      \Delta(\vec{t}^*, \L(\B^*)) = \Delta(\vec{t}, \L(\B)) = d^\dagger.
-      $$
-
-      Furthermore, suppose the `Search-CVP`{: .lowercap } solver could
-      somehow find the closest vector $\vec{x}^* \in \L(\B^*)$ to
-      $\vec{t}^*$, then finding the closest vector  $\vec{x} \in \L(\B)$
-      to $\vec{t}$ is easy:
-      $$
-        \vec{x} = \vec{x}^* - \highlight{(1 - \xi_1)}\cdot\vec{b}_1.
-      $$
-
-    * The solver repeats the above procedure for all the $n$ basis
-      vectors, $\vec{b}_1, \cdots, \vec{b}_n$, updating the target vector
-      $\vec{t}$ to $\vec{t}^{*\cdots *}$ using help from
-      `Decisional-CVP`{: .lowercap} oracle. At the end of one complete round
-      covering all columns of $\B$, the `Search-CVP`{: .lowercap }
-      solver would be left with:
-
-        * A sublattice $\L(2\B) \subseteq \L(\B)$ with basis
-          $
-            2\B = [2\vec{b}_1, 2\vec{b}_2, \cdots, 2\vec{b}_n]
-          $
-
-        * A displacement vector
-          $$\vec{h} := \sum_{i=1}^n (1- \xi_i)\cdot \vec{b}_i \in \L(\B)$$
-          where each $\xi_i \in \braces{0,1}$ is the output of
-          invocations to `Decisional-CVP`{: .lowercap} oracle, and
-
-        * The updated target vector
-          $$\vec{t}^{*\cdots *} \leftarrow \vec{t} + \vec{h}$$
-          that maintains the invariant
-          $$\Delta(\vec{t}^{*\cdots *}, 2\B) = \Delta(\vec{t}, \B) = d^\dagger.$$
-
-        * As before, if the `Search-CVP`{: .lowercap} solver could somehow
-          find the closest lattice vector $\vec{x}^{*\cdots *} \in \L(2\B)$
-          to $\vec{t}^{*\cdots *}$, then the solver can find the closest
-          lattice vector $\vec{x} \in \L(\B)$ to $\vec{t}$ as
-          $$
-            \vec{x} = \vec{x}^{*\cdots *} - \vec{h} \in \L(\B).
-          $$
-
-
-    * Let $\lambda_1(\B)$ be the length of the shortest non-zero vector in
-      $\L(\B)$ and let
-      $$\widehat{\alpha}(\vec{t}, \B) := \frac{\Delta(\vec{t}, \L(\B))}{\lambda_1(\B)}.$$
-
-      Before the solver can invoke $\alpha$`-BDD`{: .lowercap} oracle, it
-      must ensure that $\widehat{\alpha}(\vec{t}^{*\cdots *}, \B^{*\cdots *}) < \alpha$
-      for $\alpha$`-BDD`{: .lowercap} to find the unique solution.
-      Since $\lambda_1(2\B) = 2\cdot\lambda_1(\B)$ while
-      $\Delta(\vec{t}, \L(\B)) = \Delta(\vec{t}^{*\cdots *}, \L(2\B))$
-      $\highlight{\implies}$
-      $\alpha(\vec{t}^{*\cdots *}, 2\B) = \frac{1}{2}\alpha(\vec{t}, \B)$. Therefore,
-      repeating the above procedure $k$-times results in the updated
-      target vector $\vec{t}^{\overbrace{*\cdots *}^{\text{k times}}}$
-      with a sublattice basis
-      $2^k\B = [2^k\vec{b}_1,\cdots, 2^k\vec{b}_n]$ and
-      $$\alpha(\vec{t}^{\overbrace{*\cdots *}^{\text{k times}}}, 2^k\B) = \frac{1}{2^k}\alpha(\vec{t}, \B).$$
-
-      Unfortunately, the solver doesn't know $\lambda_1(\B)$! To address
-      that, let $L = \min_{1 \le i \le n}\{ \abs{\vec{b}_i } \}$
-      be the length of the shortest basis vector of $\B$. By definition,
-      $\lambda_1(\B) \le L$, therefore
-      $$
-        \frac{\Delta(\vec{t}, \L(\B))}{L} \le \frac{\Delta(\vec{t}, \L(\B))}{\lambda_1(\B)} \highlight{\implies} \frac{d^\dagger}{2^k\cdot L} = \frac{\Delta(\vec{t}^{\overbrace{*\cdots *}^{\text{k times}}}, \L(\B^{\overbrace{*\cdots *}^{\text{k times}}}))}{2^k\cdot L} \le \frac{\Delta(\vec{t}^{\overbrace{*\cdots *}^{\text{k times}}}, \L(\B^{\overbrace{*\cdots *}^{\text{k times}}}))}{2^k\cdot \lambda_1(\B)}.
-      $$
-
-      Therefore, to ensure $\widehat{\alpha}(\vec{t}^{\overbrace{*\cdots *}^{\text{k times}}}, 2^k\cdot \B) < \alpha$ it's sufficient to iterate the above steps
-      $k$-times, where
-      $$
-        \begin{equation}
-        k \ge \ceil{ \log_2 \left( \frac{d^\dagger}{\alpha \cdot L} \right ) }
-        \label{cvp-to-bdd-iteration-count}
-        \end{equation}
-      $$
-
-      As proved in the [next subsection](#section--polynomial-time-algorithm),
-      Babai's nearest plane _approximation algorithm_ acts as an
-      $\alpha$`-BDD`{: .lowercap} solver for $\alpha = \frac{1}{1 + 2^{n/2}}$.
-      Substituting this value of $\alpha$ in
-      \eqref{cvp-to-bdd-iteration-count} leads to
-      $$
-        k \ge \ceil{ \log_2(1 + 2^{n/2}) + \log_2(d^\dagger / L) } \in O(n).
-      $$
-
-<figure id="fig--cvpsearch-to-decision-reduction">
-  <div class="multi-images">
-    <div style="max-width:350px" id="CVPSearch-to-Decision-Itr-0">
-      <img src="/Diagrams/2020-06-16/final/CVPSearch2Decision-1.svg"/>
-            <figurecaption>Lattice with basis $\B := [\vec{b}_1, \vec{b}_2],$
-            target vector $\vec{t}$, and computed minimum distance
-            $d^\dagger = \Delta(\L(\B), \vec{t})$.</figurecaption>
-    </div>
-    <div style="max-width:350px;" id="CVPSearch-to-Decision-Itr-1">
-      <img src="/Diagrams/2020-06-16/final/CVPSearch2Decision-2.svg" />
-      <figurecaption><span class="bul">Iteration-1</span>: Sublattice
-      with basis $\B^* := [2\vec{b}_1, \vec{b}_2]$ has
-      $\Delta(\L(\B^*), \vec{t}) > d^\dagger$ and
-      <em>requires</em> updating the target vector to
-      $\vec{t}^* \leftarrow \vec{t} + \vec{b}_1$ to maintain the invariant
-      $\Delta(\L(\B^*), \vec{t}^*) = d^\dagger$. </figurecaption>
-    </div>
-    <div style="max-width:350px" id="CVPSearch-to-Decision-Itr-2">
-      <img src="/Diagrams/2020-06-16/final/CVPSearch2Decision-3.svg"/>
-        <figurecaption><span class="bul">Iteration-2</span>: Sublattice
-      with basis $\B^{**} := [2\vec{b}_1, 2\vec{b}_2]$ implicitly
-      preserves the invariant $\Delta(\L(\B^{**}), \vec{t}^*) = d^\dagger$
-      and <em>does not</em> require update to target vector $\vec{t}^*$,
-      therefore $\vec{t}^{**} \leftarrow \vec{t}^*$.</figurecaption>
-    </div>
-  </div>
-  <figurecaption id="figcaption--CVPSearch-to-Decision-Reduction">Two iterations of <span class="lowercap">Search-CVP</span>
-  to <span class="lowercap">Decisional-CVP</span> reduction.</figurecaption>
-</figure>
 
 
   The exact steps of the reduction are described below:

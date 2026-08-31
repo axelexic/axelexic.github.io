@@ -28,7 +28,13 @@
     content="Cryptography, Post Quantum Cryptography, Learning With Errors (LWE), Ring Learning With Errors (Ring-LWE), Zero-Knowledge Interactive Proofs (ZKP), Zero-Knowledge PCP,  Zero-Knowledge IOP, Oracle Proofs, Probabilistically Checkable Proofs, secure Multiparty Computation, Provable Security, Reductionist Security, SNARKs, zkSNARKS, IOP, PCP, MPC, VOLE, MPC In the Head, MPCitH, NTT, Galois Rings, Finite Fields, Extension Fields, Number Fields, Oblivious Transfer"
   />
   <meta name="author" content="Yogesh Swami" />
-  {% include mathjax.html %}
+  {% assign server_side_mathjax = site.server_side_mathjax %}
+  {% if page.server_side_mathjax == true or page.server_side_mathjax == false %}
+    {% assign server_side_mathjax = page.server_side_mathjax %}
+  {% endif %}
+  {% unless server_side_mathjax %}
+    {% include mathjax.html %}
+  {% endunless %}
 
   <title>
     {% if page.title %}{{ page.title }}{% else %}{{ site.title }}{% endif %}
