@@ -8,7 +8,12 @@
     {% if repo != "" and repo_id != "" and category != "" and category_id != "" %}
       {% assign giscus_theme = giscus.theme | default: "light" %}
       {% if giscus_theme == "axelexic" %}
-        {% assign giscus_theme = "/assets/css/giscus-axelexic.css" | absolute_url %}
+        {% comment %}
+          Giscus loads custom themes from its cross-origin iframe. GitHub Pages
+          does not provide the required CORS response header for this site, so
+          serve the versioned repository asset through jsDelivr instead.
+        {% endcomment %}
+        {% assign giscus_theme = "https://cdn.jsdelivr.net/gh/axelexic/axelexic.github.io@master/assets/css/giscus-axelexic.css" %}
       {% endif %}
       <section class="post-comments" aria-labelledby="comments-title">
         <h2 class="post-comments-title" id="comments-title">Comments</h2>
