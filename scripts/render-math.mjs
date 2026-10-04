@@ -53,7 +53,9 @@ await MathJax.init({
       highlight: ["\\class{math-accent}{#1}", 1],
       althighlight: ["\\class{math-alt-accent}{#1}", 1],
       normalcolor: ["\\class{math-normal}{#1}", 1],
-      textsc: ['\\class{lowercap}{\\text{#1}}', 1]
+      textsc: ['\\class{lowercap}{\\text{#1}}', 1],
+      Pr: ['\\underset{#1}{\\mathbf{Pr}}\\left[{#2}\\right]', 2],
+      prob: ['\\mathbf{Pr}_{#1}\\left[{#2}\\right]', 2, ""],
     },
   },
   output: {

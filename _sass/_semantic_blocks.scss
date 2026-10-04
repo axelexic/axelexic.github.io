@@ -177,6 +177,10 @@ $semantic-block-title-color : var(--section-title-color);
     margin-bottom: 2rem;
 }
 
+.claim-end {
+    margin-bottom: 2rem;
+}
+
 li:last-child > .proof-end:last-of-type,
 dd:last-child  > .proof-end:last-of-type {
     margin-bottom: 0px;
@@ -185,6 +189,15 @@ dd:last-child  > .proof-end:last-of-type {
 .proof-end::after,
 .post-content .proof::after {
     content: "\25A0";
+    display: block;
+    line-height: 1;
+    text-align: right;
+    color: $semantic-block-desc-color;
+}
+
+
+.claim-end::after {
+    content: "\25A1";
     display: block;
     line-height: 1;
     text-align: right;
