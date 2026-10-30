@@ -1,15 +1,22 @@
 {
     "cSpell.words": [
         "approximability",
+        "bijective",
         "dotprod",
+        "eqref",
         "Haviv",
         "inapproximability",
         "inapproximable",
         "jxkmath",
         "Khot's",
         "lowercap",
+        "lrbraces",
+        "mathfrak",
         "mathsf",
         "Regev's",
+        "scriptsize",
+        "setsep",
+        "surjective",
         "uvec"
     ],
     "cSpell.enabledFileTypes": {
